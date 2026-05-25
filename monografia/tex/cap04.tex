@@ -123,12 +123,12 @@ Os atributos criados para a modelagem incluem:
     \item m\'edia da coorte por etapa;
     \item faltas da etapa;
     \item faltas acumuladas;
-    \item pagamentos realizados e pendentes no ano;
+    \item movimentos financeiros registrados e pendentes no ano;
     \item dias at\'e pagamento;
     \item indicador de disponibilidade do professor.
 \end{itemize}
 
-Todos esses atributos foram constru\'idos usando apenas informa\c{c}\~ao dispon\'ivel at\'e o ponto da previs\~ao, preservando a causalidade temporal do problema.
+Os atributos diretamente derivados da trajet\'oria de notas e faltas foram constru\'idos por deslocamentos, acumulados ou agrega\c{c}\~oes at\'e a etapa observada, preservando a causalidade temporal do problema. Os sinais financeiros, por sua vez, foram usados como contexto administrativo agregado por aluno e ano letivo. Por isso, devem ser interpretados como vari\'aveis institucionais de apoio, n\~ao como evid\^encia causal isolada do desempenho.
 
 \section{Constru\c{c}\~ao do alvo e preven\c{c}\~ao de vazamento}
 \label{sec:alvo}
@@ -140,18 +140,20 @@ Foram definidos dois alvos principais:
     \item \texttt{target\_risco\_proxima}, correspondente ao indicador bin\'ario de pr\'oxima nota inferior a 6,0.
 \end{enumerate}
 
-Para evitar vazamento de informa\c{c}\~ao, os atributos hist\'oricos foram calculados por deslocamento, m\'edias acumuladas ou agrega\c{c}\~oes limitadas ao passado. Isso foi essencial para garantir que o desempenho medido refletisse um cen\'ario real de uso, e n\~ao apenas um ajuste artificial a dados futuros.
+Para evitar vazamento de informa\c{c}\~ao, os atributos hist\'oricos de desempenho e frequ\^encia foram calculados por deslocamento, m\'edias acumuladas ou agrega\c{c}\~oes limitadas ao passado. Isso foi essencial para garantir que o desempenho medido refletisse um cen\'ario real de uso, e n\~ao apenas um ajuste artificial a dados futuros.
 
 \section{Camada de relat\'orios}
 \label{sec:camada-relatorios}
 
-Al\'em da modelagem, a arquitetura incorpora uma camada pr\'opria de relat\'orios com quatro sa\'idas principais:
+Al\'em da modelagem, a arquitetura incorpora uma camada pr\'opria de relat\'orios. Ela possui sa\'idas centrais para os perfis escolares e artefatos complementares de consolida\c{c}\~ao:
 
 \begin{itemize}
     \item relat\'orio do professor, com foco por aluno e disciplina;
     \item relat\'orio da coordena\c{c}\~ao, com agregados por s\'erie e disciplina;
     \item relat\'orio da secretaria, com \'enfase administrativa;
-    \item ranking executivo de alunos priorit\'arios.
+    \item ranking executivo de alunos priorit\'arios;
+    \item relat\'orio escolar integrado, usado como base operacional unificada;
+    \item consolidados de risco por professor, com e sem recorte por turma.
 \end{itemize}
 
 Essa camada foi decisiva para aproximar a solu\c{c}\~ao do problema real da escola, convertendo resultados t\'ecnicos em informa\c{c}\~ao acion\'avel.

@@ -150,7 +150,7 @@ def build_prediction_dataset(source_tables: dict[str, pandas.DataFrame], min_his
         how="left",
     )
 
-    # Referência média da coorte para comparar o aluno com seus pares.
+    # Referência média da corte para comparar o aluno com seus pares.
     cohort_stage_reference = (
         grades.groupby(["NomePeriodo", "NomeSerie", "NomeDisciplina", "stage_order"], dropna=False)["ValorMedia"]
         .mean()
