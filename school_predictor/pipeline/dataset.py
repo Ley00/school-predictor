@@ -154,14 +154,14 @@ def build_prediction_dataset(source_tables: dict[str, pandas.DataFrame], min_his
     cohort_stage_reference = (
         grades.groupby(["NomePeriodo", "NomeSerie", "NomeDisciplina", "stage_order"], dropna=False)["ValorMedia"]
         .mean()
-        .reset_index(name="media_coorte_etapa")
+        .reset_index(name="media_corte_etapa")
     )
     dataset = dataset.merge(
         cohort_stage_reference,
         on=["NomePeriodo", "NomeSerie", "NomeDisciplina", "stage_order"],
         how="left",
     )
-    dataset["desvio_em_relacao_coorte"] = dataset["ValorMedia"] - dataset["media_coorte_etapa"]
+    dataset["desvio_em_relacao_corte"] = dataset["ValorMedia"] - dataset["media_corte_etapa"]
 
     # O alvo sempre usa a próxima observação disponível da sequência.
     dataset["target_nota_proxima"] = grouped_grade.shift(-1)
@@ -196,8 +196,8 @@ def build_prediction_dataset(source_tables: dict[str, pandas.DataFrame], min_his
         "media_historica_aluno_ano",
         "media_aluno_ano_anterior",
         "media_disciplina_ano_anterior",
-        "media_coorte_etapa",
-        "desvio_em_relacao_coorte",
+        "media_corte_etapa",
+        "desvio_em_relacao_corte",
         "pagamentos_registrados_ano",
         "pagamentos_pendentes_ano",
         "proporcao_mensalidades_ano",
@@ -237,8 +237,8 @@ def select_model_columns(dataset: pandas.DataFrame) -> tuple[list[str], list[str
         "media_historica_aluno_ano",
         "media_aluno_ano_anterior",
         "media_disciplina_ano_anterior",
-        "media_coorte_etapa",
-        "desvio_em_relacao_coorte",
+        "media_corte_etapa",
+        "desvio_em_relacao_corte",
         "faltas_etapa",
         "faltas_acumuladas",
         "NomeFuncionario",
