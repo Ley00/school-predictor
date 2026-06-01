@@ -31,12 +31,11 @@ Este ap\^endice resume os principais blocos do reposit\'orio utilizados pela ver
 Entre os principais artefatos produzidos pela pipeline est\~ao:
 
 \begin{itemize}
-    \item arquivos \texttt{CSV} em \texttt{artifacts/database/csv};
-    \item relat\'orios t\'ecnicos de \texttt{previsao\_nota} e \texttt{alerta\_risco};
-    \item arquivos de predi\c{c}\~ao por modo;
-    \item an\'alises de erro por disciplina, s\'erie e faixa de nota;
-    \item relat\'orios escolares para professor, coordena\c{c}\~ao e secretaria;
-    \item relat\'orio escolar integrado e consolidados por professor;
-    \item ranking executivo da coordena\c{c}\~ao;
-    \item pain\'el em Streamlit para visualiza\c{c}\~ao operacional.
+    \item arquivos \texttt{CSV} can\^onicos em \texttt{artifacts/database/csv};
+    \item artefatos anal\'iticos por modo em \texttt{artifacts/pipeline/previsao\_nota/} e \texttt{artifacts/pipeline/alerta\_risco/}, incluindo dataset final, predi\c{c}\~oes, relat\'orio t\'ecnico e an\'alises de erro;
+    \item relat\'orios operacionais em \texttt{artifacts/reports/}, com sa\'idas para professor, coordena\c{c}\~ao e secretaria;
+    \item relat\'orio escolar integrado, consolidados por professor e ranking executivo da coordena\c{c}\~ao;
+    \item painel em Streamlit para visualiza\c{c}\~ao operacional.
 \end{itemize}
+
+O detalhamento conceitual dessas entradas, sa\'idas e artefatos est\'a concentrado na Se\c{c}\~ao~\ref{sec:config-experimental}, enquanto este ap\^endice apenas resume a estrutura final da solu\c{c}\~ao.

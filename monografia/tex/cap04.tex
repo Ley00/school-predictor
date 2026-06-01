@@ -91,6 +91,97 @@ Em ambos os modos, a fun\c{c}\~ao central de modelagem calcula sinais de regress
 \fontefig{Elaborada pelo autor.}
 \end{figure}
 
+\section{Configura\c{c}\~ao experimental e reprodutibilidade}
+\label{sec:config-experimental}
+
+Para fins de reprodutibilidade, a configura\c{c}\~ao experimental final do projeto foi organizada como um contrato entre entradas can\^onicas, rotinas de execu\c{c}\~ao e artefatos gerados. A ideia central foi permitir que a arquitetura p\'ublica do TCC pudesse ser compreendida, auditada e reexecutada sem expor o banco institucional nem as consultas SQL reais.
+
+\subsection{Camadas de entrada}
+
+A reprodu\c{c}\~ao da solu\c{c}\~ao foi separada em duas camadas complementares:
+
+\begin{itemize}
+    \item \textbf{camada privada local}: prepara o banco restaurado, aplica anonimiza\c{c}\~ao e executa as consultas SQL reais fora do Git;
+    \item \textbf{camada p\'ublica reproduz\'ivel}: consome arquivos \texttt{CSV} can\^onicos em \texttt{artifacts/database/csv/} e executa a pipeline acad\^emica publicada no reposit\'orio.
+\end{itemize}
+
+Essa separa\c{c}\~ao foi adotada para que a parte sens\'ivel da extra\c{c}\~ao permanecesse protegida, enquanto a parte acad\^emica e demonstrativa da solu\c{c}\~ao continuasse pass\'ivel de reprodu\c{c}\~ao por terceiros.
+
+\subsection{Arquivos de entrada can\^onicos}
+
+Os arquivos de entrada da arquitetura final foram definidos da seguinte forma:
+
+\begin{itemize}
+    \item \texttt{aluno.csv}: identifica o aluno de forma pseudonimizada e preserva o contexto cadastral e escolar b\'asico da extra\c{c}\~ao;
+    \item \texttt{media\_nota\_aluno.csv}: base principal de notas por aluno, disciplina, per\'iodo e etapa; \'e o eixo central da modelagem;
+    \item \texttt{faltas\_aluno.csv}: registros de faltas usados para formar faltas por etapa e faltas acumuladas;
+    \item \texttt{pagamento\_aluno.csv}: registros financeiros resumidos para produzir sinais administrativos por aluno e ano letivo;
+    \item \texttt{responsaveis\_aluno.csv}: arquivo can\^onico complementar do projeto, preservado como parte do contrato p\'ublico da extra\c{c}\~ao;
+    \item \texttt{professor\_disciplina.csv}: contexto docente por disciplina e turma, incorporado quando esse v\'inculo est\'a dispon\'ivel.
+\end{itemize}
+
+Na pipeline central publicada, os arquivos consumidos diretamente pela modelagem e pelos relat\'orios s\~ao, principalmente, \texttt{media\_nota\_aluno.csv}, \texttt{faltas\_aluno.csv}, \texttt{pagamento\_aluno.csv} e \texttt{professor\_disciplina.csv}. Os demais arquivos preservam o contrato p\'ublico da extra\c{c}\~ao e a rastreabilidade da arquitetura completa, mesmo quando n\~ao entram diretamente em todas as etapas da modelagem.
+
+\subsection{Execu\c{c}\~ao reprodut\'ivel da pipeline}
+
+A execu\c{c}\~ao experimental do projeto pode ser compreendida em dois cen\'arios complementares.
+
+No cen\'ario completo, dispon\'ivel apenas em ambiente local com acesso controlado ao banco restaurado, a rotina segue tr\^es movimentos:
+
+\begin{enumerate}
+    \item preparar localmente o banco restaurado por meio da rotina \texttt{prepare-db};
+    \item extrair os arquivos can\^onicos por meio da rotina \texttt{extract};
+    \item executar a pipeline completa com a rotina \texttt{workflow}, respons\'avel por acionar os dois modos principais e consolidar a camada final de relat\'orios.
+\end{enumerate}
+
+No cen\'ario p\'ublico reproduz\'ivel, basta disponibilizar os \texttt{CSV}s can\^onicos em \texttt{artifacts/database/csv/}. A partir deles, a execu\c{c}\~ao pode ocorrer por modo isolado ou de ponta a ponta:
+
+\begin{itemize}
+    \item \texttt{pipeline --mode previsao\_nota}: executa apenas o modo voltado \`a regress\~ao da pr\'oxima nota;
+    \item \texttt{pipeline --mode alerta\_risco}: executa apenas o modo voltado \`a classifica\c{c}\~ao de risco;
+    \item \texttt{reports}: recomp\~oe a camada final de relat\'orios a partir dos artefatos j\'a produzidos;
+    \item \texttt{workflow}: reconstitui o fluxo completo e produz a sa\'ida operacional final.
+\end{itemize}
+
+Essa organiza\c{c}\~ao foi importante porque o experimento final n\~ao depende de acesso direto ao banco para ser reproduzido academicamente; ele depende do contrato dos \texttt{CSV}s e de uma interface de execu\c{c}\~ao padronizada.
+
+\subsection{Modos e artefatos anal\'iticos}
+
+Cada modo da pipeline grava seus resultados em um subdiret\'orio de \texttt{artifacts/pipeline/}. Os dois diret\'orios centrais s\~ao \texttt{artifacts/pipeline/previsao\_nota/} e \texttt{artifacts/pipeline/alerta\_risco/}. Em ambos os casos, os principais artefatos gerados s\~ao:
+
+\begin{itemize}
+    \item \texttt{student\_prediction\_dataset.csv}: base final preparada para a rodada de modelagem;
+    \item \texttt{student\_prediction\_predictions.csv}: predi\c{c}\~oes e sinais de teste usados na avalia\c{c}\~ao;
+    \item \texttt{student\_prediction\_report.txt}: resumo t\'ecnico com m\'etricas e candidatos selecionados;
+    \item \texttt{student\_prediction\_model.pkl}: modelo final persistido quando a solu\c{c}\~ao vencedora depende de objeto supervisionado treinado;
+    \item \texttt{error\_analysis\_by\_subject.csv}: consolida\c{c}\~ao de erro por disciplina;
+    \item \texttt{error\_analysis\_by\_series.csv}: consolida\c{c}\~ao de erro por s\'erie;
+    \item \texttt{error\_analysis\_by\_score\_band.csv}: consolida\c{c}\~ao de erro por faixa de nota;
+    \item \texttt{error\_analysis\_summary.txt}: resumo textual das an\'alises de erro.
+\end{itemize}
+
+Esses artefatos sustentam a leitura t\'ecnica do experimento, pois registram o tamanho da base resultante, os candidatos comparados, o desempenho temporal, as predi\c{c}\~oes no teste e os pontos de maior dificuldade do sistema.
+
+\subsection{Artefatos operacionais finais}
+
+Ap\'os a execu\c{c}\~ao dos dois modos, a camada final de disponibiliza\c{c}\~ao grava sa\'idas em \texttt{artifacts/reports/}. Entre os arquivos mais relevantes est\~ao:
+
+\begin{itemize}
+    \item \texttt{relatorio\_escolar\_integrado.csv}: base consolidada que cruza previs\~ao de nota, alerta de risco e sinais operacionais;
+    \item \texttt{relatorio\_professor.csv} e \texttt{relatorio\_professor.txt}: vis\~ao por aluno e disciplina para apoio pedag\'ogico direto;
+    \item \texttt{relatorio\_coordenacao.csv} e \texttt{relatorio\_coordenacao.txt}: consolidados por s\'erie, disciplina e prioridade institucional;
+    \item \texttt{relatorio\_secretaria.csv} e \texttt{relatorio\_secretaria.txt}: sinais administrativos e prioridades de contato;
+    \item \texttt{relatorio\_professores\_por\_turma.csv}: consolida\c{c}\~ao de risco por professor e turma;
+    \item \texttt{relatorio\_professores\_geral.csv}: consolida\c{c}\~ao geral de risco por professor;
+    \item \texttt{ranking\_executivo\_coordenacao} em formatos \texttt{.csv} e \texttt{.txt}: prioriza\c{c}\~ao executiva dos alunos mais urgentes para interven\c{c}\~ao.
+\end{itemize}
+
+Esses relat\'orios representam a sa\'ida final do experimento no contexto do TCC, pois convertem resultados de modelagem em materiais de consulta orientados aos diferentes perfis institucionais da escola.
+
+\subsection{Condi\c{c}\~ao m\'inima de reprodutibilidade}
+
+Assim, a condi\c{c}\~ao m\'inima para reproduzir publicamente a configura\c{c}\~ao experimental n\~ao \'e o acesso ao banco institucional, mas sim a disponibilidade dos \texttt{CSV}s can\^onicos e a observ\^ancia do fluxo operacional da aplica\c{c}\~ao. Essa decis\~ao preserva a natureza sens\'ivel do ambiente escolar e, ao mesmo tempo, mant\'em a arquitetura suficientemente expl\'icita para fins acad\^emicos, de demonstra\c{c}\~ao e de continuidade do projeto.
+
 \section{Integra\c{c}\~ao de notas, faltas, pagamentos e professores}
 \label{sec:integracao}
 
@@ -105,7 +196,8 @@ O trabalho foi estruturado para unir quatro blocos principais de informa\c{c}\~a
 
 Do ponto de vista de engenharia, a entrada de dados foi organizada em duas camadas. A primeira camada \'e privada e local, respons\'avel pela prepara\c{c}\~ao do banco restaurado e pela execu\c{c}\~ao das consultas SQL reais. A segunda camada \'e p\'ublica e reproduz\'ivel, baseada nos arquivos \texttt{CSV} can\^onicos consumidos pela pipeline em \texttt{artifacts/database/csv/}. Isso permite explicar e reproduzir a arquitetura sem divulgar a estrutura interna do banco institucional.
 
-As notas representam o eixo central da modelagem. A partir delas, foram constru\'idos hist\'oricos deslocados, m\'edias m\'oveis, tend\^encias e estat\'isticas de refer\^encia. As faltas foram agregadas por etapa e acumuladas ao longo do tempo. Os pagamentos foram resumidos por ano letivo, incluindo quantidades, pend\^encias e m\'edias de atraso. O professor, quando dispon\'ivel no banco atualizado, passou a ser incorporado como atributo contextual, sem remover linhas quando o v\'inculo docente estivesse ausente.
+Conforme sintetizado na Se\c{c}\~ao~\ref{sec:config-experimental}, essa separa\c{c}\~ao define o contrato de reprodu\c{c}\~ao da solu\c{c}\~ao. Nesta se\c{c}\~ao, o foco passa a ser a forma como esses blocos de dados foram integrados na modelagem.
+As notas representam o eixo central da modelagem. A partir delas, foram constru\'idos hist\'oricos deslocados, m\'edias m\'oveis, tend\^encias e estat\'isticas de refer\^encia. As faltas foram agregadas por etapa e acumuladas ao longo do tempo. Os pagamentos foram resumidos por ano letivo, incluindo quantidades, pend\^encias e m\'edias de atraso. O professor, quando dispon\'ivel no banco atualizado, foi incorporado como atributo contextual, sem remover linhas quando o v\'inculo docente estivesse ausente.
 
 \section{Engenharia de atributos}
 \label{sec:engenharia}
@@ -145,7 +237,7 @@ Para evitar vazamento de informa\c{c}\~ao, os atributos hist\'oricos de desempen
 \section{Camada de relat\'orios}
 \label{sec:camada-relatorios}
 
-Al\'em da modelagem, a arquitetura incorpora uma camada pr\'opria de relat\'orios. Ela possui sa\'idas centrais para os perfis escolares e artefatos complementares de consolida\c{c}\~ao:
+Al\'em da modelagem, a arquitetura incorpora uma camada pr\'opria de relat\'orios. Ela organiza sa\'idas para os principais perfis escolares e consolidados complementares:
 
 \begin{itemize}
     \item relat\'orio do professor, com foco por aluno e disciplina;
@@ -156,7 +248,7 @@ Al\'em da modelagem, a arquitetura incorpora uma camada pr\'opria de relat\'orio
     \item consolidados de risco por professor, com e sem recorte por turma.
 \end{itemize}
 
-Essa camada foi decisiva para aproximar a solu\c{c}\~ao do problema real da escola, convertendo resultados t\'ecnicos em informa\c{c}\~ao acion\'avel.
+Essa camada foi decisiva para aproximar a solu\c{c}\~ao do problema real da escola, convertendo resultados t\'ecnicos em informa\c{c}\~ao acion\'avel. O invent\'ario operacional desses artefatos foi consolidado na Se\c{c}\~ao~\ref{sec:config-experimental}.
 
 \section{Estrutura final do reposit\'orio e do fluxo operacional}
 \label{sec:estrutura-final}

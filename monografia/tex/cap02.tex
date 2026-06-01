@@ -57,4 +57,54 @@ Por isso, o projeto incorporou anonimiza\c{c}\~ao da base e assumiu, desde o in\
 
 Os trabalhos relacionados ao tema podem ser agrupados em tr\^es eixos. O primeiro re\'une revis\~oes gerais da \'area, como as de Romero e Ventura \cite{romero2010} e de Baker e Inventado \cite{baker2014}. O segundo eixo envolve estudos preditivos aplicados \`a educa\c{c}\~ao, sobretudo aqueles que combinam m\'ultiplas fontes de informa\c{c}\~ao. O terceiro eixo aborda interpretabilidade, governan\c{c}a e quest\~oes \'eticas.
 
-Em rela\c{c}\~ao a esses trabalhos, este TCC se diferencia por articular toda a trajet\'oria de um projeto aplicado: tratamento do banco, refatora\c{c}\~ao arquitetural, valida\c{c}\~ao temporal, gera\c{c}\~ao de relat\'orios e ranking executivo. Em vez de comparar apenas algoritmos em um \textit{dataset} pronto, o trabalho documenta a constru\c{c}\~ao completa de uma solu\c{c}\~ao voltada ao contexto escolar.
+\subsection{Compara\c{c}\~ao com estudos de previs\~ao de nota e detec\c{c}\~ao de risco}
+
+Considerando o foco deste trabalho em prever a pr\'oxima nota e sinalizar risco pedag\'ogico, a literatura mais pr\'oxima pode ser organizada em dois subconjuntos: estudos voltados \`a previs\~ao de nota futura e estudos voltados \`a detec\c{c}\~ao de alunos em risco acad\^emico. A Tabela~\ref{tab:relacionados-nota} resume dois estudos representativos do primeiro grupo, de Morsy e Karypis \cite{morsy2017} e de Widjaja et al. \cite{widjaja2020}.
+
+\begin{table}[ht]
+\caption{Trabalhos correlatos focados em previs\~ao de nota futura.}
+\label{tab:relacionados-nota}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{3.0cm} p{3.8cm} p{3.9cm} p{3.2cm}}
+\hline
+\textbf{Trabalho} & \textbf{Entradas} & \textbf{Sa\'ida e m\'etodos} & \textbf{Limite frente a este TCC} \\
+\hline
+Morsy e Karypis (2017) & Hist\'orico aluno-disciplina e rela\c{c}\~oes de conhecimento entre cursos em base universit\'aria & Regress\~ao da nota em disciplinas do pr\'oximo per\'iodo por meio de \textit{Cumulative Knowledge-based Regression Models} & Foco em matr\'icula universit\'aria futura; n\~ao trata alerta pedag\'ogico por etapa nem relat\'orios operacionais escolares \\
+\hline
+Widjaja et al. (2020) & Hist\'orico aluno-curso, atributos de aluno e atributos de curso em contexto universit\'ario & Predi\c{c}\~ao de nota do pr\'oximo termo com \textit{Factorization Machine} e \textit{LSTM-FM} & Foco em desempenho por termo e escolha de cursos; n\~ao integra risco pedag\'ogico separado nem sinais administrativos escolares \\
+\hline
+\end{tabular}
+\fontetab{Elaborada pelo autor com base nos trabalhos citados}
+\end{table}
+
+Esses estudos mostram que a previs\~ao de nota futura j\'a est\'a consolidada como problema relevante, sobretudo em ensino superior. Entretanto, o alvo adotado costuma ser a nota em disciplinas ainda n\~ao cursadas ou em um pr\'oximo termo acad\^emico. Aqui, a sa\'ida de regress\~ao foi reposicionada para a pr\'oxima nota observada dentro da sequ\^encia temporal da mesma disciplina, o que favorece interven\c{c}\~oes pedag\'ogicas de curto prazo no cotidiano escolar.
+
+A Tabela~\ref{tab:relacionados-risco} resume dois trabalhos representativos do eixo de detec\c{c}\~ao de risco, de Lakkaraju et al. \cite{lakkaraju2015} e de Koprinska, Stretton e Yacef \cite{koprinska2015}.
+
+\begin{table}[ht]
+\caption{Trabalhos correlatos focados em detec\c{c}\~ao de risco acad\^emico.}
+\label{tab:relacionados-risco}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{3.0cm} p{3.8cm} p{3.9cm} p{3.2cm}}
+\hline
+\textbf{Trabalho} & \textbf{Entradas} & \textbf{Sa\'ida e m\'etodos} & \textbf{Limite frente a este TCC} \\
+\hline
+Lakkaraju et al. (2015) & Hist\'orico escolar, notas, aus\^encias, indicadores demogr\'aficos e administrativos em dois distritos dos EUA & Classifica\c{c}\~ao bin\'aria de risco de n\~ao concluir o ensino m\'edio no tempo esperado, com compara\c{c}\~ao entre classificadores e visualiza\c{c}\~ao para gestores & O alvo \'e conclus\~ao escolar de longo prazo; n\~ao prev\^e a pr\'oxima nota da disciplina nem trabalha com sa\'ida combinada de regress\~ao e risco \\
+\hline
+Koprinska, Stretton e Yacef (2015) & Notas parciais, submiss\~oes em sistema de corre\c{c}\~ao autom\'atica e atividade em f\'orum de discuss\~ao em disciplina de programa\c{c}\~ao & Classifica\c{c}\~ao de aprova\c{c}\~ao ou falha no exame final com \'arvore de decis\~ao e regras acion\'aveis para remedia\c{c}\~ao & Estudo concentrado em uma disciplina universit\'aria e em dados de ambiente digital; n\~ao integra contexto financeiro, professor, s\'erie ou relat\'orios multiatores \\
+\hline
+\end{tabular}
+\fontetab{Elaborada pelo autor com base nos trabalhos citados}
+\end{table}
+
+Nos estudos de risco, nota-se forte preocupa\c{c}\~ao com identifica\c{c}\~ao precoce, interpretabilidade e apoio \`a interven\c{c}\~ao. Esse ponto aproxima-se diretamente deste TCC. A diferen\c{c}a principal est\'a no fato de que o problema aqui n\~ao trata risco apenas como evas\~ao, conclus\~ao tardia ou aprova\c{c}\~ao final em uma disciplina. O alvo bin\'ario foi definido como o risco de a pr\'oxima nota observada ficar abaixo de 6,0, o que torna o alerta mais pr\'oximo da linguagem pedag\'ogica da escola e mais aderente a decis\~oes de curto prazo.
+
+Do ponto de vista metodol\'ogico, o trabalho combina ideias que na literatura frequentemente aparecem separadas. Dos estudos de previs\~ao de nota, aproveita a l\'ogica de usar o hist\'orico acad\^emico como base para regress\~ao temporal. Dos estudos de risco, incorpora a necessidade de triagem antecipada, prioriza\c{c}\~ao de casos e utilidade institucional. A diferen\c{c}a \'e que essas duas perspectivas foram unificadas em uma mesma arquitetura temporal com duas sa\'idas supervisionadas: \texttt{target\_nota\_proxima} e \texttt{target\_risco\_proxima}.
+
+Tamb\'em h\'a diferen\c{c}as importantes nas entradas e nas ferramentas anal\'iticas. Enquanto os trabalhos universit\'arios de previs\~ao de nota concentram-se sobretudo em rela\c{c}\~oes aluno-curso e atributos acad\^emicos, e os trabalhos de risco costumam enfatizar desempenho, engajamento ou indicadores administrativos amplos, este TCC articula notas, faltas, pagamentos, professor e contexto escolar em uma mesma base temporal. Em termos de modelagem, utiliza \textit{Random Forest}, \textit{HistGradientBoosting} e baselines heur\'isticos como refer\^encia honesta de compara\c{c}\~ao, todos avaliados por valida\c{c}\~ao temporal por ano letivo. Em termos de sa\'ida, a solu\c{c}\~ao n\~ao termina na m\'etrica: as predi\c{c}\~oes alimentam relat\'orios para professor, coordena\c{c}\~ao e secretaria, al\'em de ranking executivo de prioridade.
+
+Em rela\c{c}\~ao a esses trabalhos, este TCC se diferencia por articular toda a trajet\'oria de um projeto aplicado: tratamento do banco, refatora\c{c}\~ao arquitetural, valida\c{c}\~ao temporal, gera\c{c}\~ao de relat\'orios e ranking executivo. Em vez de comparar apenas algoritmos em um \textit{dataset} pronto, o trabalho documenta a constru\c{c}\~ao completa de uma solu\c{c}\~ao voltada ao contexto escolar, reunindo previs\~ao da pr\'oxima nota, alerta de risco pedag\'ogico e operacionaliza\c{c}\~ao institucional em uma mesma pipeline reproduz\'ivel.
