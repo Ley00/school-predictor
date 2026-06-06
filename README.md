@@ -413,8 +413,10 @@ O `main.py` já aponta para o fluxo principal:
 ```python
 from school_predictor.cli import main
 
-main(["workflow"])
+main(["workflow", "--project-root", "."])
 ```
+
+No VS Code, o `F5` foi configurado em `.vscode/launch.json` para executar esse mesmo fluxo p\'ublico (`workflow --project-root ${workspaceFolder}`). Esse caminho roda a pipeline anal\'itica completa e gera os relat\'orios finais a partir dos CSVs can\^onicos j\'a existentes, sem acionar `prepare-db`, `extract` ou as rotinas privadas de anonimiza\c{c}\~ao e prepara\c{c}\~ao do banco.
 
 Comparação de histórico mínimo:
 
@@ -502,6 +504,13 @@ Compilar a monografia:
 ```bash
 cd monografia
 latexmk -pdf -interaction=nonstopmode modelo-ifg.tex
+```
+
+Observa\c{c}\~ao: os diagramas originais permanecem versionados em `diagrama/*.svg` como fonte can\^onica. Para a monografia, o Cap\'itulo 4 consome as vers\~oes vetoriais exportadas em `monografia/fig/diagrama-export/*.pdf`, geradas a partir desses SVGs. Quando algum diagrama for alterado, regenere tamb\'em o PDF correspondente com o Inkscape antes de recompilar a monografia. Exemplo:
+
+```bash
+inkscape diagrama/arquitetural.svg --export-filename=monografia/fig/diagrama-export/arquitetural.pdf
+inkscape diagrama/fluxo.svg --export-filename=monografia/fig/diagrama-export/fluxo.pdf
 ```
 
 Compilar o pré-projeto:

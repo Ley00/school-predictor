@@ -4,7 +4,7 @@
 \section{Vis\~ao geral da arquitetura}
 \label{sec:visao-geral}
 
-A arquitetura final foi organizada para separar claramente as responsabilidades do sistema. O fluxo consolidado pode ser resumido em oito etapas:
+A arquitetura final foi organizada para separar claramente as responsabilidades do sistema. Essa organiza\c{c}\~ao n\~ao surgiu pronta desde o in\'icio; ela foi sendo consolidada \`a medida que o projeto deixou de ser apenas um conjunto de experimentos e passou a exigir uma estrutura reproduz\'ivel, compreens\'ivel e segura para publica\c{c}\~ao acad\^emica. O fluxo consolidado pode ser resumido em oito etapas:
 
 \begin{enumerate}
     \item manuten\c{c}\~ao e anonimiza\c{c}\~ao da base original;
@@ -19,33 +19,16 @@ A arquitetura final foi organizada para separar claramente as responsabilidades 
 
 Em termos de organiza\c{c}\~ao do c\'odigo, o n\'ucleo da solu\c{c}\~ao ficou distribu\'ido entre m\'odulos de configura\c{c}\~ao, leitura das fontes, engenharia de atributos, modelagem, relat\'orios e orquestra\c{c}\~ao.
 
-Na vers\~ao final do reposit\'orio, essa organiza\c{c}\~ao foi consolidada no pacote \texttt{school\_predictor/}, com artefatos locais centralizados em \texttt{artifacts/}. Essa separa\c{c}\~ao tornou a arquitetura mais simples de compreender e mais segura para publica\c{c}\~ao do c\'odigo.
+Na vers\~ao final do reposit\'orio, essa organiza\c{c}\~ao foi consolidada no pacote \texttt{school\_predictor/}, com artefatos locais centralizados em \texttt{artifacts/}. Essa separa\c{c}\~ao tornou a arquitetura mais simples de compreender e mais segura para publica\c{c}\~ao do c\'odigo. Em especial, ela ajudou a distinguir com clareza o que pertence \`a camada sens\'ivel de prepara\c{c}\~ao dos dados e o que pode ser mostrado, executado e auditado no contexto do TCC.
 
-\begin{figure}[ht]
+A Figura~\ref{fig:arquitetura-solucao} sintetiza essa organiza\c{c}\~ao em camadas maiores, priorizando a leitura do caminho dos dados e das responsabilidades principais da solu\c{c}\~ao. Em vez de detalhar todos os arquivos da aplica\c{c}\~ao, o diagrama destaca cinco blocos centrais: opera\c{c}\~ao e interface, camada privada local, camada p\'ublica reproduz\'ivel, artefatos finais e uso institucional. O objetivo aqui n\~ao \'e detalhar a sequ\^encia de execu\c{c}\~ao, mas mostrar de forma mais direta onde cada responsabilidade ficou concentrada na vers\~ao final do projeto.
+
+\begin{figure}[H]
 \caption{Vis\~ao arquitetural da solu\c{c}\~ao proposta.}
 \label{fig:arquitetura-solucao}
 \centering
-\resizebox{0.95\textwidth}{!}{%
-\begin{tikzpicture}[
-    bloco/.style={draw, rounded corners, align=center, minimum width=3.2cm, minimum height=1.0cm, fill=white},
-    camada/.style={draw, rounded corners, align=center, minimum width=14.2cm, minimum height=1.2cm, fill=gray!8},
-    seta/.style={->, thick}
-]
-    \node[camada] (privada) at (0, 3.2) {Camada privada local\\prepara\c{c}\~ao do banco, anonimiza\c{c}\~ao e consultas SQL reais fora do Git};
-    \node[bloco] (csv) at (-5.0, 1.2) {Arquivos CSV\\can\^onicos};
-    \node[bloco] (dataset) at (-1.7, 1.2) {Dataset\\longitudinal};
-    \node[bloco] (modelagem) at (1.7, 1.2) {Modelagem\\temporal};
-    \node[bloco] (relatorios) at (5.0, 1.2) {Relat\'orios e\\dashboard};
-    \node[camada] (publica) at (0, -0.7) {Camada p\'ublica reproduz\'ivel\\\texttt{school\_predictor/}, \texttt{artifacts/database/csv/}, \texttt{artifacts/pipeline/} e \texttt{artifacts/reports/}};
-
-    \draw[seta] (privada) -- (csv);
-    \draw[seta] (csv) -- (dataset);
-    \draw[seta] (dataset) -- (modelagem);
-    \draw[seta] (modelagem) -- (relatorios);
-    \draw[seta] (csv) -- (publica);
-    \draw[seta] (relatorios) -- (publica);
-\end{tikzpicture}}
-\fontefig{Elaborada pelo autor.}
+\includeprojectdiagram[width=0.95\textwidth]{fig/diagrama-export/arquitetural.pdf}
+\fontefig{Elaborada pelo autor}
 \end{figure}
 
 \section{Modos de execu\c{c}\~ao}
@@ -58,43 +41,24 @@ A pipeline foi dividida em dois modos complementares:
     \item \texttt{alerta\_risco}: voltado \`a classifica\c{c}\~ao de risco de pr\'oxima nota abaixo de 6,0, com hist\'orico m\'inimo de duas observa\c{c}\~oes anteriores.
 \end{itemize}
 
-Essa divis\~ao surgiu dos experimentos: o mesmo recorte de hist\'orico n\~ao era o melhor para os dois objetivos. Assim, a arquitetura passou a preservar duas configura\c{c}\~oes operacionais, cada uma adequada ao seu uso principal.
+Essa divis\~ao surgiu dos experimentos: o mesmo recorte de hist\'orico n\~ao era o melhor para os dois objetivos. Assim, a arquitetura passou a preservar duas configura\c{c}\~oes operacionais, cada uma adequada ao seu uso principal. Em vez de for\c{c}ar uma solu\c{c}\~ao \'unica para tarefas diferentes, o projeto assumiu explicitamente essa diferen\c{c}a como parte do desenho final.
 
-Em ambos os modos, a fun\c{c}\~ao central de modelagem calcula sinais de regress\~ao e de classifica\c{c}\~ao. A diferen\c{c}a est\'a no objetivo operacional, no hist\'orico m\'inimo exigido, no volume de dados resultante e no artefato usado como refer\^encia principal. No modo \texttt{previsao\_nota}, a interpreta\c{c}\~ao principal \'e o erro da nota prevista; no modo \texttt{alerta\_risco}, a interpreta\c{c}\~ao principal \'e a capacidade de recuperar alunos cuja pr\'oxima nota ficou abaixo da linha de seguran\c{c}a.
-
-\begin{figure}[ht]
-\caption{Fluxo operacional da pipeline de modelagem.}
-\label{fig:fluxo-pipeline}
-\centering
-\resizebox{0.95\textwidth}{!}{%
-\begin{tikzpicture}[
-    passo/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=1.0cm, fill=white},
-    saida/.style={draw, rounded corners, align=center, minimum width=3.0cm, minimum height=1.0cm, fill=gray!10},
-    seta/.style={->, thick}
-]
-    \node[passo] (csv) at (0, 2.0) {CSV\\tratados};
-    \node[passo] (atributos) at (3.3, 2.0) {Engenharia\\de atributos};
-    \node[passo] (split) at (6.6, 2.0) {Split\\temporal};
-    \node[passo] (candidatos) at (9.9, 2.0) {Modelos e\\baselines};
-    \node[saida] (nota) at (3.3, 0.0) {Previs\~ao\\da pr\'oxima nota};
-    \node[saida] (risco) at (6.6, 0.0) {Alerta de\\risco};
-    \node[saida] (acao) at (9.9, 0.0) {Relat\'orios\\por perfil};
-
-    \draw[seta] (csv) -- (atributos);
-    \draw[seta] (atributos) -- (split);
-    \draw[seta] (split) -- (candidatos);
-    \draw[seta] (candidatos) -- (nota);
-    \draw[seta] (candidatos) -- (risco);
-    \draw[seta] (nota) -- (acao);
-    \draw[seta] (risco) -- (acao);
-\end{tikzpicture}}
-\fontefig{Elaborada pelo autor.}
-\end{figure}
+Em ambos os modos, a fun\c{c}\~ao central de modelagem calcula sinais de regress\~ao e de classifica\c{c}\~ao. A diferen\c{c}a est\'a no objetivo operacional, no hist\'orico m\'inimo exigido, no volume de dados resultante e no artefato usado como refer\^encia principal. No modo \texttt{previsao\_nota}, a interpreta\c{c}\~ao principal \'e o erro da nota prevista; no modo \texttt{alerta\_risco}, a interpreta\c{c}\~ao principal \'e a capacidade de recuperar alunos cuja pr\'oxima nota ficou abaixo da linha de seguran\c{c}a. Essa distin\c{c}\~ao ajuda a evitar uma leitura simplificada de que a pipeline executa exatamente a mesma coisa duas vezes.
 
 \section{Configura\c{c}\~ao experimental e reprodutibilidade}
 \label{sec:config-experimental}
 
-Para fins de reprodutibilidade, a configura\c{c}\~ao experimental final do projeto foi organizada como um contrato entre entradas can\^onicas, rotinas de execu\c{c}\~ao e artefatos gerados. A ideia central foi permitir que a arquitetura p\'ublica do TCC pudesse ser compreendida, auditada e reexecutada sem expor o banco institucional nem as consultas SQL reais.
+Para fins de reprodutibilidade, a configura\c{c}\~ao experimental final do projeto foi organizada como um contrato entre entradas can\^onicas, rotinas de execu\c{c}\~ao e artefatos gerados. A ideia central foi permitir que a arquitetura p\'ublica do TCC pudesse ser compreendida, auditada e reexecutada sem expor o banco institucional nem as consultas SQL reais. Essa se\c{c}\~ao, portanto, n\~ao funciona apenas como invent\'ario de arquivos: ela sintetiza a forma como a solu\c{c}\~ao foi estabilizada para uso acad\^emico.
+
+A Figura~\ref{fig:fluxo-pipeline} resume esse percurso operacional completo: mostra como os comandos principais partem da interface de linha de comando, acionam a prepara\c{c}\~ao ou a extra\c{c}\~ao quando necess\'ario e, no fluxo principal, convergem para a constru\c{c}\~ao do dataset temporal, para a execu\c{c}\~ao dos modos \texttt{previsao\_nota} e \texttt{alerta\_risco} e para a consolida\c{c}\~ao final dos relat\'orios escolares.
+
+\begin{figure}[H]
+\caption{Fluxo operacional principal da solu\c{c}\~ao.}
+\label{fig:fluxo-pipeline}
+\centering
+\includeprojectdiagram[width=0.95\textwidth]{fig/diagrama-export/fluxo.pdf}
+\fontefig{Elaborada pelo autor}
+\end{figure}
 
 \subsection{Camadas de entrada}
 
@@ -105,7 +69,7 @@ A reprodu\c{c}\~ao da solu\c{c}\~ao foi separada em duas camadas complementares:
     \item \textbf{camada p\'ublica reproduz\'ivel}: consome arquivos \texttt{CSV} can\^onicos em \texttt{artifacts/database/csv/} e executa a pipeline acad\^emica publicada no reposit\'orio.
 \end{itemize}
 
-Essa separa\c{c}\~ao foi adotada para que a parte sens\'ivel da extra\c{c}\~ao permanecesse protegida, enquanto a parte acad\^emica e demonstrativa da solu\c{c}\~ao continuasse pass\'ivel de reprodu\c{c}\~ao por terceiros.
+Essa separa\c{c}\~ao foi adotada para que a parte sens\'ivel da extra\c{c}\~ao permanecesse protegida, enquanto a parte acad\^emica e demonstrativa da solu\c{c}\~ao continuasse pass\'ivel de reprodu\c{c}\~ao por terceiros. Na pr\'atica, ela permitiu conciliar duas exig\^encias que normalmente entram em tens\~ao em projetos escolares: proteger a estrutura institucional e, ao mesmo tempo, manter a rastreabilidade do experimento.
 
 \subsection{Arquivos de entrada can\^onicos}
 
@@ -120,7 +84,7 @@ Os arquivos de entrada da arquitetura final foram definidos da seguinte forma:
     \item \texttt{professor\_disciplina.csv}: contexto docente por disciplina e turma, incorporado quando esse v\'inculo est\'a dispon\'ivel.
 \end{itemize}
 
-Na pipeline central publicada, os arquivos consumidos diretamente pela modelagem e pelos relat\'orios s\~ao, principalmente, \texttt{media\_nota\_aluno.csv}, \texttt{faltas\_aluno.csv}, \texttt{pagamento\_aluno.csv} e \texttt{professor\_disciplina.csv}. Os demais arquivos preservam o contrato p\'ublico da extra\c{c}\~ao e a rastreabilidade da arquitetura completa, mesmo quando n\~ao entram diretamente em todas as etapas da modelagem.
+Na pipeline central publicada, os arquivos consumidos diretamente pela modelagem e pelos relat\'orios s\~ao, principalmente, \texttt{media\_nota\_aluno.csv}, \texttt{faltas\_aluno.csv}, \texttt{pagamento\_aluno.csv} e \texttt{professor\_disciplina.csv}. Os demais arquivos preservam o contrato p\'ublico da extra\c{c}\~ao e a rastreabilidade da arquitetura completa, mesmo quando n\~ao entram diretamente em todas as etapas da modelagem. Isso ajuda a explicar por que o contrato de entrada do projeto \'e um pouco mais amplo do que o conjunto estritamente consumido pelo treino final.
 
 \subsection{Execu\c{c}\~ao reprodut\'ivel da pipeline}
 
@@ -143,7 +107,7 @@ No cen\'ario p\'ublico reproduz\'ivel, basta disponibilizar os \texttt{CSV}s can
     \item \texttt{workflow}: reconstitui o fluxo completo e produz a sa\'ida operacional final.
 \end{itemize}
 
-Essa organiza\c{c}\~ao foi importante porque o experimento final n\~ao depende de acesso direto ao banco para ser reproduzido academicamente; ele depende do contrato dos \texttt{CSV}s e de uma interface de execu\c{c}\~ao padronizada.
+Essa organiza\c{c}\~ao foi importante porque o experimento final n\~ao depende de acesso direto ao banco para ser reproduzido academicamente; ele depende do contrato dos \texttt{CSV}s e de uma interface de execu\c{c}\~ao padronizada. Em outras palavras, a reprodutibilidade do trabalho foi deslocada do banco institucional para a interface p\'ublica dos dados extra\'idos.
 
 \subsection{Modos e artefatos anal\'iticos}
 
@@ -160,7 +124,7 @@ Cada modo da pipeline grava seus resultados em um subdiret\'orio de \texttt{arti
     \item \texttt{error\_analysis\_summary.txt}: resumo textual das an\'alises de erro.
 \end{itemize}
 
-Esses artefatos sustentam a leitura t\'ecnica do experimento, pois registram o tamanho da base resultante, os candidatos comparados, o desempenho temporal, as predi\c{c}\~oes no teste e os pontos de maior dificuldade do sistema.
+Esses artefatos sustentam a leitura t\'ecnica do experimento, pois registram o tamanho da base resultante, os candidatos comparados, o desempenho temporal, as predi\c{c}\~oes no teste e os pontos de maior dificuldade do sistema. Eles tamb\'em ajudam a separar a fase de modelagem da fase de consumo institucional dos resultados.
 
 \subsection{Artefatos operacionais finais}
 
@@ -176,7 +140,7 @@ Ap\'os a execu\c{c}\~ao dos dois modos, a camada final de disponibiliza\c{c}\~ao
     \item \texttt{ranking\_executivo\_coordenacao} em formatos \texttt{.csv} e \texttt{.txt}: prioriza\c{c}\~ao executiva dos alunos mais urgentes para interven\c{c}\~ao.
 \end{itemize}
 
-Esses relat\'orios representam a sa\'ida final do experimento no contexto do TCC, pois convertem resultados de modelagem em materiais de consulta orientados aos diferentes perfis institucionais da escola.
+Esses relat\'orios representam a sa\'ida final do experimento no contexto do TCC, pois convertem resultados de modelagem em materiais de consulta orientados aos diferentes perfis institucionais da escola. Esse ponto \'e decisivo para o sentido do trabalho: a entrega n\~ao \'e apenas um modelo treinado, mas uma camada de sa\'ida pensada para uso real.
 
 \subsection{Condi\c{c}\~ao m\'inima de reprodutibilidade}
 
@@ -197,7 +161,7 @@ O trabalho foi estruturado para unir quatro blocos principais de informa\c{c}\~a
 Do ponto de vista de engenharia, a entrada de dados foi organizada em duas camadas. A primeira camada \'e privada e local, respons\'avel pela prepara\c{c}\~ao do banco restaurado e pela execu\c{c}\~ao das consultas SQL reais. A segunda camada \'e p\'ublica e reproduz\'ivel, baseada nos arquivos \texttt{CSV} can\^onicos consumidos pela pipeline em \texttt{artifacts/database/csv/}. Isso permite explicar e reproduzir a arquitetura sem divulgar a estrutura interna do banco institucional.
 
 Conforme sintetizado na Se\c{c}\~ao~\ref{sec:config-experimental}, essa separa\c{c}\~ao define o contrato de reprodu\c{c}\~ao da solu\c{c}\~ao. Nesta se\c{c}\~ao, o foco passa a ser a forma como esses blocos de dados foram integrados na modelagem.
-As notas representam o eixo central da modelagem. A partir delas, foram constru\'idos hist\'oricos deslocados, m\'edias m\'oveis, tend\^encias e estat\'isticas de refer\^encia. As faltas foram agregadas por etapa e acumuladas ao longo do tempo. Os pagamentos foram resumidos por ano letivo, incluindo quantidades, pend\^encias e m\'edias de atraso. O professor, quando dispon\'ivel no banco atualizado, foi incorporado como atributo contextual, sem remover linhas quando o v\'inculo docente estivesse ausente.
+As notas representam o eixo central da modelagem. A partir delas, foram constru\'idos hist\'oricos deslocados, m\'edias m\'oveis, tend\^encias e estat\'isticas de refer\^encia. As faltas foram agregadas por etapa e acumuladas ao longo do tempo. Os pagamentos foram resumidos por ano letivo, incluindo quantidades, pend\^encias e m\'edias de atraso. O professor, quando dispon\'ivel no banco atualizado, foi incorporado como atributo contextual, sem remover linhas quando o v\'inculo docente estivesse ausente. Esse desenho de integra\c{c}\~ao foi importante porque evitou reduzir o problema a uma leitura puramente acad\^emica da nota, mantendo sinais administrativos e contextuais que fazem parte da rotina escolar.
 
 \section{Engenharia de atributos}
 \label{sec:engenharia}
@@ -220,7 +184,7 @@ Os atributos criados para a modelagem incluem:
     \item indicador de disponibilidade do professor.
 \end{itemize}
 
-Os atributos diretamente derivados da trajet\'oria de notas e faltas foram constru\'idos por deslocamentos, acumulados ou agrega\c{c}\~oes at\'e a etapa observada, preservando a causalidade temporal do problema. Os sinais financeiros, por sua vez, foram usados como contexto administrativo agregado por aluno e ano letivo. Por isso, devem ser interpretados como vari\'aveis institucionais de apoio, n\~ao como evid\^encia causal isolada do desempenho.
+Os atributos diretamente derivados da trajet\'oria de notas e faltas foram constru\'idos por deslocamentos, acumulados ou agrega\c{c}\~oes at\'e a etapa observada, preservando a causalidade temporal do problema. Os sinais financeiros, por sua vez, foram usados como contexto administrativo agregado por aluno e ano letivo. Por isso, devem ser interpretados como vari\'aveis institucionais de apoio, n\~ao como evid\^encia causal isolada do desempenho. Essa distin\c{c}\~ao \'e importante para evitar leituras simplistas sobre o papel de cada grupo de atributos.
 
 \section{Constru\c{c}\~ao do alvo e preven\c{c}\~ao de vazamento}
 \label{sec:alvo}
@@ -232,7 +196,7 @@ Foram definidos dois alvos principais:
     \item \texttt{target\_risco\_proxima}, correspondente ao indicador bin\'ario de pr\'oxima nota inferior a 6,0.
 \end{enumerate}
 
-Para evitar vazamento de informa\c{c}\~ao, os atributos hist\'oricos de desempenho e frequ\^encia foram calculados por deslocamento, m\'edias acumuladas ou agrega\c{c}\~oes limitadas ao passado. Isso foi essencial para garantir que o desempenho medido refletisse um cen\'ario real de uso, e n\~ao apenas um ajuste artificial a dados futuros.
+Para evitar vazamento de informa\c{c}\~ao, os atributos hist\'oricos de desempenho e frequ\^encia foram calculados por deslocamento, m\'edias acumuladas ou agrega\c{c}\~oes limitadas ao passado. Isso foi essencial para garantir que o desempenho medido refletisse um cen\'ario real de uso, e n\~ao apenas um ajuste artificial a dados futuros. A preven\c{c}\~ao de vazamento, neste caso, n\~ao foi um detalhe t\'ecnico menor, mas uma condi\c{c}\~ao para que os resultados tivessem valor pr\'atico.
 
 \section{Camada de relat\'orios}
 \label{sec:camada-relatorios}
@@ -248,7 +212,7 @@ Al\'em da modelagem, a arquitetura incorpora uma camada pr\'opria de relat\'orio
     \item consolidados de risco por professor, com e sem recorte por turma.
 \end{itemize}
 
-Essa camada foi decisiva para aproximar a solu\c{c}\~ao do problema real da escola, convertendo resultados t\'ecnicos em informa\c{c}\~ao acion\'avel. O invent\'ario operacional desses artefatos foi consolidado na Se\c{c}\~ao~\ref{sec:config-experimental}.
+Essa camada foi decisiva para aproximar a solu\c{c}\~ao do problema real da escola, convertendo resultados t\'ecnicos em informa\c{c}\~ao acion\'avel. O invent\'ario operacional desses artefatos foi consolidado na Se\c{c}\~ao~\ref{sec:config-experimental}. Essa escolha tamb\'em ajuda a marcar a diferen\c{c}a entre o que o modelo calcula e o que a escola efetivamente consome.
 
 \section{Estrutura final do reposit\'orio e do fluxo operacional}
 \label{sec:estrutura-final}
@@ -265,4 +229,4 @@ Na forma final do projeto, a base ativa do software ficou organizada nos seguint
     \item \texttt{artifacts/pipeline} e \texttt{artifacts/reports}: sa\'idas anal\'iticas e operacionais.
 \end{itemize}
 
-Com isso, a arquitetura final passou a separar claramente o que precisa ficar privado por envolver estrutura institucional do banco e o que pode ser publicado para fins acad\^emicos, reprodutibilidade e apresenta\c{c}\~ao do TCC.
+Com isso, a arquitetura final passou a separar claramente o que precisa ficar privado por envolver estrutura institucional do banco e o que pode ser publicado para fins acad\^emicos, reprodutibilidade e apresenta\c{c}\~ao do TCC. Esse arranjo resume bem a dire\c{c}\~ao adotada pelo projeto: preservar o contexto real da escola sem comprometer a possibilidade de explicar, auditar e continuar a solu\c{c}\~ao.

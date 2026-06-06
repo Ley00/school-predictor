@@ -1,10 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="980" viewBox="0 0 1660 980">
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1360" viewBox="0 0 1680 1360">
   <style>
-    .title { font: 700 28px Arial, sans-serif; fill: #ffffff; }
+    .title { font: 700 30px Arial, sans-serif; fill: #111827; }
     .label { font: 600 15px Arial, sans-serif; fill: #111827; }
     .small { font: 500 13px Arial, sans-serif; fill: #374151; }
     .head { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 10; }
     .msg { fill: #f8fafc; stroke: #1f2937; stroke-width: 1.8; rx: 8; }
+    .group { fill: none; stroke: #cbd5e1; stroke-width: 2; rx: 14; }
     .line { stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; }
     .arrow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrow); }
   </style>
@@ -13,53 +14,81 @@
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
     </marker>
   </defs>
-  <text x="830" y="38" text-anchor="middle" class="title">Sequência Operacional</text>
 
-  <rect x="60" y="80" width="150" height="52" class="head"/><text x="135" y="112" text-anchor="middle" class="label">Usuário</text>
-  <rect x="260" y="80" width="150" height="52" class="head"/><text x="335" y="112" text-anchor="middle" class="label">CLI</text>
-  <rect x="460" y="80" width="170" height="52" class="head"/><text x="545" y="112" text-anchor="middle" class="label">application.py</text>
-  <rect x="690" y="80" width="190" height="52" class="head"/><text x="785" y="112" text-anchor="middle" class="label">orchestration.py</text>
-  <rect x="930" y="80" width="170" height="52" class="head"/><text x="1015" y="112" text-anchor="middle" class="label">dataset/modeling</text>
-  <rect x="1160" y="80" width="160" height="52" class="head"/><text x="1240" y="112" text-anchor="middle" class="label">reporting.py</text>
-  <rect x="1360" y="80" width="120" height="52" class="head"/><text x="1420" y="112" text-anchor="middle" class="label">artifacts</text>
-  <rect x="1500" y="80" width="130" height="52" class="head"/><text x="1565" y="112" text-anchor="middle" class="label">dashboard</text>
+  <rect x="0" y="0" width="1680" height="1360" fill="#ffffff"/>
+  <text x="840" y="48" text-anchor="middle" class="title">Sequencia Operacional</text>
 
-  <line x1="135" y1="132" x2="135" y2="910" class="line"/>
-  <line x1="335" y1="132" x2="335" y2="910" class="line"/>
-  <line x1="545" y1="132" x2="545" y2="910" class="line"/>
-  <line x1="785" y1="132" x2="785" y2="910" class="line"/>
-  <line x1="1015" y1="132" x2="1015" y2="910" class="line"/>
-  <line x1="1240" y1="132" x2="1240" y2="910" class="line"/>
-  <line x1="1420" y1="132" x2="1420" y2="910" class="line"/>
-  <line x1="1565" y1="132" x2="1565" y2="910" class="line"/>
+  <rect x="40" y="90" width="130" height="52" class="head"/><text x="105" y="122" text-anchor="middle" class="label">Usuario</text>
+  <rect x="210" y="90" width="140" height="52" class="head"/><text x="280" y="122" text-anchor="middle" class="label">CLI</text>
+  <rect x="390" y="90" width="165" height="52" class="head"/><text x="472" y="122" text-anchor="middle" class="label">application.py</text>
+  <rect x="595" y="90" width="185" height="52" class="head"/><text x="687" y="122" text-anchor="middle" class="label">orchestration.py</text>
+  <rect x="820" y="90" width="185" height="52" class="head"/><text x="912" y="122" text-anchor="middle" class="label">data / dataset.py</text>
+  <rect x="1045" y="90" width="160" height="52" class="head"/><text x="1125" y="122" text-anchor="middle" class="label">modeling.py</text>
+  <rect x="1245" y="90" width="145" height="52" class="head"/><text x="1317" y="122" text-anchor="middle" class="label">artifacts/</text>
+  <rect x="1415" y="90" width="145" height="52" class="head"/><text x="1487" y="122" text-anchor="middle" class="label">reporting.py</text>
+  <rect x="1578" y="90" width="87" height="52" class="head"/><text x="1621" y="122" text-anchor="middle" class="label">dashboard</text>
 
-  <rect x="185" y="154" width="100" height="28" class="msg"/><text x="235" y="173" text-anchor="middle" class="small">workflow</text>
-  <path d="M 135 192 L 335 192" class="arrow"/>
+  <line x1="105" y1="142" x2="105" y2="1320" class="line"/>
+  <line x1="280" y1="142" x2="280" y2="1320" class="line"/>
+  <line x1="472" y1="142" x2="472" y2="1320" class="line"/>
+  <line x1="687" y1="142" x2="687" y2="1320" class="line"/>
+  <line x1="912" y1="142" x2="912" y2="1320" class="line"/>
+  <line x1="1125" y1="142" x2="1125" y2="1320" class="line"/>
+  <line x1="1317" y1="142" x2="1317" y2="1320" class="line"/>
+  <line x1="1487" y1="142" x2="1487" y2="1320" class="line"/>
+  <line x1="1621" y1="142" x2="1621" y2="1320" class="line"/>
 
-  <rect x="360" y="224" width="170" height="28" class="msg"/><text x="445" y="243" text-anchor="middle" class="small">run_default_workflow()</text>
-  <path d="M 335 262 L 545 262" class="arrow"/>
+  <rect x="190" y="170" width="180" height="28" class="msg"/><text x="280" y="189" text-anchor="middle" class="small">workflow --project-root .</text>
+  <path d="M 105 210 L 280 210" class="arrow"/>
 
-  <rect x="565" y="294" width="220" height="28" class="msg"/><text x="675" y="313" text-anchor="middle" class="small">run_full_reporting_pipeline()</text>
-  <path d="M 545 332 L 785 332" class="arrow"/>
+  <rect x="362" y="250" width="220" height="28" class="msg"/><text x="472" y="269" text-anchor="middle" class="small">run_default_workflow(project_root)</text>
+  <path d="M 280 290 L 472 290" class="arrow"/>
 
-  <rect x="805" y="364" width="260" height="28" class="msg"/><text x="935" y="383" text-anchor="middle" class="small">run_real_pipeline(previsao_nota)</text>
-  <path d="M 785 402 L 1015 402" class="arrow"/>
+  <rect x="555" y="330" width="265" height="28" class="msg"/><text x="687" y="349" text-anchor="middle" class="small">run_full_reporting_pipeline(project_root)</text>
+  <path d="M 472 370 L 687 370" class="arrow"/>
 
-  <rect x="1095" y="434" width="210" height="28" class="msg"/><text x="1200" y="453" text-anchor="middle" class="small">treino, validação e teste</text>
-  <path d="M 1015 472 L 1420 472" class="arrow"/>
+  <rect x="740" y="420" width="700" height="590" class="group"/>
+  <text x="1090" y="450" text-anchor="middle" class="label">Loop dos modos tecnicos: previsao_nota e alerta_risco</text>
 
-  <rect x="815" y="504" width="240" height="28" class="msg"/><text x="935" y="523" text-anchor="middle" class="small">run_real_pipeline(alerta_risco)</text>
-  <path d="M 785 542 L 1015 542" class="arrow"/>
+  <rect x="830" y="485" width="170" height="28" class="msg"/><text x="915" y="504" text-anchor="middle" class="small">load_source_tables()</text>
+  <path d="M 687 525 L 912 525" class="arrow"/>
 
-  <rect x="1095" y="574" width="210" height="28" class="msg"/><text x="1200" y="593" text-anchor="middle" class="small">treino, validação e teste</text>
-  <path d="M 1015 612 L 1420 612" class="arrow"/>
+  <rect x="760" y="545" width="170" height="28" class="msg"/><text x="845" y="564" text-anchor="middle" class="small">tabelas CSV carregadas</text>
+  <path d="M 912 585 L 687 585" class="arrow"/>
 
-  <rect x="895" y="654" width="190" height="28" class="msg"/><text x="990" y="673" text-anchor="middle" class="small">build_school_reports()</text>
-  <path d="M 785 692 L 1240 692" class="arrow"/>
+  <rect x="800" y="605" width="210" height="28" class="msg"/><text x="905" y="624" text-anchor="middle" class="small">build_prediction_dataset()</text>
+  <path d="M 687 645 L 912 645" class="arrow"/>
 
-  <rect x="1260" y="724" width="170" height="28" class="msg"/><text x="1345" y="743" text-anchor="middle" class="small">gravar reports finais</text>
-  <path d="M 1240 762 L 1420 762" class="arrow"/>
+  <rect x="785" y="665" width="160" height="28" class="msg"/><text x="865" y="684" text-anchor="middle" class="small">dataset temporal</text>
+  <path d="M 912 705 L 687 705" class="arrow"/>
 
-  <rect x="1445" y="804" width="170" height="28" class="msg"/><text x="1530" y="823" text-anchor="middle" class="small">dashboard consome saída</text>
-  <path d="M 1420 842 L 1565 842" class="arrow"/>
+  <rect x="815" y="725" width="180" height="28" class="msg"/><text x="905" y="744" text-anchor="middle" class="small">select_model_columns()</text>
+  <path d="M 687 765 L 912 765" class="arrow"/>
+
+  <rect x="780" y="785" width="170" height="28" class="msg"/><text x="865" y="804" text-anchor="middle" class="small">colunas do modelo</text>
+  <path d="M 912 825 L 687 825" class="arrow"/>
+
+  <rect x="1040" y="845" width="170" height="28" class="msg"/><text x="1125" y="864" text-anchor="middle" class="small">train_and_evaluate()</text>
+  <path d="M 687 885 L 1125 885" class="arrow"/>
+
+  <rect x="1015" y="905" width="210" height="28" class="msg"/><text x="1120" y="924" text-anchor="middle" class="small">metricas e predictions</text>
+  <path d="M 1125 945 L 687 945" class="arrow"/>
+
+  <rect x="1395" y="1015" width="185" height="28" class="msg"/><text x="1487" y="1034" text-anchor="middle" class="small">build_school_reports()</text>
+  <path d="M 687 1055 L 1487 1055" class="arrow"/>
+
+  <rect x="1210" y="965" width="215" height="28" class="msg"/><text x="1317" y="984" text-anchor="middle" class="small">save_artifacts() e write_report()</text>
+  <path d="M 687 1005 L 1317 1005" class="arrow"/>
+
+  <rect x="1215" y="1075" width="210" height="28" class="msg"/><text x="1320" y="1094" text-anchor="middle" class="small">ler artifacts/pipeline/*</text>
+  <path d="M 1487 1115 L 1317 1115" class="arrow"/>
+
+  <rect x="1210" y="1135" width="220" height="28" class="msg"/><text x="1320" y="1154" text-anchor="middle" class="small">gravar artifacts/reports/*</text>
+  <path d="M 1487 1175 L 1317 1175" class="arrow"/>
+
+  <rect x="1475" y="1210" width="135" height="28" class="msg"/><text x="1542" y="1229" text-anchor="middle" class="small">abrir dashboard</text>
+  <path d="M 105 1248 L 1621 1248" class="arrow"/>
+
+  <rect x="1440" y="1260" width="175" height="28" class="msg"/><text x="1527" y="1279" text-anchor="middle" class="small">ler artifacts/reports/*</text>
+  <path d="M 1621 1298 L 1317 1298" class="arrow"/>
 </svg>

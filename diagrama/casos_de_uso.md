@@ -11,7 +11,7 @@ flowchart LR
     Operador["Operador de dados"]
 
     UC1(("Preparar banco restaurado"))
-    UC2(("Extrair dados para CSV"))
+    UC2(("Extrair CSVs canônicos"))
     UC3(("Rodar pipeline preditiva"))
     UC4(("Comparar cenários de histórico"))
     UC5(("Gerar relatórios escolares"))
@@ -28,13 +28,10 @@ flowchart LR
     Professor --> UC6
     Professor --> UC7
     Coordenacao --> UC6
+    Coordenacao --> UC7
     Coordenacao --> UC8
     Secretaria --> UC6
     Secretaria --> UC9
-
-    UC2 --> UC3
-    UC3 --> UC5
-    UC5 --> UC6
 ```
 
 ## Leitura rápida
@@ -43,3 +40,4 @@ flowchart LR
 - o pesquisador ou desenvolvedor usa a CLI para rodar e avaliar a pipeline.
 - professor, coordenação e secretaria consomem o resultado final por relatórios e dashboard.
 - cada perfil usa a solução com uma finalidade diferente, mesmo partindo da mesma base analítica.
+- as relações internas entre pipeline, relatórios e dashboard foram mantidas no diagrama de sequência, para que este quadro de casos de uso fique mais legível.

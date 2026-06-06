@@ -5,10 +5,16 @@
   "version": "0.2.0",
   "configurations": [
       {
-          "name": "Python Debugger: main.py",
+          "name": "Python: workflow publico (sem banco)",
           "type": "debugpy",
           "request": "launch",
-          "program": "${workspaceFolder}/main.py",
+          "module": "school_predictor",
+          "args": [
+              "workflow",
+              "--project-root",
+              "${workspaceFolder}"
+          ],
+          "cwd": "${workspaceFolder}",
           "console": "integratedTerminal"
       }
   ]

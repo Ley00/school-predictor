@@ -1,101 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="980" viewBox="0 0 1480 980">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="860" viewBox="0 0 1280 860">
   <style>
-    .title { font: 700 28px Arial, sans-serif; fill: #ffffff; }
-    .section { font: 700 18px Arial, sans-serif; fill: #111827; }
-    .label { font: 600 15px Arial, sans-serif; fill: #111827; }
-    .small { font: 500 13px Arial, sans-serif; fill: #374151; }
+    .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+    .section { font: 700 18px Arial, sans-serif; fill: #0f172a; }
+    .label { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+    .small { font: 500 13px Arial, sans-serif; fill: #334155; }
     .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
-    .box { fill: #f8fafc; stroke: #1f2937; stroke-width: 2; rx: 14; }
+    .box { fill: #f8fafc; stroke-width: 2.2; rx: 14; }
     .blue { fill: #eff6ff; stroke: #2563eb; }
-    .green { fill: #ecfdf5; stroke: #059669; }
     .orange { fill: #fff7ed; stroke: #ea580c; }
     .purple { fill: #faf5ff; stroke: #7c3aed; }
-    .gray { fill: #f3f4f6; stroke: #4b5563; }
-    .arrow { stroke: #475569; stroke-width: 2.1; fill: none; marker-end: url(#arrow); }
+    .green { fill: #ecfdf5; stroke: #059669; }
+    .slate { fill: #f8fafc; stroke: #475569; }
+    .arrow { stroke: #475569; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
   </style>
+
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
     </marker>
   </defs>
-  <text x="740" y="38" text-anchor="middle" class="title">Arquitetura da Solução</text>
 
-  <rect x="40" y="70" width="280" height="180" class="panel"/>
-  <text x="65" y="102" class="section">Interfaces</text>
-  <rect x="70" y="130" width="220" height="52" class="box blue"/>
-  <text x="180" y="162" text-anchor="middle" class="label">main.py</text>
-  <rect x="70" y="190" width="220" height="52" class="box blue"/>
-  <text x="180" y="222" text-anchor="middle" class="label">school_predictor.cli</text>
+  <text x="640" y="42" text-anchor="middle" class="title">Arquitetura da Solucao</text>
 
-  <rect x="360" y="70" width="320" height="180" class="panel"/>
-  <text x="385" y="102" class="section">Camada de Aplicação</text>
-  <rect x="395" y="130" width="250" height="52" class="box green"/>
-  <text x="520" y="162" text-anchor="middle" class="label">application.py</text>
-  <rect x="395" y="190" width="250" height="52" class="box green"/>
-  <text x="520" y="222" text-anchor="middle" class="label">cleanup.py</text>
+  <rect x="40" y="90" width="250" height="210" class="panel"/>
+  <text x="75" y="122" class="section">Operacao e Interface</text>
+  <rect x="62" y="152" width="205" height="78" class="box blue"/>
+  <text x="165" y="182" text-anchor="middle" class="label">CLI e execucao</text>
+  <text x="165" y="205" text-anchor="middle" class="small">main.py e school_predictor.cli</text>
+  <rect x="62" y="240" width="205" height="42" class="box slate"/>
+  <text x="165" y="266" text-anchor="middle" class="small">workflow, extract, reports</text>
 
-  <rect x="720" y="70" width="340" height="260" class="panel"/>
-  <text x="745" y="102" class="section">Banco e Extração</text>
-  <rect x="760" y="130" width="260" height="52" class="box orange"/>
-  <text x="890" y="162" text-anchor="middle" class="label">database/access.py</text>
-  <rect x="760" y="190" width="260" height="52" class="box orange"/>
-  <text x="890" y="222" text-anchor="middle" class="label">database/maintenance.py</text>
-  <rect x="760" y="250" width="260" height="52" class="box orange"/>
-  <text x="890" y="282" text-anchor="middle" class="label">database/extraction.py</text>
-  <rect x="1030" y="160" width="210" height="52" class="box gray"/>
-  <text x="1135" y="192" text-anchor="middle" class="label">private_runtime.py</text>
-  <rect x="1030" y="225" width="210" height="52" class="box gray"/>
-  <text x="1135" y="257" text-anchor="middle" class="label">private_sql/</text>
+  <rect x="315" y="90" width="300" height="260" class="panel"/>
+  <text x="350" y="122" class="section">Camada privada local</text>
+  <rect x="358" y="155" width="214" height="78" class="box orange"/>
+  <text x="465" y="182" text-anchor="middle" class="label">Banco restaurado</text>
+  <text x="465" y="204" text-anchor="middle" class="small">prepare-db, access, maintenance</text>
+  <rect x="345" y="245" width="240" height="84" class="box orange"/>
+  <text x="465" y="275" text-anchor="middle" class="label">Extracao privada</text>
+  <text x="465" y="297" text-anchor="middle" class="small">extraction, private_runtime, private_sql</text>
 
-  <rect x="40" y="380" width="540" height="220" class="panel"/>
-  <text x="65" y="412" class="section">Pipeline Analítica</text>
-  <rect x="70" y="440" width="220" height="52" class="box purple"/>
-  <text x="180" y="472" text-anchor="middle" class="label">pipeline/orchestration.py</text>
-  <rect x="310" y="440" width="220" height="52" class="box purple"/>
-  <text x="420" y="472" text-anchor="middle" class="label">pipeline/data.py</text>
-  <rect x="70" y="510" width="220" height="52" class="box purple"/>
-  <text x="180" y="542" text-anchor="middle" class="label">pipeline/dataset.py</text>
-  <rect x="310" y="510" width="220" height="52" class="box purple"/>
-  <text x="420" y="542" text-anchor="middle" class="label">pipeline/modeling.py</text>
+  <rect x="650" y="90" width="580" height="470" class="panel"/>
+  <text x="675" y="122" class="section">Camada publica reproduzivel</text>
 
-  <rect x="620" y="380" width="300" height="220" class="panel"/>
-  <text x="645" y="412" class="section">Relatórios</text>
-  <rect x="655" y="440" width="230" height="52" class="box green"/>
-  <text x="770" y="472" text-anchor="middle" class="label">pipeline/reporting.py</text>
-  <rect x="655" y="510" width="230" height="52" class="box blue"/>
-  <text x="770" y="542" text-anchor="middle" class="label">app/dashboard.py</text>
+  <rect x="670" y="150" width="245" height="94" class="box purple"/>
+  <text x="792" y="184" text-anchor="middle" class="label">CSVs canonicos</text>
+  <text x="792" y="206" text-anchor="middle" class="small">artifacts/database/csv</text>
+  <text x="792" y="226" text-anchor="middle" class="small">notas, faltas, pagamentos, professor</text>
 
-  <rect x="960" y="380" width="480" height="220" class="panel"/>
-  <text x="985" y="412" class="section">Artefatos</text>
-  <rect x="995" y="440" width="180" height="60" class="box orange"/>
-  <text x="1085" y="472" text-anchor="middle" class="label">artifacts/database/csv</text>
-  <rect x="1185" y="440" width="180" height="60" class="box orange"/>
-  <text x="1275" y="472" text-anchor="middle" class="label">artifacts/pipeline</text>
-  <rect x="1090" y="525" width="180" height="60" class="box orange"/>
-  <text x="1180" y="557" text-anchor="middle" class="label">artifacts/reports</text>
+  <rect x="965" y="155" width="230" height="132" class="box purple"/>
+  <text x="1080" y="184" text-anchor="middle" class="label">Pipeline analitica</text>
+  <text x="1080" y="208" text-anchor="middle" class="small">data.py e dataset.py</text>
+  <text x="1080" y="230" text-anchor="middle" class="small">orchestration.py e modeling.py</text>
+  <text x="1080" y="252" text-anchor="middle" class="small">reporting.py</text>
+  <text x="1080" y="274" text-anchor="middle" class="small">previsao_nota e alerta_risco</text>
 
-  <rect x="420" y="680" width="640" height="180" class="panel"/>
-  <text x="445" y="712" class="section">Consumo Institucional</text>
-  <rect x="470" y="760" width="170" height="60" class="box"/>
-  <text x="555" y="795" text-anchor="middle" class="label">Professor</text>
-  <rect x="655" y="760" width="170" height="60" class="box"/>
-  <text x="740" y="795" text-anchor="middle" class="label">Coordenação</text>
-  <rect x="840" y="760" width="170" height="60" class="box"/>
-  <text x="925" y="795" text-anchor="middle" class="label">Secretaria</text>
+  <rect x="710" y="360" width="210" height="88" class="box green"/>
+  <text x="815" y="389" text-anchor="middle" class="label">Artefatos tecnicos</text>
+  <text x="815" y="411" text-anchor="middle" class="small">artifacts/pipeline</text>
+  <text x="815" y="431" text-anchor="middle" class="small">dataset, predictions, metricas</text>
 
-  <path d="M 290 216 L 395 216" class="arrow"/>
-  <path d="M 645 156 L 760 156" class="arrow"/>
-  <path d="M 645 216 L 760 216" class="arrow"/>
-  <path d="M 645 216 L 70 466" class="arrow"/>
-  <path d="M 1020 276 L 1030 276" class="arrow"/>
-  <path d="M 1020 216 L 1030 186" class="arrow"/>
-  <path d="M 890 302 L 1085 440" class="arrow"/>
-  <path d="M 530 466 L 655 466" class="arrow"/>
-  <path d="M 530 536 L 655 536" class="arrow"/>
-  <path d="M 530 536 L 1185 470" class="arrow"/>
-  <path d="M 885 466 L 1090 555" class="arrow"/>
-  <path d="M 885 536 L 1090 555" class="arrow"/>
-  <path d="M 1180 585 L 555 760" class="arrow"/>
-  <path d="M 1180 585 L 740 760" class="arrow"/>
-  <path d="M 1180 585 L 925 760" class="arrow"/>
+  <rect x="970" y="340" width="225" height="128" class="box green"/>
+  <text x="1082" y="369" text-anchor="middle" class="label">Relatorios finais</text>
+  <text x="1082" y="391" text-anchor="middle" class="small">artifacts/reports</text>
+  <text x="1082" y="413" text-anchor="middle" class="small">professor, coordenacao</text>
+  <text x="1082" y="435" text-anchor="middle" class="small">secretaria, ranking executivo</text>
+
+  <rect x="390" y="640" width="500" height="130" class="panel"/>
+  <text x="445" y="672" class="section">Uso institucional</text>
+  <rect x="425" y="700" width="430" height="52" class="box slate"/>
+  <text x="640" y="731" text-anchor="middle" class="label">Professor, coordenacao, secretaria e dashboard</text>
+
+  <path d="M 267 191 L 358 191" class="arrow"/>
+  <path d="M 465 233 L 465 245" class="arrow"/>
+  <path d="M 585 287 L 670 199" class="arrow"/>
+  <path d="M 267 212 C 440 212, 520 212, 965 212" class="arrow"/>
+  <path d="M 900 199 L 965 221" class="arrow"/>
+  <path d="M 1080 287 L 1080 340" class="arrow"/>
+  <path d="M 1040 287 L 840 360" class="arrow"/>
+  <path d="M 1082 468 L 720 700" class="arrow"/>
+  <path d="M 267 245 C 267 320, 330 360, 710 404" class="arrow"/>
 </svg>

@@ -1,99 +1,114 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980">
   <style>
-    .title { font: 700 28px Arial, sans-serif; fill: #ffffff; }
-    .actor { font: 600 15px Arial, sans-serif; fill: #111827; }
-    .actor-frame { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 14; opacity: 0.98; }
-    .label { font: 600 15px Arial, sans-serif; fill: #111827; }
-    .small { font: 500 13px Arial, sans-serif; fill: #374151; }
-    .system { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
-    .ellipse { fill: #f8fafc; stroke: #1f2937; stroke-width: 2; }
-    .line { stroke: #475569; stroke-width: 2; fill: none; }
+    .title { font: 700 30px Arial, sans-serif; fill: #111827; }
+    .subtitle { font: 600 17px Arial, sans-serif; fill: #111827; }
+    .actor { font: 600 16px Arial, sans-serif; fill: #111827; }
+    .label { font: 600 17px Arial, sans-serif; fill: #111827; }
+    .actor-frame { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 16; }
+    .system { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2.2; rx: 20; }
+    .ellipse { fill: #f8fafc; stroke: #1f2937; stroke-width: 2.2; }
+    .line { stroke: #475569; stroke-width: 2.2; fill: none; stroke-linecap: round; }
   </style>
-  <text x="700" y="38" text-anchor="middle" class="title">Casos de Uso</text>
 
-  <rect x="260" y="90" width="880" height="700" class="system"/>
-  <text x="700" y="125" text-anchor="middle" class="label">Sistema preditivo escolar</text>
+  <rect x="0" y="0" width="1600" height="980" fill="#ffffff"/>
 
-  <g transform="translate(70,180)">
-    <rect x="-22" y="-12" width="104" height="176" class="actor-frame"/>
-    <circle cx="30" cy="20" r="16" stroke="#111827" stroke-width="2" fill="none"/>
-    <line x1="30" y1="36" x2="30" y2="86" class="line"/>
-    <line x1="0" y1="52" x2="60" y2="52" class="line"/>
-    <line x1="30" y1="86" x2="5" y2="120" class="line"/>
-    <line x1="30" y1="86" x2="55" y2="120" class="line"/>
-    <text x="30" y="145" text-anchor="middle" class="actor">Operador de dados</text>
+  <text x="800" y="48" text-anchor="middle" class="title">Casos de Uso</text>
+
+  <rect x="260" y="90" width="1080" height="800" class="system"/>
+  <text x="800" y="130" text-anchor="middle" class="subtitle">Sistema preditivo escolar</text>
+
+  <g transform="translate(70,170)">
+    <rect x="-20" y="-16" width="150" height="210" class="actor-frame"/>
+    <circle cx="55" cy="28" r="18" stroke="#111827" stroke-width="2.2" fill="none"/>
+    <line x1="55" y1="46" x2="55" y2="104" class="line"/>
+    <line x1="18" y1="67" x2="92" y2="67" class="line"/>
+    <line x1="55" y1="104" x2="24" y2="144" class="line"/>
+    <line x1="55" y1="104" x2="86" y2="144" class="line"/>
+    <text x="55" y="168" text-anchor="middle" class="actor">Operador de</text>
+    <text x="55" y="190" text-anchor="middle" class="actor">dados</text>
   </g>
 
-  <g transform="translate(70,430)">
-    <rect x="-22" y="-12" width="104" height="176" class="actor-frame"/>
-    <circle cx="30" cy="20" r="16" stroke="#111827" stroke-width="2" fill="none"/>
-    <line x1="30" y1="36" x2="30" y2="86" class="line"/>
-    <line x1="0" y1="52" x2="60" y2="52" class="line"/>
-    <line x1="30" y1="86" x2="5" y2="120" class="line"/>
-    <line x1="30" y1="86" x2="55" y2="120" class="line"/>
-    <text x="30" y="145" text-anchor="middle" class="actor">Pesquisador</text>
+  <g transform="translate(70,500)">
+    <rect x="-20" y="-16" width="150" height="210" class="actor-frame"/>
+    <circle cx="55" cy="28" r="18" stroke="#111827" stroke-width="2.2" fill="none"/>
+    <line x1="55" y1="46" x2="55" y2="104" class="line"/>
+    <line x1="18" y1="67" x2="92" y2="67" class="line"/>
+    <line x1="55" y1="104" x2="24" y2="144" class="line"/>
+    <line x1="55" y1="104" x2="86" y2="144" class="line"/>
+    <text x="55" y="168" text-anchor="middle" class="actor">Pesquisador /</text>
+    <text x="55" y="190" text-anchor="middle" class="actor">desenvolvedor</text>
   </g>
 
-  <g transform="translate(1230,170)">
-    <rect x="-22" y="-12" width="104" height="176" class="actor-frame"/>
-    <circle cx="30" cy="20" r="16" stroke="#111827" stroke-width="2" fill="none"/>
-    <line x1="30" y1="36" x2="30" y2="86" class="line"/>
-    <line x1="0" y1="52" x2="60" y2="52" class="line"/>
-    <line x1="30" y1="86" x2="5" y2="120" class="line"/>
-    <line x1="30" y1="86" x2="55" y2="120" class="line"/>
-    <text x="30" y="145" text-anchor="middle" class="actor">Professor</text>
+  <g transform="translate(1410,170)">
+    <rect x="-20" y="-16" width="150" height="210" class="actor-frame"/>
+    <circle cx="55" cy="28" r="18" stroke="#111827" stroke-width="2.2" fill="none"/>
+    <line x1="55" y1="46" x2="55" y2="104" class="line"/>
+    <line x1="18" y1="67" x2="92" y2="67" class="line"/>
+    <line x1="55" y1="104" x2="24" y2="144" class="line"/>
+    <line x1="55" y1="104" x2="86" y2="144" class="line"/>
+    <text x="55" y="180" text-anchor="middle" class="actor">Professor</text>
   </g>
 
-  <g transform="translate(1230,390)">
-    <rect x="-22" y="-12" width="104" height="176" class="actor-frame"/>
-    <circle cx="30" cy="20" r="16" stroke="#111827" stroke-width="2" fill="none"/>
-    <line x1="30" y1="36" x2="30" y2="86" class="line"/>
-    <line x1="0" y1="52" x2="60" y2="52" class="line"/>
-    <line x1="30" y1="86" x2="5" y2="120" class="line"/>
-    <line x1="30" y1="86" x2="55" y2="120" class="line"/>
-    <text x="30" y="145" text-anchor="middle" class="actor">Coordenação</text>
+  <g transform="translate(1410,420)">
+    <rect x="-20" y="-16" width="150" height="210" class="actor-frame"/>
+    <circle cx="55" cy="28" r="18" stroke="#111827" stroke-width="2.2" fill="none"/>
+    <line x1="55" y1="46" x2="55" y2="104" class="line"/>
+    <line x1="18" y1="67" x2="92" y2="67" class="line"/>
+    <line x1="55" y1="104" x2="24" y2="144" class="line"/>
+    <line x1="55" y1="104" x2="86" y2="144" class="line"/>
+    <text x="55" y="180" text-anchor="middle" class="actor">Coordenacao</text>
   </g>
 
-  <g transform="translate(1230,610)">
-    <rect x="-22" y="-12" width="104" height="176" class="actor-frame"/>
-    <circle cx="30" cy="20" r="16" stroke="#111827" stroke-width="2" fill="none"/>
-    <line x1="30" y1="36" x2="30" y2="86" class="line"/>
-    <line x1="0" y1="52" x2="60" y2="52" class="line"/>
-    <line x1="30" y1="86" x2="5" y2="120" class="line"/>
-    <line x1="30" y1="86" x2="55" y2="120" class="line"/>
-    <text x="30" y="145" text-anchor="middle" class="actor">Secretaria</text>
+  <g transform="translate(1410,670)">
+    <rect x="-20" y="-16" width="150" height="210" class="actor-frame"/>
+    <circle cx="55" cy="28" r="18" stroke="#111827" stroke-width="2.2" fill="none"/>
+    <line x1="55" y1="46" x2="55" y2="104" class="line"/>
+    <line x1="18" y1="67" x2="92" y2="67" class="line"/>
+    <line x1="55" y1="104" x2="24" y2="144" class="line"/>
+    <line x1="55" y1="104" x2="86" y2="144" class="line"/>
+    <text x="55" y="180" text-anchor="middle" class="actor">Secretaria</text>
   </g>
 
-  <ellipse cx="470" cy="220" rx="150" ry="36" class="ellipse"/>
-  <text x="470" y="225" text-anchor="middle" class="label">Preparar banco restaurado</text>
+  <ellipse cx="460" cy="230" rx="160" ry="40" class="ellipse"/>
+  <text x="460" y="236" text-anchor="middle" class="label">Preparar banco restaurado</text>
 
-  <ellipse cx="470" cy="320" rx="150" ry="36" class="ellipse"/>
-  <text x="470" y="325" text-anchor="middle" class="label">Extrair dados para CSV</text>
+  <ellipse cx="460" cy="350" rx="160" ry="40" class="ellipse"/>
+  <text x="460" y="356" text-anchor="middle" class="label">Extrair CSVs canonicos</text>
 
-  <ellipse cx="700" cy="450" rx="150" ry="36" class="ellipse"/>
-  <text x="700" y="455" text-anchor="middle" class="label">Rodar pipeline preditiva</text>
+  <ellipse cx="790" cy="250" rx="160" ry="40" class="ellipse"/>
+  <text x="790" y="256" text-anchor="middle" class="label">Rodar pipeline preditiva</text>
 
-  <ellipse cx="700" cy="560" rx="170" ry="36" class="ellipse"/>
-  <text x="700" y="565" text-anchor="middle" class="label">Comparar cenários de histórico</text>
+  <ellipse cx="700" cy="430" rx="195" ry="40" class="ellipse"/>
+  <text x="700" y="436" text-anchor="middle" class="label">Comparar cenarios de historico</text>
 
-  <ellipse cx="930" cy="300" rx="170" ry="36" class="ellipse"/>
-  <text x="930" y="305" text-anchor="middle" class="label">Gerar relatórios escolares</text>
+  <ellipse cx="700" cy="610" rx="190" ry="40" class="ellipse"/>
+  <text x="700" y="616" text-anchor="middle" class="label">Gerar relatorios escolares</text>
 
-  <ellipse cx="930" cy="430" rx="150" ry="36" class="ellipse"/>
-  <text x="930" y="435" text-anchor="middle" class="label">Consultar dashboard</text>
+  <ellipse cx="1140" cy="230" rx="190" ry="40" class="ellipse"/>
+  <text x="1140" y="236" text-anchor="middle" class="label">Acompanhar alunos em risco</text>
 
-  <ellipse cx="930" cy="560" rx="150" ry="36" class="ellipse"/>
-  <text x="930" y="565" text-anchor="middle" class="label">Acompanhar alunos em risco</text>
+  <ellipse cx="1125" cy="430" rx="180" ry="40" class="ellipse"/>
+  <text x="1125" y="436" text-anchor="middle" class="label">Consultar dashboard</text>
 
-  <line x1="130" y1="232" x2="320" y2="220" class="line"/>
-  <line x1="130" y1="482" x2="550" y2="450" class="line"/>
-  <line x1="130" y1="482" x2="530" y2="560" class="line"/>
-  <line x1="130" y1="232" x2="320" y2="320" class="line"/>
-  <line x1="620" y1="220" x2="760" y2="300" class="line"/>
-  <line x1="620" y1="320" x2="550" y2="450" class="line"/>
-  <line x1="850" y1="450" x2="780" y2="430" class="line"/>
-  <line x1="1080" y1="300" x2="1230" y2="232" class="line"/>
-  <line x1="1080" y1="430" x2="1230" y2="452" class="line"/>
-  <line x1="1080" y1="560" x2="1230" y2="672" class="line"/>
-  <line x1="1080" y1="430" x2="1230" y2="672" class="line"/>
+  <ellipse cx="1125" cy="610" rx="190" ry="40" class="ellipse"/>
+  <text x="1125" y="616" text-anchor="middle" class="label">Priorizar acoes pedagogicas</text>
+
+  <ellipse cx="1140" cy="760" rx="230" ry="40" class="ellipse"/>
+  <text x="1140" y="766" text-anchor="middle" class="label">Acompanhar sinais administrativos</text>
+
+  <line x1="180" y1="250" x2="300" y2="230" class="line"/>
+  <line x1="180" y1="280" x2="300" y2="350" class="line"/>
+
+  <line x1="180" y1="585" x2="630" y2="250" class="line"/>
+  <line x1="180" y1="610" x2="505" y2="430" class="line"/>
+  <line x1="180" y1="635" x2="510" y2="610" class="line"/>
+
+  <line x1="1330" y1="230" x2="1390" y2="250" class="line"/>
+  <line x1="1305" y1="430" x2="1390" y2="270" class="line"/>
+
+  <line x1="1305" y1="430" x2="1390" y2="500" class="line"/>
+  <line x1="1315" y1="610" x2="1390" y2="520" class="line"/>
+
+  <line x1="1305" y1="430" x2="1390" y2="750" class="line"/>
+  <line x1="1370" y1="760" x2="1390" y2="770" class="line"/>
 </svg>

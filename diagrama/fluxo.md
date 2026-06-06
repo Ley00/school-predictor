@@ -16,18 +16,22 @@ flowchart TD
     F --> G["Gerar CSVs em artifacts/database/csv"]
     G --> Z
 
-    C -->|workflow| H["Rodar pipeline completa"]
-    H --> I["Carregar CSVs canônicos"]
-    I --> J["Construir dataset temporal"]
-    J --> K["Criar features históricas, faltas, financeiro e professor"]
-    K --> L["Executar modo previsao_nota"]
-    K --> M["Executar modo alerta_risco"]
-    L --> N["Treinar, validar e testar regressão"]
-    M --> O["Treinar, validar e testar classificação"]
-    N --> P["Salvar artifacts/pipeline/previsao_nota"]
-    O --> Q["Salvar artifacts/pipeline/alerta_risco"]
+    C -->|workflow| H["Rodar workflow completo"]
+    H --> I["Executar modo previsao_nota"]
+    H --> J["Executar modo alerta_risco"]
+    I --> K["Carregar CSVs e montar dataset temporal do modo"]
+    J --> L["Carregar CSVs e montar dataset temporal do modo"]
+    K --> M["Treinar, validar e testar regressão"]
+    L --> N["Treinar, validar e testar classificação"]
+    M --> P["Salvar artifacts/pipeline/previsao_nota"]
+    N --> Q["Salvar artifacts/pipeline/alerta_risco"]
     P --> R["Consolidar relatórios escolares"]
     Q --> R
+
+    C -->|pipeline| W["Rodar um modo isolado da pipeline"]
+    W --> X["Escolher previsao_nota ou alerta_risco"]
+    X --> Y["Carregar CSVs e montar dataset temporal do modo"]
+    Y --> AA["Treinar, validar, testar e salvar artifacts/pipeline"]
     R --> S["Gerar artifacts/reports"]
     S --> T["Dashboard e leitura operacional"]
     T --> Z
@@ -43,6 +47,7 @@ flowchart TD
 
 - `prepare-db` atua na base restaurada e é opcional, usado quando o banco é renovado.
 - `extract` transforma o banco tratado em CSVs canônicos.
-- `workflow` é o fluxo principal do TCC: lê CSVs, modela, avalia e gera relatórios.
-- `previsao_nota` e `alerta_risco` nascem a partir do mesmo dataset, mas com objetivos e cortes de histórico diferentes.
+- `workflow` é o fluxo principal do TCC: roda os dois modos técnicos, salva os artefatos de cada um e consolida os relatórios finais.
+- `pipeline` executa apenas um modo isolado, útil para depuração e análises específicas.
+- `previsao_nota` e `alerta_risco` partem dos mesmos CSVs canônicos, mas cada modo reconstrói seu próprio dataset temporal com corte de histórico diferente.
 - o dashboard consome apenas os relatórios finais, não treina modelos.

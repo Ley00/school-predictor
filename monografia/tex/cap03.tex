@@ -4,12 +4,12 @@
 \section{Natureza da pesquisa}
 \label{sec:natureza}
 
-Esta pesquisa \'e aplicada, predominantemente quantitativa e com forte componente tecnol\'ogico-experimental. \'E aplicada porque busca resolver um problema concreto de acompanhamento escolar. \'E quantitativa porque trabalha com dados hist\'oricos estruturados, m\'etricas preditivas e valida\c{c}\~ao temporal. Tamb\'em possui componente tecnol\'ogico porque envolve a constru\c{c}\~ao efetiva de software, rotinas de extra\c{c}\~ao, pipeline de modelagem e relat\'orios operacionais.
+Esta pesquisa \'e aplicada, predominantemente quantitativa e com forte componente tecnol\'ogico-experimental. \'E aplicada porque busca responder a um problema concreto de acompanhamento escolar. \'E quantitativa porque trabalha com dados hist\'oricos estruturados, m\'etricas preditivas e valida\c{c}\~ao temporal. Tamb\'em possui componente tecnol\'ogico porque n\~ao se limita \`a an\'alise conceitual: envolve a constru\c{c}\~ao efetiva de software, rotinas de extra\c{c}\~ao, pipeline de modelagem e relat\'orios operacionais.
 
 \section{Fonte de dados e preparo inicial}
 \label{sec:fonte-dados}
 
-Os dados utilizados s\~ao provenientes de uma base escolar real contendo registros de alunos, notas, faltas, pagamentos e informa\c{c}\~oes acad\^emicas e administrativas. A base institucional foi renovada com registros de 2026 e passou por um processo de manuten\c{c}\~ao para uso acad\^emico. Esse fluxo incluiu renomea\c{c}\~ao da base, redu\c{c}\~ao estrutural, reorganiza\c{c}\~ao de \'indices, atualiza\c{c}\~ao de estat\'isticas e anonimiza\c{c}\~ao dos registros sens\'iveis. Como a avalia\c{c}\~ao temporal depende de conhecer a pr\'oxima nota observada, os experimentos finais utilizaram 2025 como ano de teste consolidado; dados de 2026 permanecem relevantes para continuidade operacional, mas nem sempre possuem alvo futuro completo para avalia\c{c}\~ao experimental.
+Os dados utilizados s\~ao provenientes de uma base escolar real contendo registros de alunos, notas, faltas, pagamentos e informa\c{c}\~oes acad\^emicas e administrativas. A base institucional foi renovada com registros de 2026 e passou por um processo de manuten\c{c}\~ao para uso acad\^emico. Esse fluxo incluiu renomea\c{c}\~ao da base, redu\c{c}\~ao estrutural, reorganiza\c{c}\~ao de \'indices, atualiza\c{c}\~ao de estat\'isticas e anonimiza\c{c}\~ao dos registros sens\'iveis. Como a avalia\c{c}\~ao temporal depende de conhecer a pr\'oxima nota observada, os experimentos finais utilizaram 2025 como ano de teste consolidado; dados de 2026 permanecem relevantes para continuidade operacional, mas nem sempre possuem alvo futuro completo para avalia\c{c}\~ao experimental. Essa decis\~ao ilustra um ponto importante do trabalho: nem todo dado dispon\'ivel no banco pode ser usado da mesma forma em uma avalia\c{c}\~ao preditiva honesta.
 
 Os arquivos principais extra\'idos para a pipeline foram:
 
@@ -27,28 +27,28 @@ A descri\c{c}\~ao consolidada do contrato dessas entradas, da execu\c{c}\~ao exp
 \section{Estrat\'egia metodol\'ogica}
 \label{sec:estrategia}
 
-O trabalho foi conduzido de forma incremental. Em vez de partir diretamente para uma solu\c{c}\~ao final, o projeto foi sendo refinado em ciclos de explora\c{c}\~ao, teste, diagn\'ostico de limita\c{c}\~oes e refatora\c{c}\~ao. Esse percurso n\~ao foi um desvio do objetivo do TCC; ao contr\'ario, ele mostrou quais escolhas se sustentavam diante do problema real.
+O trabalho foi conduzido de forma incremental. Em vez de partir diretamente para uma solu\c{c}\~ao final, o projeto foi sendo refinado em ciclos de explora\c{c}\~ao, teste, diagn\'ostico de limita\c{c}\~oes e refatora\c{c}\~ao. Esse percurso n\~ao foi um desvio do objetivo do TCC; ao contr\'ario, foi justamente o processo que permitiu identificar quais escolhas se sustentavam diante do problema real e quais pareciam boas apenas em um plano inicial mais abstrato.
 
-Para organizar a apresenta\c{c}\~ao desse percurso, tamb\'em foi adotada uma leitura inspirada no ciclo \sigla{CRISP-DM}{Cross-Industry Standard Process for Data Mining} \cite{wirth2000}. Assim, o projeto pode ser compreendido em seis movimentos: entendimento do problema escolar, entendimento dos dados, prepara\c{c}\~ao da base, modelagem, avalia\c{c}\~ao e disponibiliza\c{c}\~ao dos resultados em relat\'orios e painel. Essa estrutura foi usada como material demonstrativo nos notebooks do reposit\'orio, sem substituir a arquitetura de produ\c{c}\~ao da aplica\c{c}\~ao.
+Para organizar a apresenta\c{c}\~ao desse percurso, tamb\'em foi adotada uma leitura inspirada no ciclo \sigla{CRISP-DM}{Cross-Industry Standard Process for Data Mining} \cite{wirth2000}. Assim, o projeto pode ser compreendido em seis movimentos: entendimento do problema escolar, entendimento dos dados, prepara\c{c}\~ao da base, modelagem, avalia\c{c}\~ao e disponibiliza\c{c}\~ao dos resultados em relat\'orios e painel. Essa estrutura foi usada como material demonstrativo nos notebooks do reposit\'orio, sem substituir a arquitetura de produ\c{c}\~ao da aplica\c{c}\~ao. Em outras palavras, o CRISP-DM foi adotado aqui mais como lente de organiza\c{c}\~ao do percurso do que como descri\c{c}\~ao literal da implementa\c{c}\~ao final.
 
 \section{Evolu\c{c}\~ao hist\'orica do projeto}
 \label{sec:evolucao}
 
 \subsection{Fase inicial orientada a grafo}
 
-O projeto come\c{c}ou com uma hip\'otese baseada em grafos heterog\^eneos, motivada pela natureza relacional do dom\'inio escolar. Nessa etapa, foram produzidos m\'odulos para leitura de entidades, constru\c{c}\~ao de rela\c{c}\~oes e consultas em estruturas relacionais. A ideia era representar alunos, matr\'iculas, disciplinas, respons\'aveis, faltas e pagamentos como n\'os e arestas.
+O projeto come\c{c}ou com uma hip\'otese baseada em grafos heterog\^eneos, motivada pela natureza relacional do dom\'inio escolar. Nessa etapa, foram produzidos m\'odulos para leitura de entidades, constru\c{c}\~ao de rela\c{c}\~oes e consultas em estruturas relacionais. A ideia era representar alunos, matr\'iculas, disciplinas, respons\'aveis, faltas e pagamentos como n\'os e arestas. Essa fase foi importante porque ajudou a explicitar a riqueza relacional do dom\'inio, mesmo que depois ela n\~ao tenha permanecido como base da solu\c{c}\~ao final.
 
 \subsection{Fase explorat\'oria com testes cl\'assicos e PCA}
 
-Na sequ\^encia, o projeto incorporou an\'alises estat\'isticas e testes com classificadores tradicionais, al\'em de redu\c{c}\~ao explorat\'oria de dimensionalidade com \sigla{PCA}{Principal Component Analysis}. Essa fase foi importante para entender a distribui\c{c}\~ao dos atributos e perceber que o problema exigia mais do que uma base est\'atica pivotada.
+Na sequ\^encia, o projeto incorporou an\'alises estat\'isticas e testes com classificadores tradicionais, al\'em de redu\c{c}\~ao explorat\'oria de dimensionalidade com \sigla{PCA}{Principal Component Analysis}. Essa fase foi importante para entender a distribui\c{c}\~ao dos atributos e perceber que o problema exigia mais do que uma base est\'atica pivotada. Tamb\'em foi nesse momento que ficou mais claro que o desempenho do aluno n\~ao poderia ser tratado de forma satisfat\'oria sem considerar a ordem temporal das observa\c{c}\~oes.
 
 \subsection{Fase temporal com LSTM}
 
-Como o problema possui natureza temporal, foi investigada tamb\'em uma abordagem sequencial com \sigla{LSTM}{Long Short-Term Memory}. Apesar de conceitualmente promissora, essa alternativa n\~ao se consolidou, sobretudo por depender de sequ\^encias mais homog\^eneas e longas do que as observadas na base.
+Como o problema possui natureza temporal, foi investigada tamb\'em uma abordagem sequencial com \sigla{LSTM}{Long Short-Term Memory}. Apesar de conceitualmente promissora, essa alternativa n\~ao se consolidou, sobretudo por depender de sequ\^encias mais homog\^eneas e longas do que as observadas na base. Na pr\'atica, a irregularidade dos hist\'oricos e a variedade de trajet\'orias entre alunos reduziram a ader\^encia dessa solu\c{c}\~ao ao escopo institucional do trabalho.
 
 \subsection{Fase tabular com Random Forest}
 
-Posteriormente, o projeto migrou para um desenho mais pragm\'atico com \textit{Random Forest}. Essa fase representou um avan\c{c}o importante por aproximar a solu\c{c}\~ao de um problema tabular supervisionado. Ainda assim, permaneceram limita\c{c}\~oes relacionadas ao pivotamento excessivo, perda de temporalidade e uso incompleto de dados como faltas e pagamentos.
+Posteriormente, o projeto migrou para um desenho mais pragm\'atico com \textit{Random Forest}. Essa fase representou um avan\c{c}o importante por aproximar a solu\c{c}\~ao de um problema tabular supervisionado. Ainda assim, permaneceram limita\c{c}\~oes relacionadas ao pivotamento excessivo, perda de temporalidade e uso incompleto de dados como faltas e pagamentos. Foi uma etapa decisiva porque mostrou que o projeto estava mais pr\'oximo de uma formula\c{c}\~ao tabular temporal do que de uma representa\c{c}\~ao fixa centrada apenas em atributos agregados.
 
 \subsection{Refatora\c{c}\~ao para pipeline real}
 
@@ -62,9 +62,9 @@ O amadurecimento do trabalho levou primeiro \`a consolida\c{c}\~ao de uma pipeli
     \item a camada de visualiza\c{c}\~ao em dashboard.
 \end{itemize}
 
-Na vers\~ao final do reposit\'orio, a aplica\c{c}\~ao p\'ublica foi organizada em torno de \texttt{school\_predictor/}, enquanto as consultas SQL reais e as rotinas detalhadas de opera\c{c}\~ao com o banco passaram a ficar em uma camada local privada, fora do Git. Essa decis\~ao tornou a solu\c{c}\~ao mais adequada \`a publica\c{c}\~ao acad\^emica, sem expor o desenho interno do banco institucional.
+Na vers\~ao final do reposit\'orio, a aplica\c{c}\~ao p\'ublica foi organizada em torno de \texttt{school\_predictor/}, enquanto as consultas SQL reais e as rotinas detalhadas de opera\c{c}\~ao com o banco passaram a ficar em uma camada local privada, fora do Git. Essa decis\~ao tornou a solu\c{c}\~ao mais adequada \`a publica\c{c}\~ao acad\^emica, sem expor o desenho interno do banco institucional. Mais do que uma escolha de organiza\c{c}\~ao de c\'odigo, isso foi parte do esfor\c{c}o para tornar o trabalho reproduz\'ivel sem comprometer dados ou estruturas sens\'iveis.
 
 \section{Crit\'erios de avalia\c{c}\~ao}
 \label{sec:criterios}
 
-Os crit\'erios de avalia\c{c}\~ao foram definidos em duas camadas. A primeira camada \'e estat\'istica e envolve \textit{MAE}, \textit{RMSE}, \textit{precision}, \textit{recall} e \textit{F1}. A segunda camada \'e institucional e pergunta se a solu\c{c}\~ao consegue priorizar casos urgentes, gerar relat\'orios compreens\'iveis e apoiar diferentes atores escolares. Essa combina\c{c}\~ao foi necess\'aria porque um modelo matematicamente competente nem sempre \'e automaticamente \'util para a escola.
+Os crit\'erios de avalia\c{c}\~ao foram definidos em duas camadas. A primeira camada \'e estat\'istica e envolve \textit{MAE}, \textit{RMSE}, \textit{precision}, \textit{recall} e \textit{F1}. A segunda camada \'e institucional e pergunta se a solu\c{c}\~ao consegue priorizar casos urgentes, gerar relat\'orios compreens\'iveis e apoiar diferentes atores escolares. Essa combina\c{c}\~ao foi necess\'aria porque um modelo matematicamente competente nem sempre \'e automaticamente \'util para a escola. Em um projeto como este, desempenho preditivo e utilidade operacional precisaram ser lidos em conjunto desde o in\'icio.

@@ -21,6 +21,9 @@ school_predictor/database/private_runtime.py
 artifacts/
 
 # Artefatos auxiliares do LaTeX
+monografia/build/
+monografia/rendered/
+monografia/rendered-check/
 monografia/*.aux
 monografia/*.bbl
 monografia/*.blg
