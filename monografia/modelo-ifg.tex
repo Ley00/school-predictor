@@ -1,4 +1,6 @@
-\immediate\write18{makeindex -s nomencl.ist -o "\jobname.nls" "\jobname.nlo"}
+\IfFileExists{build/\jobname.nlo}{%
+  \immediate\write18{makeindex -s nomencl.ist -o "build/\jobname.nls" "build/\jobname.nlo"}%
+}{}
 
 \documentclass[tcc]{formatacao/classe-ifg}
 
@@ -15,6 +17,12 @@
 \hyphenation{mo-no-gra-fi-a pro-ces-so pre-di-ti-vo}
 
 \begin{document}
+
+% Estas substituicoes ja aconteciam automaticamente; foram declaradas
+% explicitamente apenas para evitar avisos de formas de fonte ausentes
+% sem alterar o resultado visual final.
+\DeclareFontShape{OT1}{ptm}{bx}{n}{<->ssub * ptm/b/n}{}
+\DeclareFontShape{T1}{lmr}{bx}{sc}{<->ssub * lmr/bx/n}{}
 
 % Metadados do trabalho
 \autor{Warley Rodrigues de Andrade}
@@ -36,6 +44,8 @@
 \disciplina{}
 
 % Elementos pre-textuais
+\begingroup
+\hbadness=10000
 \capa
 \IfFileExists{termo.pdf}{\termo}{}
 \rosto
@@ -49,6 +59,7 @@
 %\cepigrafe
 \cresumo
 \cabstract
+\endgroup
 
 % Indices
 \tabelas[]

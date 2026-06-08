@@ -3,11 +3,15 @@
 
 \section{Modelos candidatos e crit\'erios de sele\c{c}\~ao}
 \label{sec:candidatos}
+\label{sec:objetivo-experimentos}
+\label{sec:organizacao-experimental}
+\label{sec:baselines-utilizados}
+\label{sec:metricas-regressao}
+\label{sec:metricas-classificacao}
 
 A etapa de modelagem comparou candidatos de regress\~ao, candidatos de classifica\c{c}\~ao e baselines determin\'isticos. Essa organiza\c{c}\~ao foi importante porque o objetivo n\~ao era apenas treinar um algoritmo sofisticado, mas verificar se ele realmente acrescentava valor em rela\c{c}\~ao a regras simples baseadas no pr\'oprio hist\'orico de notas. Em um problema escolar, essa compara\c{c}\~ao \'e especialmente relevante: se uma heur\'istica simples entrega resultado pr\'oximo ao de um modelo mais custoso, o ganho pr\'atico da solu\c{c}\~ao precisa ser analisado com cuidado.
 
 Os candidatos avaliados foram:
-
 \begin{itemize}
     \item \textit{RandomForestRegressor} e \textit{RandomForestClassifier};
     \item \textit{HistGradientBoostingRegressor} e \textit{HistGradientBoostingClassifier};
@@ -17,12 +21,12 @@ Os candidatos avaliados foram:
     \item baseline h\'ibrido.
 \end{itemize}
 
-Para regress\~ao, o crit\'erio principal de sele\c{c}\~ao foi o \sigla{MAE}{Mean Absolute Error}. Para classifica\c{c}\~ao de risco, o crit\'erio principal foi o \sigla{F1}{F1-score}, acompanhado de \textit{precision} e \textit{recall}. O MAE foi escolhido porque expressa o erro diretamente em pontos de nota, o que facilita a interpreta\c{c}\~ao pedag\'ogica. O F1 foi usado porque equilibra a capacidade de encontrar casos cr\'iticos com a precis\~ao dos alertas emitidos.
+Para regress\~ao, o crit\'erio principal de sele\c{c}\~ao foi o Mean Absolute Error (MAE). Para classifica\c{c}\~ao de risco, o crit\'erio principal foi o F1-score (F1), acompanhado de \textit{precision} e \textit{recall}. O MAE foi escolhido porque expressa o erro diretamente em pontos de nota, o que facilita a interpreta\c{c}\~ao pedag\'ogica. O F1 foi usado porque equilibra a capacidade de encontrar casos cr\'iticos com a precis\~ao dos alertas emitidos.
 
 \section{Compara\c{c}\~ao dos candidatos na valida\c{c}\~ao}
 \label{sec:comparacao-candidatos}
 
-A Tabela~\ref{tab:validacao-regressao} mostra a compara\c{c}\~ao dos principais candidatos de regress\~ao na etapa de valida\c{c}\~ao. No modo de previs\~ao de nota, o \textit{Random Forest} foi ligeiramente superior ao \textit{HistGradientBoosting} em MAE, por isso foi selecionado como regressor principal desse modo. No modo de alerta de risco, por outro lado, o \textit{HistGradientBoosting} foi o melhor regressor dentro do recorte com hist\'orico m\'inimo maior. Mais do que apontar um vencedor absoluto, essa compara\c{c}\~ao indica que o comportamento dos candidatos muda conforme o recorte operacional da base.
+A Tabela~\ref{tab:validacao-regressao} mostra a compara\c{c}\~ao dos principais candidatos de regress\~ao na etapa de valida\c{c}\~ao. No modo de previs\~ao de nota, o Random Forest foi ligeiramente superior ao HistGradientBoosting em MAE, por isso foi selecionado como regressor principal desse modo. No modo de alerta de risco, por outro lado, o HistGradientBoosting foi o melhor regressor dentro do recorte com hist\'orico m\'inimo maior. Mais do que apontar um vencedor absoluto, essa compara\c{c}\~ao indica que o comportamento dos candidatos muda conforme o recorte operacional da base.
 
 \begin{table}[ht]
 \caption{Compara\c{c}\~ao dos candidatos de regress\~ao na valida\c{c}\~ao.}
@@ -44,7 +48,7 @@ Alerta -- baseline de duas notas & 0,9196 & 1,2746 & 0,4248 \\
 \fontetab{Elaborada pelo autor com base nos artefatos da pipeline.}
 \end{table}
 
-A Tabela~\ref{tab:validacao-classificacao} apresenta a compara\c{c}\~ao dos candidatos de classifica\c{c}\~ao para risco. O resultado mostra duas evid\^encias importantes. Primeiro, baselines simples ainda s\~ao competitivos e precisam ser considerados. Segundo, no modo especificamente calibrado para alerta de risco, o \textit{HistGradientBoostingClassifier} superou os demais candidatos em F1. Isso refor\c{c}a que a classifica\c{c}\~ao n\~ao pode ser tratada apenas como derivada autom\'atica da regress\~ao; ela possui comportamento pr\'oprio e exige calibra\c{c}\~ao espec\'ifica.
+A Tabela~\ref{tab:validacao-classificacao} apresenta a compara\c{c}\~ao dos candidatos de classifica\c{c}\~ao para risco. O resultado mostra duas evid\^encias importantes. Primeiro, baselines simples ainda s\~ao competitivos e precisam ser considerados. Segundo, no modo especificamente calibrado para alerta de risco, o HistGradientBoostingClassifier superou os demais candidatos em F1. Isso refor\c{c}a que a classifica\c{c}\~ao n\~ao pode ser tratada apenas como derivada autom\'atica da regress\~ao; ela possui comportamento pr\'oprio e exige calibra\c{c}\~ao espec\'ifica.
 
 \begin{table}[ht]
 \caption{Compara\c{c}\~ao dos candidatos de classifica\c{c}\~ao na valida\c{c}\~ao.}
@@ -94,7 +98,9 @@ RMSE do baseline de \'ultima nota & 1,2967 \\
 \section{Resultados do modo de alerta de risco}
 \label{sec:alerta-risco}
 
-No modo \texttt{alerta\_risco}, o melhor cen\'ario foi obtido com hist\'orico m\'inimo igual a 2. Nessa configura\c{c}\~ao, a base de modelagem alcan\c{c}ou 50.065 linhas, 1.179 alunos \'unicos e 53 disciplinas. O melhor classificador foi o \textit{HistGradientBoostingClassifier}, com os resultados apresentados na Tabela~\ref{tab:riscos}. Em compara\c{c}\~ao com o modo de previs\~ao de nota, a base fica menor, mas o sinal hist\'orico torna-se mais consistente para uma tarefa de alerta.
+No modo \texttt{alerta\_risco}, o melhor cen\'ario foi obtido com hist\'orico m\'inimo igual a 2. Nessa configura\c{c}\~ao, a base de modelagem alcan\c{c}ou 50.065 linhas, 1.179 alunos \'unicos e 53 disciplinas. O melhor classificador foi o HistGradientBoostingClassifier, com os resultados apresentados na Tabela~\ref{tab:riscos}. Em compara\c{c}\~ao com o modo de previs\~ao de nota, a base fica menor, mas o sinal hist\'orico torna-se mais consistente para uma tarefa de alerta.
+
+O destaque est\'a no \textit{recall}. Em um sistema de alerta, perder casos realmente cr\'iticos tende a ser mais grave do que sinalizar alguns casos adicionais para acompanhamento. Por isso, esse resultado foi considerado adequado ao objetivo pedag\'ogico do trabalho: priorizar alunos que merecem revis\~ao humana, n\~ao produzir uma decis\~ao autom\'atica. A leitura mais importante aqui n\~ao \'e apenas que o modelo ``acerta'', mas que ele recupera boa parte dos casos que a escola provavelmente gostaria de revisar primeiro.
 
 \begin{table}[ht]
 \caption{Resultados finais do modo de alerta de risco no teste temporal.}
@@ -112,8 +118,6 @@ F1 do baseline & 0,7243 \\
 \end{tabular}
 \fontetab{Elaborada pelo autor com base nos artefatos da pipeline.}
 \end{table}
-
-O destaque est\'a no \textit{recall}. Em um sistema de alerta, perder casos realmente cr\'iticos tende a ser mais grave do que sinalizar alguns casos adicionais para acompanhamento. Por isso, esse resultado foi considerado adequado ao objetivo pedag\'ogico do trabalho: priorizar alunos que merecem revis\~ao humana, n\~ao produzir uma decis\~ao autom\'atica. A leitura mais importante aqui n\~ao \'e apenas que o modelo ``acerta'', mas que ele recupera boa parte dos casos que a escola provavelmente gostaria de revisar primeiro.
 
 A Tabela~\ref{tab:matriz-risco} resume a matriz de confus\~ao do modo de alerta de risco no teste temporal. Dos 2.794 casos que realmente tiveram pr\'oxima nota abaixo de 6,0, o modelo recuperou 2.457. Por outro lado, tamb\'em sinalizou 1.357 casos que n\~ao se confirmaram como risco no alvo observado. Esse comportamento \'e coerente com uma ferramenta de triagem, pois privilegia cobertura dos casos cr\'iticos.
 
@@ -136,7 +140,6 @@ Com risco & 337 & 2.457 \\
 \label{sec:minhistory}
 
 Os testes de hist\'orico m\'inimo mostraram um resultado relevante para a arquitetura do projeto:
-
 \begin{itemize}
     \item \texttt{min\_history = 1} foi melhor para regress\~ao da pr\'oxima nota, pois preservou mais alunos e disciplinas na base;
     \item \texttt{min\_history = 2} foi melhor para classifica\c{c}\~ao de risco, pois exigiu maior evid\^encia hist\'orica antes de sinalizar alerta;
@@ -181,7 +184,6 @@ Se o sistema usasse apenas a regra ``nota prevista menor que 6'', esse caso n\~a
 \label{sec:relatorios}
 
 Os resultados preditivos n\~ao foram o ponto final da solu\c{c}\~ao. A partir deles, a camada final de relat\'orios passou a organizar sa\'idas para tr\^es perfis institucionais:
-
 \begin{itemize}
     \item professor: com nota atual, nota prevista, fatores de alerta e recomenda\c{c}\~ao pedag\'ogica;
     \item coordena\c{c}\~ao: com vis\~ao por s\'erie, disciplina, ranking executivo e consolidados por professor;
@@ -192,8 +194,22 @@ Tamb\'em foram constru\'idos consolidados por professor, com e sem recorte por t
 
 \section{An\'alise de erro e calibra\c{c}\~ao}
 \label{sec:erro}
+\label{sec:importancia-atributos-temporais}
+\label{sec:discussao-uso-pedagogico}
+\label{sec:limitacoes-experimentos}
+\label{sec:consideracoes-finais-resultados}
 
 A an\'alise de erro mostrou maior dificuldade de previs\~ao em disciplinas como Matem\'atica 3, Matem\'atica 4 e 5, Biologia 2, Hist\'oria 2 e Qu\'imica 3. Tamb\'em houve maior erro nas faixas de nota abaixo de 7, especialmente porque esses casos s\~ao mais inst\'aveis e pedagogicamente mais sens\'iveis. Essa leitura \'e importante porque os pontos de maior erro coincidem justamente com zonas em que a escola tende a demandar mais aten\c{c}\~ao.
+
+Na camada operacional, a primeira regra de risco gerava excesso de casos classificados como alto risco. Por isso, foi criada uma pontua\c{c}\~ao composta que passou a combinar:
+\begin{itemize}
+    \item predi\c{c}\~ao de risco do modelo;
+    \item nota prevista;
+    \item nota atual;
+    \item varia\c{c}\~ao esperada;
+    \item faltas acumuladas;
+    \item pend\^encias financeiras.
+\end{itemize}
 
 \begin{table}[ht]
 \caption{Principais pontos de erro no modo de alerta de risco.}
@@ -213,16 +229,5 @@ Faixa de 6 a 6,99 & 1.405 & 0,9718 & 0,5103 \\
 \end{tabular}
 \fontetab{Elaborada pelo autor com base nos artefatos da pipeline.}
 \end{table}
-
-Na camada operacional, a primeira regra de risco gerava excesso de casos classificados como alto risco. Por isso, foi criada uma pontua\c{c}\~ao composta que passou a combinar:
-
-\begin{itemize}
-    \item predi\c{c}\~ao de risco do modelo;
-    \item nota prevista;
-    \item nota atual;
-    \item varia\c{c}\~ao esperada;
-    \item faltas acumuladas;
-    \item pend\^encias financeiras.
-\end{itemize}
 
 Com essa calibra\c{c}\~ao, a prioriza\c{c}\~ao ficou mais compat\'ivel com o uso institucional, reduzindo sobrecarga sobre coordena\c{c}\~ao e professores. Assim, a sa\'ida final do sistema n\~ao deve ser lida como senten\c{c}a sobre o aluno, mas como convite estruturado \`a investiga\c{c}\~ao pedag\'ogica. Esse fechamento sintetiza a posi\c{c}\~ao adotada ao longo de todo o trabalho: a modelagem s\'o faz sentido quando seus resultados podem ser interpretados, filtrados e usados com prud\^encia.

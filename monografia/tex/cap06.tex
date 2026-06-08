@@ -1,20 +1,25 @@
 \chapter{Discuss\~ao, Limita\c{c}\~oes e Conclus\~ao}
 \label{cap:conclusao}
 
+Este cap\'itulo retoma os principais resultados do trabalho, explicita suas limita\c{c}\~oes, sintetiza a contribui\c{c}\~ao alcan\c{c}ada e apresenta possibilidades de continuidade. O objetivo \'e fechar a narrativa do TCC de forma coerente com a evolu\c{c}\~ao do projeto e com o uso institucional pretendido para a solu\c{c}\~ao.
+
 \section{Discuss\~ao dos resultados}
 \label{sec:discussao}
+\label{sec:retomada-problema}
+\label{sec:atendimento-objetivos}
+\label{sec:principais-contribuicoes}
+\label{sec:aspectos-eticos-uso-responsavel}
 
-Os resultados mostram que a solu\c{c}\~ao final apresenta ader\^encia melhor ao problema do que as hip\'oteses iniciais do projeto. Embora grafos e \textit{LSTM} tenham sido importantes na fase explorat\'oria, a experi\^encia emp\'irica indicou que o problema central estava melhor representado por uma base tabular temporal com atributos derivados e valida\c{c}\~ao cronol\'ogica. Essa conclus\~ao \'e relevante porque n\~ao foi assumida de antem\~ao: ela surgiu do confronto entre diferentes caminhos metodol\'ogicos e os limites concretos da base escolar analisada.
+Os resultados mostram que a solu\c{c}\~ao final apresentou ader\^encia melhor ao problema do que as hip\'oteses iniciais do projeto. Embora grafos e LSTM tenham sido importantes na fase explorat\'oria, a experi\^encia emp\'irica indicou que o problema central estava melhor representado por uma base tabular temporal com atributos derivados e valida\c{c}\~ao cronol\'ogica. Essa conclus\~ao \'e relevante porque n\~ao foi assumida de antem\~ao: ela surgiu do confronto entre diferentes caminhos metodol\'ogicos e os limites concretos da base escolar analisada.
 
 Outro ponto importante \'e o valor dos baselines. Em diferentes momentos do trabalho, regras simples baseadas na \'ultima nota ou em m\'edias m\'oveis competiram de forma relevante com modelos mais sofisticados. Isso refor\c{c}a que complexidade algor\'itmica n\~ao deve ser tomada como sin\^onimo autom\'atico de superioridade. No contexto deste TCC, esse cuidado ajudou a manter a an\'alise mais honesta e mais pr\'oxima do uso real da solu\c{c}\~ao.
 
-Do ponto de vista institucional, o maior avan\c{c}o do projeto n\~ao est\'a apenas nas m\'etricas, mas na passagem da predi\c{c}\~ao para a a\c{c}\~ao. O valor do sistema aparece quando a nota prevista, o alerta de risco e os sinais complementares s\~ao convertidos em relat\'orios intelig\'iveis para professor, coordena\c{c}\~ao e secretaria. Na pr\'atica, esses alertas devem orientar investiga\c{c}\~ao pedag\'ogica, prioriza\c{c}\~ao de contato, planejamento de refor\c{c}o e acompanhamento da evolu\c{c}\~ao do aluno. Em outras palavras, a contribui\c{c}\~ao do trabalho se sustenta mais quando a modelagem \`e lida como apoio \`a decis\~ao do que como mecanismo aut\^onomo de julgamento.
+Do ponto de vista institucional, o maior avan\c{c}o do projeto n\~ao est\'a apenas nas m\'etricas, mas na passagem da predi\c{c}\~ao para a a\c{c}\~ao. O valor do sistema aparece quando a nota prevista, o alerta de risco e os sinais complementares s\~ao convertidos em relat\'orios intelig\'iveis para professor, coordena\c{c}\~ao e secretaria. Na pr\'atica, esses alertas devem orientar investiga\c{c}\~ao pedag\'ogica, prioriza\c{c}\~ao de contato, planejamento de refor\c{c}o e acompanhamento da evolu\c{c}\~ao do aluno. Em outras palavras, a contribui\c{c}\~ao do trabalho se sustenta mais quando a modelagem \'e lida como apoio \`a decis\~ao do que como mecanismo aut\^onomo de julgamento.
 
 \section{Limita\c{c}\~oes do trabalho}
 \label{sec:limitacoes}
 
 As principais limita\c{c}\~oes identificadas foram:
-
 \begin{enumerate}
     \item o v\'inculo de professor ainda n\~ao cobre integralmente todo o hist\'orico analisado;
     \item o ranking executivo ainda concentra muitos casos nas faixas mais altas de prioridade;
@@ -29,7 +34,6 @@ Tamb\'em existem amea\c{c}as \`a validade interna, externa e de constru\c{c}\~ao
 \label{sec:conclusao-final}
 
 Este Trabalho de Conclus\~ao de Curso apresentou o desenvolvimento de um sistema preditivo para apoio \`a decis\~ao pedag\'ogica com base em dados escolares reais. O projeto evoluiu de uma hip\'otese inicial orientada a grafos para uma pipeline temporal tabular reproduz\'ivel, capaz de:
-
 \begin{itemize}
     \item prever a pr\'oxima nota do aluno com desempenho superior a baselines simples;
     \item identificar risco de nota futura abaixo de 6 com \textit{recall} elevado;
@@ -37,7 +41,7 @@ Este Trabalho de Conclus\~ao de Curso apresentou o desenvolvimento de um sistema
     \item transformar resultados t\'ecnicos em relat\'orios operacionais para diferentes atores da escola.
 \end{itemize}
 
-Em termos quantitativos, o modo de previs\~ao num\'erica atingiu \textit{MAE} de 0,7659, enquanto o modo de alerta de risco alcan\c{c}ou \textit{F1} de 0,7436 e \textit{recall} de 0,8794 no teste temporal. Em termos pr\'aticos, esses resultados indicam que a solu\c{c}\~ao j\'a pode servir como mecanismo de triagem e prioriza\c{c}\~ao institucional, desde que usada com supervis\~ao humana e interpreta\c{c}\~ao contextualizada. O ponto central n\~ao \'e afirmar que a escola passa a ``saber o futuro'' do aluno, mas que passa a dispor de um instrumento adicional para agir com mais anteced\^encia.
+Em termos quantitativos, o modo de previs\~ao num\'erica atingiu MAE de 0,7659, enquanto o modo de alerta de risco alcan\c{c}ou F1 de 0,7436 e \textit{recall} de 0,8794 no teste temporal. Em termos pr\'aticos, esses resultados indicam que a solu\c{c}\~ao j\'a pode servir como mecanismo de triagem e prioriza\c{c}\~ao institucional, desde que usada com supervis\~ao humana e interpreta\c{c}\~ao contextualizada. O ponto central n\~ao \'e afirmar que a escola passa a ``saber o futuro'' do aluno, mas que passa a dispor de um instrumento adicional para agir com mais anteced\^encia.
 
 Assim, a principal contribui\c{c}\~ao do trabalho n\~ao est\'a apenas em acertar melhor uma nota futura, mas em mostrar que \'e poss\'ivel construir uma arquitetura anal\'itica coerente com o cotidiano da escola, eticamente defens\'avel e operacionalmente \'util. Nesse sentido, o TCC procura contribuir menos com uma promessa de solu\c{c}\~ao definitiva e mais com uma forma consistente de integrar dados, modelagem e uso institucional em educa\c{c}\~ao.
 
@@ -45,7 +49,6 @@ Assim, a principal contribui\c{c}\~ao do trabalho n\~ao est\'a apenas em acertar
 \label{sec:futuro}
 
 Como continuidade natural do projeto, destacam-se os seguintes desdobramentos:
-
 \begin{enumerate}
     \item ampliar a cobertura do v\'inculo com professores;
     \item recalibrar os limiares do ranking executivo;

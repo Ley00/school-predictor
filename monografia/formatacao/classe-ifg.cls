@@ -294,7 +294,7 @@
 \DeclareOption{online}{
  \setboolean{virtual}{true}}
 
-\DeclareOption{american,english,french,german,brazil,portuguese}{
+\DeclareOption{american,english,french,german,brazil,brazilian,portuguese}{
  \PassOptionsToPackage{\CurrentOption}{babel,fancyref}}
 
 \ProcessOptions\relax
@@ -358,7 +358,7 @@
 
 % Hyphenation
 %% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-\RequirePackage[english,portuguese,brazil]{babel} 		% Termos pré-definidos em Português
+\RequirePackage[english,portuguese,brazilian]{babel} 		% Termos pré-definidos em Português
 \RequirePackage{inputenc} 
 \RequirePackage{ae}
 \RequirePackage{lmodern}
@@ -440,7 +440,7 @@
 %% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 \RequirePackage[table]{xcolor}
 \RequirePackage{tikz}
-\usetikzlibrary{arrows,shapes,snakes,automata,backgrounds,petri,matrix,shadows.blur,shapes.symbols,shadows,positioning,decorations.pathreplacing,fadings,fit,calc,shadows}
+\usetikzlibrary{arrows,shapes,automata,backgrounds,petri,matrix,shadows.blur,shapes.symbols,shadows,positioning,decorations.pathreplacing,fadings,fit,calc,shadows}
 \RequirePackage{tikzscale}
 \newcommand{\inputTikZ}[2]{%  
      \scalebox{#1}{\input{#2}}  
@@ -958,6 +958,7 @@
 
 % %% ToDo e revisão
 % %% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\setlength{\marginparwidth}{2cm}
 \RequirePackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcommand{\resolvido}[1]{\todo[linecolor=green,backgroundcolor=green!25,bordercolor=green]{#1}{}}
 

@@ -3,9 +3,10 @@
 
 O contexto escolar produz diariamente um volume expressivo de dados acad\^emicos, administrativos e operacionais. Notas, faltas, registros financeiros, turmas, s\'eries e hist\'oricos disciplinares s\~ao continuamente armazenados pelos sistemas institucionais, mas nem sempre se convertem em informa\c{c}\~ao \'util para a tomada de decis\~ao pedag\'ogica. Na pr\'atica, a escola registra muito, mas ainda explora pouco esse conjunto de dados para antecipar dificuldades de aprendizagem e organizar interven\c{c}\~oes mais precoces. Este trabalho parte dessa lacuna.
 
-Na rotina escolar, boa parte das interven\c{c}\~oes ainda acontece de forma reativa. Em geral, professores, coordena\c{c}\~ao e secretaria percebem o problema quando o aluno j\'a apresenta queda acentuada de desempenho, aus\^encias recorrentes ou risco concreto de reprova\c{c}\~ao. Nesse momento, a margem de a\c{c}\~ao \'e menor e o custo institucional tende a ser maior. Diante disso, este \sigla{TCC}{Trabalho de Conclus\~ao de Curso} investiga se os dados hist\'oricos j\'a dispon\'iveis na escola podem ser utilizados para antecipar sinais de risco acad\^emico com anteced\^encia suficiente para apoiar interven\c{c}\~oes reais.
+Na rotina escolar, boa parte das interven\c{c}\~oes ainda acontece de forma reativa. Em geral, professores, coordena\c{c}\~ao e secretaria percebem o problema quando o aluno j\'a apresenta queda acentuada de desempenho, aus\^encias recorrentes ou risco concreto de reprova\c{c}\~ao. Nesse momento, a margem de a\c{c}\~ao \'e menor e o custo institucional tende a ser maior. Diante disso, este \sigla{TCC}{Trabalho de Conclus\~ao de Curso} investiga se os dados hist\'oricos j\'a dispon\'iveis na escola podem ser utilizados para antecipar sinais de risco pedag\'ogico com anteced\^encia suficiente para apoiar interven\c{c}\~oes reais.
 
 O problema central deste trabalho pode ser sintetizado da seguinte forma: como integrar dados escolares hist\'oricos de notas, faltas, pagamentos e registros acad\^emicos em uma pipeline preditiva capaz de antecipar a pr\'oxima nota do aluno e sinalizar risco pedag\'ogico, produzindo relat\'orios \'uteis para a tomada de decis\~ao institucional? A partir dessa formula\c{c}\~ao, o trabalho foi conduzido pela hip\'otese de que uma arquitetura anal\'itica temporal, sustentada por dados tabulares e valida\c{c}\~ao cronol\'ogica, seria mais aderente ao problema real do que abordagens puramente relacionais ou experimentos isolados. Essa hip\'otese n\~ao foi apenas assumida de in\'icio: ela foi sendo confirmada ao longo da evolu\c{c}\~ao do projeto, especialmente quando a solu\c{c}\~ao deixou de priorizar grafos e passou a concentrar esfor\c{c}os em modelagem supervisionada sobre dados longitudinais.
+
 
 \section{Objetivos}
 \label{sec:objetivos}
@@ -18,7 +19,7 @@ Como objetivos espec\'ificos, o trabalho busca:
     \item investigar a viabilidade de diferentes abordagens computacionais para o dom\'inio escolar;
     \item estruturar um fluxo de manuten\c{c}\~ao, anonimiza\c{c}\~ao e extra\c{c}\~ao da base institucional;
     \item integrar dados de notas, faltas, pagamentos e contexto acad\^emico em uma base longitudinal;
-    \item construir atributos temporais capazes de representar a trajet\'oria recente do aluno;
+    \item construir atributos temporais que representem a trajet\'oria recente do aluno;
     \item comparar modelos e baselines com valida\c{c}\~ao temporal;
     \item transformar as sa\'idas t\'ecnicas em relat\'orios compreens\'iveis para a escola.
 \end{enumerate}
@@ -26,7 +27,7 @@ Como objetivos espec\'ificos, o trabalho busca:
 \section{Justificativa}
 \label{sec:justificativa}
 
-O trabalho se justifica em tr\^es planos complementares. No plano acad\^emico, dialoga com as \'areas de \sigla{EDM}{Educational Data Mining} e \sigla{LA}{Learning Analytics}, mostrando como um problema institucional real pode ser tratado por meio de integra\c{c}\~ao de dados, modelagem e gera\c{c}\~ao de artefatos operacionais \cite{romero2010, baker2014, siemens2012}. No plano tecnol\'ogico, a contribui\c{c}\~ao est\'a em sair de experimentos pontuais e consolidar uma pipeline reprodut\'ivel, com separa\c{c}\~ao entre prepara\c{c}\~ao local dos dados, modelagem e sa\'idas de uso institucional. No plano social e educacional, a relev\^ancia est\'a na possibilidade de apoiar interven\c{c}\~oes mais precoces, antes que o aluno atinja um quadro de maior gravidade.
+O trabalho se justifica em tr\^es planos complementares. No plano acad\^emico, dialoga com as \'areas de \sigla{EDM}{Educational Data Mining} e \sigla{LA}{Learning Analytics}, mostrando como um problema institucional real pode ser tratado por meio de integra\c{c}\~ao de dados, modelagem e gera\c{c}\~ao de artefatos operacionais. No plano tecnol\'ogico, a contribui\c{c}\~ao est\'a em sair de experimentos pontuais e consolidar uma pipeline reprodut\'ivel, com separa\c{c}\~ao entre prepara\c{c}\~ao local dos dados, modelagem e sa\'idas de uso institucional. No plano social e educacional, a relev\^ancia est\'a na possibilidade de apoiar interven\c{c}\~oes mais precoces, antes que o aluno atinja um quadro de maior gravidade.
 
 Tamb\'em existe justificativa \'etica. Em educa\c{c}\~ao, sistemas preditivos n\~ao devem substituir o julgamento pedag\'ogico humano, mas sim apoiar a prioriza\c{c}\~ao e a leitura do contexto. Por isso, o sistema proposto foi concebido como ferramenta de apoio \`a decis\~ao e n\~ao como mecanismo autom\'atico de julgamento. Em outras palavras, o objetivo n\~ao \'e rotular o aluno de forma definitiva, mas oferecer sinais adicionais para que a escola consiga agir antes.
 
