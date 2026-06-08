@@ -19,6 +19,7 @@ school_predictor/database/private_runtime.py
 
 # Dados e artefatos sensiveis gerados localmente
 artifacts/
+docs/
 
 # Artefatos auxiliares do LaTeX
 monografia/build/
