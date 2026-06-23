@@ -218,3 +218,117 @@ Na forma final do projeto, a base ativa do software ficou organizada nos seguint
 \end{itemize}
 
 Com isso, a arquitetura final passou a separar claramente o que precisa ficar privado por envolver estrutura institucional do banco e o que pode ser publicado para fins acad\^emicos, reprodutibilidade e apresenta\c{c}\~ao do TCC. Esse arranjo resume bem a dire\c{c}\~ao adotada pelo projeto: preservar o contexto real da escola sem comprometer a possibilidade de explicar, auditar e continuar a solu\c{c}\~ao.
+
+\section{S\'intese t\'ecnica da replica\c{c}\~ao da solu\c{c}\~ao}
+\label{sec:sintese-replicacao-tecnica}
+
+Do ponto de vista metodol\'ogico, a reprodu\c{c}\~ao desta solu\c{c}\~ao foi organizada com base numa interface p\'ublica de dados de entrada, formada pelos ficheiros can\^onicos conservados em \path{artifacts/database/csv/}. Esta escolha possibilita distinguir a fase institucional de extra\c{c}\~ao, que requer uma base de dados restaurada e procedimentos privados locais, da fase acad\^emica de reprodu\c{c}\~ao, que pode ser executada a partir de ficheiros tabulares j\'a consolidados e definidos semanticamente. Em termos pr\'aticos, a extra\c{c}\~ao institucional continua associada \`a camada privada, enquanto a reprodu\c{c}\~ao acad\^emica passa a ter in\'icio, de forma adequada, a partir do contrato destes CSVs.
+
+Na estrutura divulgada, os locais mais imediatos para acessar esses dados encontram-se na configura\c{c}\~ao do fluxo de trabalho e na importa\c{c}\~ao das tabelas fundamentais. Na pr\'atica, o arquivo \texttt{school\_predictor/pipeline/config.py} estabelece os endere\c{c}os previstos para \texttt{media\_nota\_aluno.csv}, \texttt{faltas\_aluno.csv}, \texttt{pagamento\_aluno.csv} e \texttt{professor\_disciplina.csv}. Posteriormente, o arquivo \texttt{school\_predictor/pipeline/data.py} efetua a leitura padronizada dessas fontes e arranja sua organiza\c{c}\~ao preliminar para fins anal\'iticos. A carga resultante \'e ent\~ao incorporada ao fluxo principal atrav\'es de \texttt{school\_predictor/pipeline/orchestration.py}. Em contrapartida, \texttt{school\_predictor/database/private\_runtime.py} se limita \`a \'area restrita, incumbindo-se da prepara\c{c}\~ao da base recuperada e da extra\c{c}\~ao precedente ao processamento geral.
+
+Do ponto de vista da replicabilidade acad\^emica, o experimento pode ser refeito caso os arquivos essenciais estejam acess\'iveis com a precis\~ao necess\'aria. Na ess\^encia da an\'alise da solu\c{c}\~ao, quatro conjuntos de dados s\~ao fundamentais: \texttt{media\_nota\_aluno.csv}, que detalha as notas dos estudantes por mat\'eria, semestre e fase; \texttt{faltas\_aluno.csv}, que enriquece o percurso educacional com os dados de frequ\^encia; \texttt{pagamento\_aluno.csv}, que inclui informa\c{c}\~oes financeiras; e \texttt{professor\_disciplina.csv}, que oferece detalhes sobre os professores quando essa rela\c{c}\~ao \'e conhecida. Os arquivos \texttt{aluno.csv} e \texttt{responsaveis\_aluno.csv}, ainda que n\~ao sejam utilizados em todas as fases da constru\c{c}\~ao do modelo, mant\^em a base de dados p\'ublicos e refor\c{c}am a organiza\c{c}\~ao geral da solu\c{c}\~ao.
+
+Com o intuito de simplificar este acordo, as Tabelas~\ref{tab:csv-aluno-exemplo} a~\ref{tab:csv-professor-exemplo} fornecem ilustra\c{c}\~oes sint\'eticas, eficazes e pseud\^onimas de entradas dos reposit\'orios padronizados. Essas representa\c{c}\~oes n\~ao suplantam o detalhamento integral das colunas nem a documenta\c{c}\~ao t\'ecnica elaborada para o empreendimento. Sua fun\c{c}\~ao \'e demonstrar, visualmente, o esqueleto primordial de uma entrada antes do processamento anal\'itico e facultar a confirma\c{c}\~ao da exist\^encia dos dados indispens\'aveis \`a reprodu\c{c}\~ao. Adicionalmente, elas auxiliam na clarifica\c{c}\~ao de como cada entrada conjuga tr\^es aspectos constantes da inclus\~ao: o ambiente educacional, a rela\c{c}\~ao do estudante e os detalhes particulares do acontecimento registrado.
+
+\begin{table}[ht]
+\caption{\texttt{aluno.csv}.}
+\label{tab:csv-aluno-exemplo}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{0.92\textwidth}{|>{\hsize=0.95\hsize\centering\arraybackslash}X|>{\hsize=1.00\hsize\centering\arraybackslash}X|>{\hsize=1.05\hsize\centering\arraybackslash}X|>{\hsize=0.95\hsize\centering\arraybackslash}X|>{\hsize=0.85\hsize\centering\arraybackslash}X|>{\hsize=1.20\hsize\centering\arraybackslash}X|}
+\hline
+\makecell{\textbf{IDUnidade}} & \makecell{\textbf{Nome}\\\textbf{Periodo}} & \makecell{\textbf{Nome}\\\textbf{Curso}} & \makecell{\textbf{Nome}\\\textbf{Serie}} & \makecell{\textbf{IDAluno}} & \makecell{\textbf{Nome}\\\textbf{Aluno}} \\
+\hline
+U1 & 2025 & Ensino M\'edio & 1\textordfeminine~S\'erie & A1001 & Aluno Exemplo \\
+\hline
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\begin{table}[ht]
+\caption{\texttt{media\_nota\_aluno.csv}.}
+\label{tab:csv-media-exemplo}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|>{\centering\arraybackslash}m{1.55cm}|>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{1.70cm}|>{\centering\arraybackslash}m{1.75cm}|>{\centering\arraybackslash}m{1.75cm}|>{\centering\arraybackslash}m{1.55cm}|>{\centering\arraybackslash}m{1.75cm}|}
+\hline
+\makecell{\textbf{IDAluno}} & \makecell{\textbf{Nome}\\\textbf{Disciplina}} & \makecell{\textbf{Nome}\\\textbf{Etapa}} & \makecell{\textbf{Valor}\\\textbf{Media}} & \makecell{\textbf{Nome}\\\textbf{Serie}} & \makecell{\textbf{IDTurma}} & \makecell{\textbf{Nome}\\\textbf{Periodo}} \\
+\hline
+A1001 & Matem\'atica & 1o BIMESTRE & 7.5 & 1\textordfeminine~S\'erie & T1 & 2025 \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\begin{table}[ht]
+\caption{\texttt{faltas\_aluno.csv}.}
+\label{tab:csv-faltas-exemplo}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|>{\centering\arraybackslash}m{1.55cm}|>{\centering\arraybackslash}m{2.20cm}|>{\centering\arraybackslash}m{1.70cm}|>{\centering\arraybackslash}m{1.90cm}|>{\centering\arraybackslash}m{1.70cm}|>{\centering\arraybackslash}m{1.55cm}|>{\centering\arraybackslash}m{1.70cm}|}
+\hline
+\makecell{\textbf{IDAluno}} & \makecell{\textbf{Nome}\\\textbf{Disciplina}} & \makecell{\textbf{Nome}\\\textbf{Etapa}} & \makecell{\textbf{DataFalta}} & \makecell{\textbf{Nome}\\\textbf{Serie}} & \makecell{\textbf{IDTurma}} & \makecell{\textbf{Nome}\\\textbf{Periodo}} \\
+\hline
+A1001 & Matem\'atica & 1o BIMESTRE & 2025-03-12 & 1\textordfeminine~S\'erie & T1 & 2025 \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\begin{table}[ht]
+\caption{\texttt{pagamento\_aluno.csv}.}
+\label{tab:csv-pagamento-exemplo}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|>{\centering\arraybackslash}m{1.40cm}|>{\centering\arraybackslash}m{1.95cm}|>{\centering\arraybackslash}m{2.35cm}|>{\centering\arraybackslash}m{1.60cm}|>{\centering\arraybackslash}m{1.45cm}|>{\centering\arraybackslash}m{2.25cm}|>{\centering\arraybackslash}m{1.45cm}|}
+\hline
+\makecell{\textbf{IDAluno}} & \makecell{\textbf{Descricao}\\\textbf{Movimento}} & \makecell{\textbf{DataVencimento}\\\textbf{Movimento}} & \makecell{\textbf{Valor}\\\textbf{Movimento}} & \makecell{\textbf{Pago}\\\textbf{Movimento}} & \makecell{\textbf{EhMensalidade}\\\textbf{Movimento}} & \makecell{\textbf{Nome}\\\textbf{Periodo}} \\
+\hline
+A1001 & Mensalidade Mar\c{c}o & 2025-03-05 & 850.0 & True & True & 2025 \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\normalsize
+\end{table}
+
+\begin{table}[ht]
+\caption{\texttt{responsaveis\_aluno.csv}.}
+\label{tab:csv-responsaveis-exemplo}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|>{\centering\arraybackslash}m{1.65cm}|>{\centering\arraybackslash}m{2.15cm}|>{\centering\arraybackslash}m{2.30cm}|>{\centering\arraybackslash}m{2.75cm}|>{\centering\arraybackslash}m{1.95cm}|}
+\hline
+\makecell{\textbf{IDAluno}} & \makecell{\textbf{Nome}\\\textbf{Aluno}} & \makecell{\textbf{IDResponsavel}} & \makecell{\textbf{Nome}\\\textbf{Responsavel}} & \makecell{\textbf{Tipo}\\\textbf{Responsavel}} \\
+\hline
+A1001 & Aluno Exemplo & R9001 & Respons\'avel Exemplo & M\~ae \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\begin{table}[ht]
+\caption{\texttt{professor\_disciplina.csv}.}
+\label{tab:csv-professor-exemplo}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|>{\centering\arraybackslash}m{1.60cm}|>{\centering\arraybackslash}m{1.90cm}|>{\centering\arraybackslash}m{2.35cm}|>{\centering\arraybackslash}m{2.20cm}|>{\centering\arraybackslash}m{2.45cm}|>{\centering\arraybackslash}m{1.70cm}|}
+\hline
+\makecell{\textbf{IDTurma}} & \makecell{\textbf{Nome}\\\textbf{Serie}} & \makecell{\textbf{Nome}\\\textbf{Disciplina}} & \makecell{\textbf{IDFuncionario}} & \makecell{\textbf{Nome}\\\textbf{Funcionario}} & \makecell{\textbf{Nome}\\\textbf{Periodo}} \\
+\hline
+T1 & 1\textordfeminine~S\'erie & Matem\'atica & F2001 & Professor Exemplo & 2025 \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{table}
+
+\FloatBarrier
+
+As tabelas exibem compila\c{c}\~oes visuais sucintas de entradas e ajudam a validar a exist\^encia e a estrutura das informa\c{c}\~oes coletadas. O detalhamento completo das colunas est\'a especificado no corpo do texto e na documenta\c{c}\~ao t\'ecnica associada ao projeto. Essa diferencia\c{c}\~ao \'e crucial, visto que o processo de pipeline n\~ao se limita \`a leitura de dados individualizados; ele processa conjuntos de registros que exigem consist\^encia entre os per\'iodos, s\'eries, turmas, disciplinas e alunos.
+
+Em termos pr\'aticos, o desenvolvimento oficial da solu\c{c}\~ao se inicia com estes documentos, elabora o conjunto de dados temporais para modelagem, aplica os m\'etodos de an\'alise da etapa e salva suas conclus\~oes em \path{artifacts/pipeline/}. Em seguida, a se\c{c}\~ao de relat\'orios junta as sa\'idas finais em \path{artifacts/reports/}. Desta forma, o trabalho apresenta um registro tecnicamente verific\'avel e academicamente replic\'avel da solu\c{c}\~ao, sem revelar os detalhes institucionais confidenciais utilizados na organiza\c{c}\~ao e obten\c{c}\~ao dos dados iniciais.
