@@ -48,13 +48,26 @@ Assim, a principal contribui\c{c}\~ao do trabalho n\~ao est\'a apenas em acertar
 \section{Trabalhos futuros}
 \label{sec:futuro}
 
-Como continuidade natural do projeto, destacam-se os seguintes desdobramentos:
+Como continuidade natural do projeto, o principal desdobramento previsto \'e consolidar o sistema como uma plataforma de relat\'orios operacionais para col\'egios e faculdades. A proposta \'e evoluir os artefatos demonstrados neste TCC para um fluxo recorrente de acompanhamento, no qual a modelagem alimente relat\'orios voltados a decis\~oes pedag\'ogicas e administrativas.
+
+Nesse cen\'ario, coordenadores, professores e secretaria passariam a consultar relat\'orios espec\'ificos para identificar alunos com maior risco de queda, disciplinas com concentra\c{c}\~ao de alertas, turmas que exigem interven\c{c}\~ao coletiva e casos que demandam contato administrativo. O objetivo \'e antecipar medidas de apoio antes que o problema se consolide como reprova\c{c}\~ao bimestral, trimestral, semestral ou anual.
+
+Para isso, os relat\'orios atuais devem evoluir de sa\'idas anal\'iticas do TCC para um mecanismo institucional mais est\'avel, com ciclos de atualiza\c{c}\~ao definidos, filtros por unidade, curso, turma e disciplina, e trilhas de acompanhamento que permitam verificar se o caso melhorou ap\'os a interven\c{c}\~ao. Em faculdades, a mesma arquitetura pode ser adaptada a componentes curriculares semestrais, disciplinas com alta reprova\c{c}\~ao hist\'orica, sinais de evas\~ao e combina\c{c}\~oes entre desempenho acad\^emico e informa\c{c}\~oes administrativas.
+
+Outra amplia\c{c}\~ao relevante ser\'a obter dados acad\^emicos mais detalhados sobre tarefas e atividades realizadas pelos alunos. Al\'em das notas formais, faltas e pagamentos, futuras vers\~oes podem incorporar informa\c{c}\~oes sobre tarefas propostas, tarefas realizadas, entregas no prazo, entregas atrasadas, atividades n\~ao entregues e notas ou conceitos atribu\'idos a essas atividades. O cruzamento desses sinais com as m\'edias escolares e com o hist\'orico de desempenho pode revelar ind\'icios mais precoces de queda, dificuldade de organiza\c{c}\~ao, desengajamento ou lacunas de aprendizagem, fortalecendo a capacidade do sistema de antecipar risco acad\^emico antes da reprova\c{c}\~ao.
+
+Tamb\'em ser\'a necess\'ario aprofundar a escolha do algoritmo mais adequado quando o sistema for testado em diferentes col\'egios e faculdades. Embora este trabalho tenha consolidado uma pipeline tabular reproduz\'ivel, a decis\~ao final entre modelos como \textit{Random Forest} e \textit{HistGradientBoosting} deve considerar o comportamento observado em bases institucionais distintas, com diferentes volumes de dados, padr\~oes de avalia\c{c}\~ao, distribui\c{c}\~ao de faltas, organiza\c{c}\~ao de turmas e hist\'oricos de reprova\c{c}\~ao. Essa compara\c{c}\~ao deve manter o mesmo cuidado adotado neste TCC: valida\c{c}\~ao temporal, compara\c{c}\~ao com baselines simples e an\'alise do custo pedag\'ogico dos erros.
+
+Por fim, a evolu\c{c}\~ao para uso operacional exigir\'a ajustes no sistema RP da institui\c{c}\~ao, especialmente na defini\c{c}\~ao de regras, telas e notifica\c{c}\~oes que transformem o risco previsto em a\c{c}\~ao concreta. Um exemplo previsto \'e a cria\c{c}\~ao de alertas no aplicativo m\'ovel do professor, permitindo que ele seja avisado quando um aluno apresentar risco acad\^emico relevante e possa consultar os principais sinais associados ao alerta. Esse recurso deve ser implementado com cuidado para evitar excesso de notifica\c{c}\~oes, preservar a interpreta\c{c}\~ao pedag\'ogica e manter a decis\~ao final sob responsabilidade humana.
+
+Al\'em disso, permanecem relevantes os seguintes desdobramentos t\'ecnicos:
 \begin{enumerate}
-    \item ampliar a cobertura do v\'inculo com professores;
-    \item recalibrar os limiares do ranking executivo;
-    \item incorporar t\'ecnicas adicionais de explicabilidade;
-    \item avaliar o impacto real dos relat\'orios na rotina escolar;
-    \item testar novos modelos tabulares, como CatBoost e LightGBM;
-    \item investigar vari\'aveis qualitativas e socioemocionais;
-    \item validar a solu\c{c}\~ao em outras escolas ou redes.
+    \item ampliar a cobertura do v\'inculo com professores e reduzir casos sem identifica\c{c}\~ao docente;
+    \item recalibrar os limiares do ranking executivo e da pontua\c{c}\~ao composta para diminuir sobrecarga operacional;
+    \item incorporar t\'ecnicas adicionais de explicabilidade para justificar melhor cada alerta;
+    \item medir o impacto real dos relat\'orios nas decis\~oes de coordenadores, professores e secretaria;
+    \item comparar \textit{Random Forest} e \textit{HistGradientBoosting} em bases de diferentes institui\c{c}\~oes para definir qual modelo se ajusta melhor ao uso pretendido;
+    \item incorporar dados de tarefas, entregas, atrasos, n\~ao entregas e notas de atividades, cruzando esses sinais com as m\'edias escolares e com o hist\'orico de desempenho do aluno;
+    \item integrar os alertas ao sistema RP e ao aplicativo m\'ovel do professor, com regras de notifica\c{c}\~ao, consulta dos motivos do alerta e controle de sobrecarga operacional;
+    \item validar a solu\c{c}\~ao em outras escolas, cursos superiores ou redes educacionais.
 \end{enumerate}

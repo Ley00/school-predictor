@@ -11,6 +11,7 @@ from school_predictor.application import (
 from school_predictor.cleanup import AVAILABLE_TARGETS, DEFAULT_TARGETS, clean_workspace
 from school_predictor.pipeline.history import write_history_comparison
 from school_predictor.pipeline.reporting import build_school_reports
+from school_predictor.pipeline.stability import compare_pipeline_runs
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -46,6 +47,12 @@ def _build_parser() -> argparse.ArgumentParser:
     history_parser.add_argument("--project-root", default=".")
     history_parser.add_argument("--mode", choices=("previsao_nota", "alerta_risco"), default="previsao_nota")
     history_parser.add_argument("--history-values", nargs="+", type=int, default=[1, 2, 3])
+
+    runs_parser = subparsers.add_parser("compare-runs", help="Compara estabilidade entre múltiplas rodadas da pipeline.")
+    runs_parser.add_argument("--project-root", default=".")
+    runs_parser.add_argument("--mode", choices=("previsao_nota", "alerta_risco"), required=True)
+    runs_parser.add_argument("--runs", type=int, default=5)
+    runs_parser.add_argument("--min-history", type=int)
 
     clean_parser = subparsers.add_parser("clean", help="Remove artefatos locais de build e cache.")
     clean_parser.add_argument("--project-root", default=".")
@@ -95,6 +102,14 @@ def main(argv: list[str] | None = None):
             project_root=Path(args.project_root),
             history_values=tuple(args.history_values),
             mode=args.mode,
+        )
+
+    if args.command == "compare-runs":
+        return compare_pipeline_runs(
+            project_root=Path(args.project_root),
+            mode=args.mode,
+            runs=args.runs,
+            min_history=args.min_history,
         )
 
     if args.command == "clean":

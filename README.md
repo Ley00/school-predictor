@@ -327,6 +327,7 @@ Comandos disponíveis:
 - `pipeline`
 - `reports`
 - `compare-history`
+- `compare-runs`
 - `clean`
 
 ## Fluxos principais
@@ -424,6 +425,19 @@ Comparação de histórico mínimo:
 ./.venv/bin/python -m school_predictor compare-history --mode previsao_nota --history-values 1 2 3
 ```
 
+Validação de estabilidade entre rodadas da mesma pipeline:
+
+```bash
+./.venv/bin/python -m school_predictor compare-runs --project-root . --mode previsao_nota --runs 5
+./.venv/bin/python -m school_predictor compare-runs --project-root . --mode alerta_risco --runs 5
+```
+
+Esse comando executa o mesmo modo várias vezes e gera:
+- `artifacts/pipeline/<modo>/run_stability_comparison.csv`
+- `artifacts/pipeline/<modo>/run_stability_summary.txt`
+
+O objetivo é verificar se métricas, candidatos selecionados e predições permanecem estáveis entre rodadas, mantendo a comparação com os baselines de última nota, média das duas últimas, média das três últimas e baseline híbrido.
+
 ## 5. Limpar artefatos locais
 
 Para remover caches Python e auxiliares de compilação da monografia:
@@ -452,6 +466,12 @@ Com o ambiente virtual ativo:
 
 ```bash
 ./.venv/bin/streamlit run dashboard_streamlit.py
+```
+
+Se os artefatos ainda não tiverem sido gerados nesta máquina, execute antes a pipeline principal:
+
+```bash
+./.venv/bin/python -m school_predictor workflow --project-root .
 ```
 
 O dashboard real está em:

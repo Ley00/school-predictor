@@ -18,6 +18,21 @@
 
 \hyphenation{mo-no-gra-fi-a pro-ces-so pre-di-ti-vo}
 
+\makeatletter
+\let\codex@orig@testdef\@testdef
+\def\@testdef#1#2#3{%
+  \def\codex@testdef@kind{#1}%
+  \def\codex@testdef@bibkind{b}%
+  \ifx\codex@testdef@kind\codex@testdef@bibkind
+    % O estilo ABNT com backref reavalia as entradas bibliograficas como se
+    % fossem labels comuns, gerando falso positivo de "labels changed" a cada
+    % compilacao mesmo com os arquivos auxiliares estaveis.
+  \else
+    \codex@orig@testdef{#1}{#2}{#3}%
+  \fi
+}
+\makeatother
+
 \begin{document}
 
 % Estas substituicoes ja aconteciam automaticamente; foram declaradas
@@ -51,8 +66,10 @@
 \capa
 \IfFileExists{termo.pdf}{\termo}{}
 \rosto
-\ficha
-\aprovacao
+% Ficha catalografica e folha de aprovacao foram desativadas nesta versao
+% para que o PDF final nao gere essas paginas pre-textuais.
+%\ficha
+%\aprovacao
 
 % A pasta "pre" foi preservada nesta rodada, conforme solicitado.
 % Os itens abaixo podem ser reativados e preenchidos na pr\'oxima etapa.
