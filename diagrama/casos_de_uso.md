@@ -10,7 +10,7 @@ flowchart LR
     Pesquisador["Pesquisador / Desenvolvedor"]
     Operador["Operador de dados"]
 
-    UC1(("Preparar banco restaurado"))
+    UC1(("Preparar insumos locais"))
     UC2(("Extrair CSVs canônicos"))
     UC3(("Rodar pipeline preditiva"))
     UC4(("Comparar cenários de histórico"))

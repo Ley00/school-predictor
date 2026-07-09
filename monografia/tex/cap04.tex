@@ -9,7 +9,7 @@ Este cap\'itulo apresenta a arquitetura final da solu\c{c}\~ao e a forma como os
 
 O fluxo consolidado pode ser resumido em oito etapas:
 \begin{enumerate}
-    \item manuten\c{c}\~ao e anonimiza\c{c}\~ao da base original;
+    \item prepara\c{c}\~ao local dos insumos e gera\c{c}\~ao de dados falsos compat\'iveis com o contrato p\'ublico;
     \item extra\c{c}\~ao das tabelas relevantes para arquivos \textit{Comma-Separated Values} (CSV);
     \item leitura estruturada dessas fontes pela pipeline;
     \item constru\c{c}\~ao do dataset longitudinal;
@@ -32,7 +32,7 @@ Em termos de organiza\c{c}\~ao do c\'odigo, o n\'ucleo da solu\c{c}\~ao ficou di
 \section{Modos de execu\c{c}\~ao}
 \label{sec:modos}
 
-A aplica\c{c}\~ao foi organizada para funcionar em dois cen\'arios complementares. No cen\'ario completo, a rotina parte da prepara\c{c}\~ao local do banco restaurado, segue para a extra\c{c}\~ao dos CSVs can\^onicos e termina na execu\c{c}\~ao da pipeline com gera\c{c}\~ao de relat\'orios. No cen\'ario p\'ublico reproduz\'ivel, o ponto de partida s\~ao os CSVs j\'a tratados e anonimizados, a partir dos quais os modos anal\'iticos e a recomposi\c{c}\~ao da camada final podem ser executados sem acesso ao banco institucional.
+A aplica\c{c}\~ao foi organizada para funcionar em dois cen\'arios complementares. No cen\'ario completo, a rotina parte da prepara\c{c}\~ao local dos insumos, segue para a extra\c{c}\~ao dos CSVs can\^onicos e termina na execu\c{c}\~ao da pipeline com gera\c{c}\~ao de relat\'orios. No cen\'ario p\'ublico reproduz\'ivel, o ponto de partida s\~ao os CSVs j\'a estruturados a partir de dados falsos gerados, a partir dos quais os modos anal\'iticos e a recomposi\c{c}\~ao da camada final podem ser executados sem acesso a dados institucionais.
 
 Esse desenho permite separar o que depende de infraestrutura local controlada do que pode ser demonstrado, documentado e reproduzido academicamente. A Figura~\ref{fig:fluxo-pipeline} representa o fluxo operacional principal, desde a prepara\c{c}\~ao e extra\c{c}\~ao at\'e a execu\c{c}\~ao dos modos de modelagem e a gera\c{c}\~ao dos relat\'orios finais.
 
@@ -51,7 +51,7 @@ Esse desenho permite separar o que depende de infraestrutura local controlada do
 
 A reprodu\c{c}\~ao da solu\c{c}\~ao foi separada em duas camadas complementares:
 \begin{itemize}
-    \item camada privada local: prepara o banco restaurado, aplica anonimiza\c{c}\~ao e executa as consultas SQL reais fora do Git;
+    \item camada privada local: prepara insumos locais, quando necess\'ario, e concentra detalhes operacionais que n\~ao fazem parte da vers\~ao p\'ublica;
     \item camada p\'ublica reproduz\'ivel: consome os CSVs can\^onicos em \path{artifacts/database/csv/} e executa a pipeline acad\^emica publicada no reposit\'orio.
 \end{itemize}
 
@@ -61,7 +61,7 @@ Essa separa\c{c}\~ao foi adotada para que a parte sens\'ivel da extra\c{c}\~ao p
 
 Os arquivos de entrada da arquitetura final foram definidos da seguinte forma:
 \begin{itemize}
-    \item \texttt{aluno.csv}: identifica o aluno de forma pseudonimizada e preserva o contexto cadastral e escolar b\'asico da extra\c{c}\~ao;
+    \item \texttt{aluno.csv}: identifica o aluno por registros artificiais consistentes com o contrato p\'ublico e preserva o contexto cadastral e escolar b\'asico da extra\c{c}\~ao;
     \item \texttt{media\_nota\_aluno.csv}: base principal de notas por aluno, disciplina, per\'iodo e etapa; \'e o eixo central da modelagem;
     \item \texttt{faltas\_aluno.csv}: registros de faltas usados para formar faltas por etapa e faltas acumuladas;
     \item \texttt{pagamento\_aluno.csv}: registros financeiros resumidos para produzir sinais administrativos por aluno e ano letivo;
@@ -75,9 +75,9 @@ Na pipeline central publicada, os arquivos consumidos diretamente pela modelagem
 
 A execu\c{c}\~ao experimental do projeto pode ser compreendida em dois cen\'arios complementares.
 
-No cen\'ario completo, dispon\'ivel apenas em ambiente local com acesso controlado ao banco restaurado, a rotina segue tr\^es movimentos:
+No cen\'ario completo, dispon\'ivel apenas em ambiente local com acesso controlado aos insumos de prepara\c{c}\~ao, a rotina segue tr\^es movimentos:
 \begin{enumerate}
-    \item preparar localmente o banco restaurado por meio da rotina \texttt{prepare-db};
+    \item preparar localmente os insumos por meio da rotina \texttt{prepare-db};
     \item extrair os arquivos can\^onicos por meio da rotina \texttt{extract};
     \item executar a pipeline completa com a rotina \texttt{workflow}, respons\'avel por acionar os dois modos principais e consolidar a camada final de relat\'orios.
 \end{enumerate}
@@ -145,7 +145,7 @@ O trabalho foi estruturado para unir quatro blocos principais de informa\c{c}\~a
     \item contexto escolar, incluindo disciplina, s\'erie, turma e professor.
 \end{itemize}
 
-Do ponto de vista de engenharia, a entrada de dados foi organizada em duas camadas. A primeira camada \'e privada e local, respons\'avel pela prepara\c{c}\~ao do banco restaurado e pela execu\c{c}\~ao das consultas SQL reais. A segunda camada \'e p\'ublica e reproduz\'ivel, baseada nos arquivos CSV can\^onicos consumidos pela pipeline em \path{artifacts/database/csv/}. Isso permite explicar e reproduzir a arquitetura sem divulgar a estrutura interna do banco institucional.
+Do ponto de vista de engenharia, a entrada de dados foi organizada em duas camadas. A primeira camada \'e privada e local, respons\'avel pela prepara\c{c}\~ao dos insumos e pela gera\c{c}\~ao dos arquivos necess\'arios \`a vers\~ao p\'ublica. A segunda camada \'e p\'ublica e reproduz\'ivel, baseada nos arquivos CSV can\^onicos consumidos pela pipeline em \path{artifacts/database/csv/}. Isso permite explicar e reproduzir a arquitetura sem depender de dados institucionais identific\'aveis.
 
 Conforme sintetizado na Se\c{c}\~ao~\ref{sec:config-experimental}, essa separa\c{c}\~ao define o contrato de reprodu\c{c}\~ao da solu\c{c}\~ao. Nesta se\c{c}\~ao, o foco passa a ser a forma como esses blocos de dados foram integrados na modelagem. As notas representam o eixo central da modelagem. A partir delas, foram constru\'idos hist\'oricos deslocados, m\'edias m\'oveis, tend\^encias e estat\'isticas de refer\^encia. As faltas foram agregadas por etapa e acumuladas ao longo do tempo. Os pagamentos foram resumidos por ano letivo, incluindo quantidades, pend\^encias e m\'edias de atraso. O professor, quando dispon\'ivel no banco atualizado, foi incorporado como atributo contextual, sem remover linhas quando o v\'inculo docente estivesse ausente.
 

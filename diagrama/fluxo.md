@@ -1,14 +1,14 @@
 # Fluxo da Pipeline
 
-Este diagrama representa o fluxo operacional principal do projeto, desde a preparação opcional do banco até a geração dos relatórios e o consumo pelo dashboard.
+Este diagrama representa o fluxo operacional principal do projeto, desde a preparação opcional dos insumos locais até a geração dos relatórios e o consumo pelo dashboard.
 
 ```mermaid
 flowchart TD
     A["Início da execução"] --> B["CLI: school_predictor"]
     B --> C{"Qual comando foi acionado?"}
 
-    C -->|prepare-db| D["Preparar banco restaurado"]
-    D --> D1["Anonimização e limpeza estrutural"]
+    C -->|prepare-db| D["Preparar insumos locais"]
+    D --> D1["Gerar dados falsos e ajustar estrutura"]
     D1 --> Z["Fim"]
 
     C -->|extract| E["Conectar ao banco"]
@@ -45,8 +45,8 @@ flowchart TD
 
 ## Leitura rápida
 
-- `prepare-db` atua na base restaurada e é opcional, usado quando o banco é renovado.
-- `extract` transforma o banco tratado em CSVs canônicos.
+- `prepare-db` atua nos insumos locais e é opcional, usado quando a base pública precisa ser atualizada.
+- `extract` transforma os insumos preparados em CSVs canônicos.
 - `workflow` é o fluxo principal do TCC: roda os dois modos técnicos, salva os artefatos de cada um e consolida os relatórios finais.
 - `pipeline` executa apenas um modo isolado, útil para depuração e análises específicas.
 - `previsao_nota` e `alerta_risco` partem dos mesmos CSVs canônicos, mas cada modo reconstrói seu próprio dataset temporal com corte de histórico diferente.

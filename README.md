@@ -4,7 +4,7 @@ Projeto de TCC para análise preditiva de dados escolares, com foco em antecipar
 
 Hoje o repositório está organizado em torno de uma arquitetura principal chamada `school_predictor/`, que concentra:
 - acesso ao banco
-- manutenção do banco restaurado localmente
+- preparação local dos insumos públicos
 - extração de CSVs
 - pipeline de modelagem
 - geração de relatórios
@@ -25,7 +25,7 @@ Esses sinais são consolidados em relatórios operacionais para uso escolar.
 - `school_predictor/`
   - pacote principal da aplicação
 - `school_predictor/database/`
-  - acesso ao banco, limpeza do banco restaurado e extração dos CSVs
+  - acesso ao banco, preparação local dos insumos e extração dos CSVs
 - `school_predictor/pipeline/`
   - dataset, modelagem, avaliação e relatórios
 - `school_predictor/app/`
@@ -137,10 +137,10 @@ Para entender ou reproduzir a arquitetura pública do projeto, o repositório pr
 
 Esses arquivos são a interface de entrada da pipeline. Quem não tiver acesso ao banco institucional pode:
 - gerar arquivos equivalentes com a mesma granularidade e significado
-- ou montar um subconjunto anonimizado seguindo o contrato em `docs/ENTRADA_DE_DADOS_E_CONTRATOS.md`
+- ou montar um conjunto de dados falsos gerados seguindo o contrato em `docs/ENTRADA_DE_DADOS_E_CONTRATOS.md`
 
 Em outras palavras:
-- o banco real é uma forma de alimentar o projeto
+- dados falsos gerados sao a forma recomendada de alimentar o projeto publicado
 - os CSVs canônicos são a forma mínima de reproduzir a pipeline pública
 
 Exemplos mínimos, apenas para entender o formato esperado de cada CSV:
@@ -197,7 +197,7 @@ Colunas acadêmicas comuns, presentes em quase todos os arquivos:
 - `IDMatricula`: identificador interno da matrícula do aluno.
 - `SituacaoMatricula`: situação acadêmica da matrícula, como `Matriculado`.
 - `IDAluno`: identificador interno do aluno.
-- `NomeAluno`: nome do aluno, normalmente já anonimizado no fluxo público.
+- `NomeAluno`: nome do aluno em formato artificial compatível com o fluxo público.
 
 Colunas específicas de `aluno.csv`:
 - `IDUnidadexTipoCurso`: identificador da relação entre unidade e tipo de curso.
@@ -244,7 +244,7 @@ Colunas específicas de `pagamento_aluno.csv`:
 Colunas específicas de `responsaveis_aluno.csv`:
 - `IDResponsavel`: identificador interno do responsável.
 - `TipoResponsavel`: tipo do vínculo, como `Mãe`, `Pai` ou outro responsável.
-- `NomeResponsavel`: nome do responsável, normalmente anonimizado no fluxo público.
+- `NomeResponsavel`: nome do responsável em formato artificial compatível com o fluxo público.
 - `SexoResponsavel`: sexo cadastrado do responsável.
 - `DataNascimentoResponsavel`: data de nascimento do responsável.
 - `LogradouroResidenciaResponsavel`: logradouro do endereço residencial do responsável.
@@ -258,7 +258,7 @@ Colunas específicas de `responsaveis_aluno.csv`:
 Colunas específicas de `professor_disciplina.csv`:
 - `IDDisciplinaxFuncionario`: identificador interno do vínculo entre disciplina e professor.
 - `IDFuncionario`: identificador interno do professor ou funcionário.
-- `NomeFuncionario`: nome do professor ou funcionário, normalmente anonimizado no fluxo público.
+- `NomeFuncionario`: nome do professor ou funcionário em formato artificial compatível com o fluxo público.
 - `IDDisciplina`: identificador interno da disciplina vinculada ao professor.
 - `NomeDisciplina`: nome da disciplina vinculada ao professor.
 
@@ -290,8 +290,8 @@ Esse arquivo local deve concentrar duas funções:
 - `extract_private_school_data(...)`
 
 Ele permanece fora do Git e é a camada onde ficam:
-- a preparação física do banco restaurado
-- a extração com tratamentos sensíveis ainda necessários
+- a preparação local dos insumos públicos
+- a extração e geração dos dados falsos ainda necessários
 
 ## Instalação
 
@@ -332,12 +332,12 @@ Comandos disponíveis:
 
 ## Fluxos principais
 
-## 1. Preparar um novo banco restaurado
+## 1. Preparar novos insumos locais
 
-Quando um novo backup for restaurado localmente, o fluxo é:
+Quando for necessário atualizar os insumos locais, o fluxo é:
 - renomear para `COLEGIO_TESTE`
 - remover tabelas desnecessárias
-- anonimizar dados sensíveis
+- gerar uma base falsa compatível com o contrato público
 - reorganizar índices e atualizar estatísticas
 
 O código principal fica em:
@@ -383,7 +383,7 @@ Na arquitetura atual, a implementação real dessa etapa também fica no arquivo
 
 O GitHub deve mostrar apenas o contrato conceitual da entrada de dados, nao o SQL real nem o desenho completo do banco.
 
-O mesmo princípio vale para a rotina SQL de preparação e anonimização do banco: a aplicação publica o fluxo e o objetivo da etapa, mas mantém o script SQL detalhado apenas em ambiente local.
+O mesmo princípio vale para qualquer rotina local de preparação dos insumos: a aplicação publica o fluxo, o contrato e o objetivo da etapa, mas mantém fora do Git detalhes locais que não fazem parte da versão pública baseada em dados falsos gerados.
 
 Se o banco já tiver sido previamente tratado, você pode testar o projeto começando diretamente pela extração:
 
@@ -417,7 +417,7 @@ from school_predictor.cli import main
 main(["workflow", "--project-root", "."])
 ```
 
-No VS Code, o `F5` foi configurado em `.vscode/launch.json` para executar esse mesmo fluxo p\'ublico (`workflow --project-root ${workspaceFolder}`). Esse caminho roda a pipeline anal\'itica completa e gera os relat\'orios finais a partir dos CSVs can\^onicos j\'a existentes, sem acionar `prepare-db`, `extract` ou as rotinas privadas de anonimiza\c{c}\~ao e prepara\c{c}\~ao do banco.
+No VS Code, o `F5` foi configurado em `.vscode/launch.json` para executar esse mesmo fluxo p\'ublico (`workflow --project-root ${workspaceFolder}`). Esse caminho roda a pipeline anal\'itica completa e gera os relat\'orios finais a partir dos CSVs can\^onicos j\'a existentes, sem acionar `prepare-db`, `extract` ou rotinas locais de gera\c{c}\~ao e prepara\c{c}\~ao dos dados falsos publicados.
 
 Comparação de histórico mínimo:
 
@@ -550,11 +550,11 @@ Após a limpeza final:
 
 ## Privacidade e sensibilidade
 
-Este projeto lida com dados escolares sensíveis. Por isso:
+Este projeto documenta um dom\'inio escolar sens\'ivel. Por isso:
 - nunca versionar credenciais
 - nunca versionar SQL real de extração ou preparação do banco
 - nunca subir datasets e resultados locais
-- manter anonimização no tratamento do banco
+- manter a vers\~ao p\'ublica baseada em dados falsos gerados
 
 ## Documentação complementar
 

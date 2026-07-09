@@ -70,7 +70,7 @@
   </g>
 
   <ellipse cx="460" cy="230" rx="160" ry="40" class="ellipse"/>
-  <text x="460" y="236" text-anchor="middle" class="label">Preparar banco restaurado</text>
+  <text x="460" y="236" text-anchor="middle" class="label">Preparar insumos locais</text>
 
   <ellipse cx="460" cy="350" rx="160" ry="40" class="ellipse"/>
   <text x="460" y="356" text-anchor="middle" class="label">Extrair CSVs canonicos</text>

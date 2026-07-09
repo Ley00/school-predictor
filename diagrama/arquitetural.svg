@@ -33,7 +33,7 @@
   <rect x="315" y="90" width="300" height="260" class="panel"/>
   <text x="350" y="122" class="section">Camada privada local</text>
   <rect x="358" y="155" width="214" height="78" class="box orange"/>
-  <text x="465" y="182" text-anchor="middle" class="label">Banco restaurado</text>
+  <text x="465" y="182" text-anchor="middle" class="label">Insumos locais</text>
   <text x="465" y="204" text-anchor="middle" class="small">prepare-db, access, maintenance</text>
   <rect x="345" y="245" width="240" height="84" class="box orange"/>
   <text x="465" y="275" text-anchor="middle" class="label">Extracao privada</text>

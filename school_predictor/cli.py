@@ -24,7 +24,7 @@ def _build_parser() -> argparse.ArgumentParser:
     workflow_parser = subparsers.add_parser("workflow", help="Roda a pipeline completa com relatórios finais.")
     workflow_parser.add_argument("--project-root", default=".")
 
-    prepare_parser = subparsers.add_parser("prepare-db", help="Prepara um banco restaurado localmente.")
+    prepare_parser = subparsers.add_parser("prepare-db", help="Prepara insumos locais para a versao publica.")
     prepare_parser.add_argument("--user", default="default")
     prepare_parser.add_argument("--source-database")
 

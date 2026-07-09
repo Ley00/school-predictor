@@ -32,7 +32,7 @@ O Random Forest, proposto por Breiman \cite{breiman2001}, foi importante no proj
 \subsection{LSTM}
 \label{subsec:lstm}
 
-As redes Long Short-Term Memory (LSTM), introduzidas por Hochreiter e Schmidhuber \cite{hochreiter1997}, foram consideradas por causa da natureza temporal do problema. No entanto, a base real revelou sequ\^encias irregulares, entradas e sa\'idas de alunos e hist\'oricos de extens\~ao muito desigual. Esses fatores reduziram a ader\^encia dessa abordagem ao escopo institucional do trabalho. O ponto aqui n\~ao \'e afirmar que LSTM seja inadequada em termos absolutos, mas reconhecer que, neste conjunto de dados e neste problema, ela n\~ao parecia ser a escolha mais consistente.
+As redes Long Short-Term Memory (LSTM), introduzidas por Hochreiter e Schmidhuber \cite{hochreiter1997}, foram consideradas por causa da natureza temporal do problema. No entanto, o conjunto de dados falsos gerados adotado na vers\~ao p\'ublica preservou sequ\^encias irregulares, entradas e sa\'idas de alunos e hist\'oricos de extens\~ao muito desigual para manter a complexidade estrutural do problema. Esses fatores reduziram a ader\^encia dessa abordagem ao escopo institucional do trabalho. O ponto aqui n\~ao \'e afirmar que LSTM seja inadequada em termos absolutos, mas reconhecer que, neste conjunto de dados e neste problema, ela n\~ao parecia ser a escolha mais consistente.
 
 \subsection{Gradient Boosting}
 \label{subsec:gradient-boosting}
@@ -44,7 +44,7 @@ O Gradient Boosting, formalizado por Friedman \cite{friedman2001}, mostrou-se es
 
 Uma decis\~ao importante foi manter a classifica\c{c}\~ao de risco como tarefa supervisionada, em vez de utilizar apenas regras fixas, como ``se a nota prevista for menor que 6, ent\~ao o aluno est\'a em risco''. Essa regra seria simples, mas perderia parte do comportamento temporal do problema. O aluno pode ter uma nota prevista numericamente pr\'oxima da m\'edia e, ainda assim, apresentar padr\~ao de queda, hist\'orico anterior fraco na disciplina, faltas acumuladas ou dist\^ancia negativa em rela\c{c}\~ao \`a turma. A classifica\c{c}\~ao aprende diretamente com exemplos hist\'oricos quais combina\c{c}\~oes desses sinais antecederam notas futuras abaixo de 6,0. Essa escolha ajuda a aproximar o alerta da din\^amica real do acompanhamento escolar.
 
-Isso n\~ao elimina as regras. No projeto, regras e pontua\c{c}\~oes continuam sendo usadas na camada de relat\'orios e prioriza\c{c}\~ao. A diferen\c{c}a \'e que o alerta principal de risco \'e estimado por um classificador treinado com dados reais, enquanto as regras ajudam a organizar a comunica\c{c}\~ao pedag\'ogica e a calibrar prioridades.
+Isso n\~ao elimina as regras. No projeto, regras e pontua\c{c}\~oes continuam sendo usadas na camada de relat\'orios e prioriza\c{c}\~ao. A diferen\c{c}a \'e que o alerta principal de risco \'e estimado por um classificador treinado sobre dados falsos gerados compat\'iveis com o contrato p\'ublico, enquanto as regras ajudam a organizar a comunica\c{c}\~ao pedag\'ogica e a calibrar prioridades.
 
 \section{Dados temporais, validade e m\'etricas}
 \label{sec:dados-temporais-metricas}
@@ -58,7 +58,7 @@ As m\'etricas escolhidas acompanham essa dupla natureza do problema. Para regres
 
 O uso de dados educacionais exige aten\c{c}\~ao especial \`a privacidade, \`a finalidade do tratamento e \`a interpreta\c{c}\~ao cuidadosa das sa\'idas. Discuss\~oes em LA e EDM mostram que prote\c{c}\~ao de dados e governan\c{c}a n\~ao s\~ao barreiras para an\'alise, mas condi\c{c}\~oes para seu uso institucionalmente leg\'itimo \cite{slade2013,gasevic2016,khalil2016}. No contexto brasileiro, a Lei Geral de Prote\c{c}\~ao de Dados Pessoais (LGPD) refor\c{c}a esse cuidado \cite{lgpd}. No caso deste projeto, essa discuss\~ao n\~ao aparece apenas como requisito formal: ela interfere diretamente na forma de extrair, preparar, armazenar e comunicar os resultados.
 
-Por isso, o projeto incorporou anonimiza\c{c}\~ao da base e assumiu, desde o in\'icio, que a sa\'ida do sistema n\~ao poderia ser um veredito definitivo sobre o aluno. Os relat\'orios foram desenhados para indicar fatores de alerta e recomenda\c{c}\~oes iniciais, preservando o papel humano na decis\~ao pedag\'ogica \cite{fiok2022}.
+Por isso, a vers\~ao publicada do projeto passou a trabalhar com dados falsos gerados e assumiu, desde o in\'icio, que a sa\'ida do sistema n\~ao poderia ser um veredito definitivo sobre o aluno. Os relat\'orios foram desenhados para indicar fatores de alerta e recomenda\c{c}\~oes iniciais, preservando o papel humano na decis\~ao pedag\'ogica \cite{fiok2022}.
 
 \section{Trabalhos relacionados}
 \label{sec:trabalhos-relacionados}
@@ -68,9 +68,11 @@ Os trabalhos relacionados ao tema podem ser agrupados em tr\^es eixos. O primeir
 \subsection{Compara\c{c}\~ao com estudos de previs\~ao de nota e detec\c{c}\~ao de risco}
 \label{subsec:comparacao-trabalhos}
 
-Considerando o foco deste trabalho em prever a pr\'oxima nota e sinalizar risco pedag\'ogico, a literatura mais pr\'oxima pode ser organizada em dois subconjuntos: estudos voltados \`a previs\~ao de nota futura e estudos voltados \`a detec\c{c}\~ao de alunos em risco acad\^emico. A Tabela~\ref{tab:trab-rel-prev-nota} resume dois estudos representativos do primeiro grupo, de Morsy e Karypis \cite{morsy2017} e de Widjaja et al. \cite{widjaja2020}. Eles ajudam a situar o problema da regress\~ao da pr\'oxima nota dentro de uma linha de pesquisa j\'a consolidada, embora majoritariamente concentrada em ensino superior.
+Considerando o foco deste trabalho em prever a pr\'oxima nota e sinalizar risco pedag\'ogico, a literatura mais pr\'oxima pode ser organizada em dois subconjuntos: estudos voltados \`a previs\~ao de nota futura e estudos voltados \`a detec\c{c}\~ao de alunos em risco acad\^emico. No primeiro grupo, Morsy e Karypis \cite{morsy2017} e Widjaja et al. \cite{widjaja2020} ajudam a situar o problema da regress\~ao da pr\'oxima nota dentro de uma linha de pesquisa j\'a consolidada, embora majoritariamente concentrada em ensino superior.
 
-\begin{table}[ht]
+No segundo grupo, Lakkaraju et al. \cite{lakkaraju2015} e Koprinska, Stretton e Yacef \cite{koprinska2015} representam estudos de detec\c{c}\~ao de risco. Nesse eixo, a proximidade com esta pesquisa aparece menos no tipo exato de alvo e mais na preocupa\c{c}\~ao com identifica\c{c}\~ao precoce, interpretabilidade e utilidade institucional. As Tabelas~\ref{tab:trab-rel-prev-nota} e~\ref{tab:trab-rel-risco} sintetizam esses dois recortes comparativos.
+
+\begin{table}[!htbp]
 \caption{Trabalhos correlatos focados em previs\~ao de nota futura.}
 \label{tab:trab-rel-prev-nota}
 \centering
@@ -86,11 +88,7 @@ Widjaja et al. (2020) & Hist\'orico aluno-curso, atributos de aluno e atributos 
 \fontetab{Elaborada pelo autor com base nos trabalhos citados.}
 \end{table}
 
-Esses estudos mostram que a previs\~ao de nota futura j\'a est\'a consolidada como problema relevante, sobretudo em ensino superior. Entretanto, o alvo adotado costuma ser a nota em disciplinas ainda n\~ao cursadas ou em um pr\'oximo termo acad\^emico. Aqui, a sa\'ida de regress\~ao foi reposicionada para a pr\'oxima nota observada dentro da sequ\^encia temporal da mesma disciplina, o que favorece interven\c{c}\~oes pedag\'ogicas de curto prazo no cotidiano escolar. Essa mudan\c{c}a de foco \'e pequena em apar\^encia, mas importante em termos de uso pr\'atico.
-
-A Tabela~\ref{tab:trab-rel-risco} resume dois trabalhos representativos do eixo de detec\c{c}\~ao de risco, de Lakkaraju et al. \cite{lakkaraju2015} e de Koprinska, Stretton e Yacef \cite{koprinska2015}. Nesse grupo, a proximidade com esta pesquisa aparece menos no tipo exato de alvo e mais na preocupa\c{c}\~ao com identifica\c{c}\~ao precoce e utilidade institucional.
-
-\begin{table}[ht]
+\begin{table}[!htbp]
 \caption{Trabalhos correlatos focados em detec\c{c}\~ao de risco acad\^emico.}
 \label{tab:trab-rel-risco}
 \centering
@@ -105,6 +103,10 @@ Koprinska, Stretton e Yacef (2015) & Notas parciais, submiss\~oes em sistema de 
 \end{tabularx}
 \fontetab{Elaborada pelo autor com base nos trabalhos citados.}
 \end{table}
+
+\FloatBarrier
+
+Esses estudos mostram que a previs\~ao de nota futura j\'a est\'a consolidada como problema relevante, sobretudo em ensino superior. Entretanto, o alvo adotado costuma ser a nota em disciplinas ainda n\~ao cursadas ou em um pr\'oximo termo acad\^emico. Aqui, a sa\'ida de regress\~ao foi reposicionada para a pr\'oxima nota observada dentro da sequ\^encia temporal da mesma disciplina, o que favorece interven\c{c}\~oes pedag\'ogicas de curto prazo no cotidiano escolar. Essa mudan\c{c}a de foco \'e pequena em apar\^encia, mas importante em termos de uso pr\'atico.
 
 Nos estudos de risco, nota-se forte preocupa\c{c}\~ao com identifica\c{c}\~ao precoce, interpretabilidade e apoio \`a interven\c{c}\~ao. Esse ponto aproxima-se diretamente deste TCC. A diferen\c{c}a principal est\'a no fato de que o problema aqui n\~ao trata risco apenas como evas\~ao, conclus\~ao tardia ou aprova\c{c}\~ao final em uma disciplina. O alvo bin\'ario foi definido como o risco de a pr\'oxima nota observada ficar abaixo de 6,0, o que torna o alerta mais pr\'oximo da linguagem pedag\'ogica da escola e mais aderente a decis\~oes de curto prazo.
 

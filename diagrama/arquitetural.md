@@ -10,7 +10,7 @@ flowchart LR
     end
 
     subgraph Privada["Camada privada local"]
-        DB["Banco restaurado e rotinas locais<br/>prepare-db, access, maintenance"]
+        DB["Insumos locais e rotinas privadas<br/>prepare-db, access, maintenance"]
         EXT["Extracao privada<br/>extraction e private_runtime/private_sql"]
     end
 
@@ -38,7 +38,7 @@ flowchart LR
 
 ## Leitura rapida
 
-- a camada privada local prepara o banco e gera os CSVs canonicos fora do Git;
+- a camada privada local prepara os insumos e gera os CSVs canonicos fora do Git;
 - os CSVs canonicos sao a interface publica de entrada da pipeline;
 - a pipeline analitica produz artefatos tecnicos e relatorios finais;
 - a escola e o dashboard consomem apenas os relatorios finais.

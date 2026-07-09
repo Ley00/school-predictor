@@ -35,3 +35,6 @@ monografia/*.log
 monografia/*.out
 monografia/*.toc
 monografia/*.synctex.gz
+
+# Apresentacao
+apresentacao/

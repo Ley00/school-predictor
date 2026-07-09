@@ -28,7 +28,7 @@
 
   <rect x="80" y="470" width="250" height="70" class="box"/>
   <text x="205" y="502" text-anchor="middle" class="label">prepare-db</text>
-  <text x="205" y="525" text-anchor="middle" class="small">trata e anonimiza o banco</text>
+  <text x="205" y="525" text-anchor="middle" class="small">gera dados falsos e ajusta a estrutura</text>
 
   <rect x="380" y="470" width="250" height="70" class="box"/>
   <text x="505" y="502" text-anchor="middle" class="label">extract</text>
