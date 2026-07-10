@@ -9,7 +9,7 @@ Esta pesquisa \'e aplicada, predominantemente quantitativa e com forte component
 \section{Fonte de dados e preparo inicial}
 \label{sec:fonte-dados-preparo}
 
-Os dados utilizados na vers\~ao publicada do projeto s\~ao dados escolares falsos gerados para representar registros de alunos, notas, faltas, pagamentos e informa\c{c}\~oes acad\^emicas e administrativas sem expor pessoas reais. Esse conjunto foi estruturado para preservar o contrato p\'ublico da pipeline e a natureza temporal do problema, incluindo diferen\c{c}as de hist\'orico entre alunos e anos letivos. Como a avalia\c{c}\~ao temporal depende de conhecer a pr\'oxima nota observada, os experimentos finais utilizaram 2025 como ano de teste consolidado; dados de 2026 permanecem relevantes para continuidade operacional, mas nem sempre possuem alvo futuro completo para avalia\c{c}\~ao experimental. Essa decis\~ao ilustra um ponto importante do trabalho: nem todo dado dispon\'ivel na base publicada pode ser usado da mesma forma em uma avalia\c{c}\~ao preditiva honesta.
+Os dados utilizados na vers\~ao publicada do projeto s\~ao dados escolares sintéticos para representar registros de alunos, notas, faltas, pagamentos e informa\c{c}\~oes acad\^emicas e administrativas sem expor pessoas reais. Esse conjunto foi estruturado para preservar o contrato p\'ublico da pipeline e a natureza temporal do problema, incluindo diferen\c{c}as de hist\'orico entre alunos e anos letivos. Como a avalia\c{c}\~ao temporal depende de conhecer a pr\'oxima nota observada, os experimentos finais utilizaram 2025 como ano de teste consolidado; dados de 2026 permanecem relevantes para continuidade operacional, mas nem sempre possuem alvo futuro completo para avalia\c{c}\~ao experimental. Essa decis\~ao ilustra um ponto importante do trabalho: nem todo dado dispon\'ivel na base publicada pode ser usado da mesma forma em uma avalia\c{c}\~ao preditiva honesta.
 
 Os arquivos principais extra\'idos para a pipeline foram:
 \begin{itemize}
@@ -59,13 +59,13 @@ Posteriormente, o projeto migrou para um desenho mais pragm\'atico com Random Fo
 O amadurecimento do trabalho levou primeiro \`a consolida\c{c}\~ao de uma pipeline intermedi\'aria de experimenta\c{c}\~ao, e depois \`a arquitetura final entregue no pacote \texttt{school\_predictor}. Essa arquitetura separou explicitamente:
 \begin{itemize}
     \item a camada de acesso e conex\~ao com o banco;
-    \item a prepara\c{c}\~ao local dos insumos e a gera\c{c}\~ao de dados falsos compat\'iveis com o contrato p\'ublico;
+    \item a prepara\c{c}\~ao local dos insumos e a gera\c{c}\~ao de dados sintéticos compat\'iveis com o contrato p\'ublico;
     \item a extra\c{c}\~ao dos dados para arquivos can\^onicos;
     \item a pipeline de modelagem e relat\'orios;
     \item a camada de visualiza\c{c}\~ao em dashboard.
 \end{itemize}
 
-Na vers\~ao final do reposit\'orio, a aplica\c{c}\~ao p\'ublica foi organizada em torno de \texttt{school\_predictor/}, enquanto detalhes locais de prepara\c{c}\~ao de insumos permaneceram fora do Git. Essa decis\~ao tornou a solu\c{c}\~ao mais adequada \`a publica\c{c}\~ao acad\^emica, concentrando a reprodu\c{c}\~ao no contrato dos arquivos e no uso de dados falsos gerados. Mais do que uma escolha de organiza\c{c}\~ao de c\'odigo, isso foi parte do esfor\c{c}o para tornar o trabalho reproduz\'ivel sem depender de dados institucionais sens\'iveis.
+Na vers\~ao final do reposit\'orio, a aplica\c{c}\~ao p\'ublica foi organizada em torno de \texttt{school\_predictor/}, enquanto detalhes locais de prepara\c{c}\~ao de insumos permaneceram fora do Git. Essa decis\~ao tornou a solu\c{c}\~ao mais adequada \`a publica\c{c}\~ao acad\^emica, concentrando a reprodu\c{c}\~ao no contrato dos arquivos e no uso de dados sintéticos. Mais do que uma escolha de organiza\c{c}\~ao de c\'odigo, isso foi parte do esfor\c{c}o para tornar o trabalho reproduz\'ivel sem depender de dados institucionais sens\'iveis.
 
 \section{Crit\'erios de avalia\c{c}\~ao}
 \label{sec:criterios-avaliacao}

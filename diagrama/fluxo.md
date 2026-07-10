@@ -8,7 +8,7 @@ flowchart TD
     B --> C{"Qual comando foi acionado?"}
 
     C -->|prepare-db| D["Preparar insumos locais"]
-    D --> D1["Gerar dados falsos e ajustar estrutura"]
+    D --> D1["Gerar dados sintéticos e ajustar estrutura"]
     D1 --> Z["Fim"]
 
     C -->|extract| E["Conectar ao banco"]

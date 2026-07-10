@@ -9,7 +9,7 @@ Este cap\'itulo apresenta a arquitetura final da solu\c{c}\~ao e a forma como os
 
 O fluxo consolidado pode ser resumido em oito etapas:
 \begin{enumerate}
-    \item prepara\c{c}\~ao local dos insumos e gera\c{c}\~ao de dados falsos compat\'iveis com o contrato p\'ublico;
+    \item prepara\c{c}\~ao local dos insumos e gera\c{c}\~ao de dados sintéticos compat\'iveis com o contrato p\'ublico;
     \item extra\c{c}\~ao das tabelas relevantes para arquivos \textit{Comma-Separated Values} (CSV);
     \item leitura estruturada dessas fontes pela pipeline;
     \item constru\c{c}\~ao do dataset longitudinal;
@@ -32,7 +32,7 @@ Em termos de organiza\c{c}\~ao do c\'odigo, o n\'ucleo da solu\c{c}\~ao ficou di
 \section{Modos de execu\c{c}\~ao}
 \label{sec:modos}
 
-A aplica\c{c}\~ao foi organizada para funcionar em dois cen\'arios complementares. No cen\'ario completo, a rotina parte da prepara\c{c}\~ao local dos insumos, segue para a extra\c{c}\~ao dos CSVs can\^onicos e termina na execu\c{c}\~ao da pipeline com gera\c{c}\~ao de relat\'orios. No cen\'ario p\'ublico reproduz\'ivel, o ponto de partida s\~ao os CSVs j\'a estruturados a partir de dados falsos gerados, a partir dos quais os modos anal\'iticos e a recomposi\c{c}\~ao da camada final podem ser executados sem acesso a dados institucionais.
+A aplica\c{c}\~ao foi organizada para funcionar em dois cen\'arios complementares. No cen\'ario completo, a rotina parte da prepara\c{c}\~ao local dos insumos, segue para a extra\c{c}\~ao dos CSVs can\^onicos e termina na execu\c{c}\~ao da pipeline com gera\c{c}\~ao de relat\'orios. No cen\'ario p\'ublico reproduz\'ivel, o ponto de partida s\~ao os CSVs j\'a estruturados a partir de dados sintéticos, a partir dos quais os modos anal\'iticos e a recomposi\c{c}\~ao da camada final podem ser executados sem acesso a dados institucionais.
 
 Esse desenho permite separar o que depende de infraestrutura local controlada do que pode ser demonstrado, documentado e reproduzido academicamente. A Figura~\ref{fig:fluxo-pipeline} representa o fluxo operacional principal, desde a prepara\c{c}\~ao e extra\c{c}\~ao at\'e a execu\c{c}\~ao dos modos de modelagem e a gera\c{c}\~ao dos relat\'orios finais.
 

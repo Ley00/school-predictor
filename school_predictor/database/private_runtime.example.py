@@ -6,7 +6,7 @@ Copie este arquivo para:
 
 Esse arquivo local deve permanecer fora do Git e concentrar:
 1. a preparação local dos insumos usados na versão pública
-2. a extração dos CSVs e a geração de dados falsos compatíveis com o contrato público
+2. a extração dos CSVs e a geração de dados sintéticos compatíveis com o contrato público
 
 O repositório público mantém apenas os wrappers e o contrato das entradas.
 """
@@ -14,7 +14,7 @@ O repositório público mantém apenas os wrappers e o contrato das entradas.
 
 def prepare_private_database(user: str = "Warley", source_database: str | None = None) -> str:
     raise NotImplementedError(
-        "Implemente aqui a rotina local de preparação dos insumos e geração dos dados falsos usados pela versão pública."
+        "Implemente aqui a rotina local de preparação dos insumos e geração dos dados sintéticos usados pela versão pública."
     )
 
 

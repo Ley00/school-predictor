@@ -137,10 +137,10 @@ Para entender ou reproduzir a arquitetura pública do projeto, o repositório pr
 
 Esses arquivos são a interface de entrada da pipeline. Quem não tiver acesso ao banco institucional pode:
 - gerar arquivos equivalentes com a mesma granularidade e significado
-- ou montar um conjunto de dados falsos gerados seguindo o contrato em `docs/ENTRADA_DE_DADOS_E_CONTRATOS.md`
+- ou montar um conjunto de dados sintéticos seguindo o contrato em `docs/ENTRADA_DE_DADOS_E_CONTRATOS.md`
 
 Em outras palavras:
-- dados falsos gerados sao a forma recomendada de alimentar o projeto publicado
+- dados sintéticos sao a forma recomendada de alimentar o projeto publicado
 - os CSVs canônicos são a forma mínima de reproduzir a pipeline pública
 
 Exemplos mínimos, apenas para entender o formato esperado de cada CSV:
@@ -291,7 +291,7 @@ Esse arquivo local deve concentrar duas funções:
 
 Ele permanece fora do Git e é a camada onde ficam:
 - a preparação local dos insumos públicos
-- a extração e geração dos dados falsos ainda necessários
+- a extração e geração dos dados sintéticos ainda necessários
 
 ## Instalação
 
@@ -337,7 +337,7 @@ Comandos disponíveis:
 Quando for necessário atualizar os insumos locais, o fluxo é:
 - renomear para `COLEGIO_TESTE`
 - remover tabelas desnecessárias
-- gerar uma base falsa compatível com o contrato público
+- gerar uma base sintética compatível com o contrato público
 - reorganizar índices e atualizar estatísticas
 
 O código principal fica em:
@@ -383,7 +383,7 @@ Na arquitetura atual, a implementação real dessa etapa também fica no arquivo
 
 O GitHub deve mostrar apenas o contrato conceitual da entrada de dados, nao o SQL real nem o desenho completo do banco.
 
-O mesmo princípio vale para qualquer rotina local de preparação dos insumos: a aplicação publica o fluxo, o contrato e o objetivo da etapa, mas mantém fora do Git detalhes locais que não fazem parte da versão pública baseada em dados falsos gerados.
+O mesmo princípio vale para qualquer rotina local de preparação dos insumos: a aplicação publica o fluxo, o contrato e o objetivo da etapa, mas mantém fora do Git detalhes locais que não fazem parte da versão pública baseada em dados sintéticos.
 
 Se o banco já tiver sido previamente tratado, você pode testar o projeto começando diretamente pela extração:
 
@@ -417,7 +417,7 @@ from school_predictor.cli import main
 main(["workflow", "--project-root", "."])
 ```
 
-No VS Code, o `F5` foi configurado em `.vscode/launch.json` para executar esse mesmo fluxo p\'ublico (`workflow --project-root ${workspaceFolder}`). Esse caminho roda a pipeline anal\'itica completa e gera os relat\'orios finais a partir dos CSVs can\^onicos j\'a existentes, sem acionar `prepare-db`, `extract` ou rotinas locais de gera\c{c}\~ao e prepara\c{c}\~ao dos dados falsos publicados.
+No VS Code, o `F5` foi configurado em `.vscode/launch.json` para executar esse mesmo fluxo p\'ublico (`workflow --project-root ${workspaceFolder}`). Esse caminho roda a pipeline anal\'itica completa e gera os relat\'orios finais a partir dos CSVs can\^onicos j\'a existentes, sem acionar `prepare-db`, `extract` ou rotinas locais de gera\c{c}\~ao e prepara\c{c}\~ao dos dados sintéticos publicados.
 
 Comparação de histórico mínimo:
 
@@ -554,7 +554,7 @@ Este projeto documenta um dom\'inio escolar sens\'ivel. Por isso:
 - nunca versionar credenciais
 - nunca versionar SQL real de extração ou preparação do banco
 - nunca subir datasets e resultados locais
-- manter a vers\~ao p\'ublica baseada em dados falsos gerados
+- manter a vers\~ao p\'ublica baseada em dados sintéticos
 
 ## Documentação complementar
 

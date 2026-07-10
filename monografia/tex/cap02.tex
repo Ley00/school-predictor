@@ -32,7 +32,7 @@ O Random Forest, proposto por Breiman \cite{breiman2001}, foi importante no proj
 \subsection{LSTM}
 \label{subsec:lstm}
 
-As redes Long Short-Term Memory (LSTM), introduzidas por Hochreiter e Schmidhuber \cite{hochreiter1997}, foram consideradas por causa da natureza temporal do problema. No entanto, o conjunto de dados falsos gerados adotado na vers\~ao p\'ublica preservou sequ\^encias irregulares, entradas e sa\'idas de alunos e hist\'oricos de extens\~ao muito desigual para manter a complexidade estrutural do problema. Esses fatores reduziram a ader\^encia dessa abordagem ao escopo institucional do trabalho. O ponto aqui n\~ao \'e afirmar que LSTM seja inadequada em termos absolutos, mas reconhecer que, neste conjunto de dados e neste problema, ela n\~ao parecia ser a escolha mais consistente.
+As redes Long Short-Term Memory (LSTM), introduzidas por Hochreiter e Schmidhuber \cite{hochreiter1997}, foram consideradas por causa da natureza temporal do problema. No entanto, o conjunto de dados sintéticos adotado na vers\~ao p\'ublica preservou sequ\^encias irregulares, entradas e sa\'idas de alunos e hist\'oricos de extens\~ao muito desigual para manter a complexidade estrutural do problema. Esses fatores reduziram a ader\^encia dessa abordagem ao escopo institucional do trabalho. O ponto aqui n\~ao \'e afirmar que LSTM seja inadequada em termos absolutos, mas reconhecer que, neste conjunto de dados e neste problema, ela n\~ao parecia ser a escolha mais consistente.
 
 \subsection{Gradient Boosting}
 \label{subsec:gradient-boosting}
@@ -44,7 +44,7 @@ O Gradient Boosting, formalizado por Friedman \cite{friedman2001}, mostrou-se es
 
 Uma decis\~ao importante foi manter a classifica\c{c}\~ao de risco como tarefa supervisionada, em vez de utilizar apenas regras fixas, como ``se a nota prevista for menor que 6, ent\~ao o aluno est\'a em risco''. Essa regra seria simples, mas perderia parte do comportamento temporal do problema. O aluno pode ter uma nota prevista numericamente pr\'oxima da m\'edia e, ainda assim, apresentar padr\~ao de queda, hist\'orico anterior fraco na disciplina, faltas acumuladas ou dist\^ancia negativa em rela\c{c}\~ao \`a turma. A classifica\c{c}\~ao aprende diretamente com exemplos hist\'oricos quais combina\c{c}\~oes desses sinais antecederam notas futuras abaixo de 6,0. Essa escolha ajuda a aproximar o alerta da din\^amica real do acompanhamento escolar.
 
-Isso n\~ao elimina as regras. No projeto, regras e pontua\c{c}\~oes continuam sendo usadas na camada de relat\'orios e prioriza\c{c}\~ao. A diferen\c{c}a \'e que o alerta principal de risco \'e estimado por um classificador treinado sobre dados falsos gerados compat\'iveis com o contrato p\'ublico, enquanto as regras ajudam a organizar a comunica\c{c}\~ao pedag\'ogica e a calibrar prioridades.
+Isso n\~ao elimina as regras. No projeto, regras e pontua\c{c}\~oes continuam sendo usadas na camada de relat\'orios e prioriza\c{c}\~ao. A diferen\c{c}a \'e que o alerta principal de risco \'e estimado por um classificador treinado sobre dados sintéticos compat\'iveis com o contrato p\'ublico, enquanto as regras ajudam a organizar a comunica\c{c}\~ao pedag\'ogica e a calibrar prioridades.
 
 \section{Dados temporais, validade e m\'etricas}
 \label{sec:dados-temporais-metricas}
@@ -58,7 +58,7 @@ As m\'etricas escolhidas acompanham essa dupla natureza do problema. Para regres
 
 O uso de dados educacionais exige aten\c{c}\~ao especial \`a privacidade, \`a finalidade do tratamento e \`a interpreta\c{c}\~ao cuidadosa das sa\'idas. Discuss\~oes em LA e EDM mostram que prote\c{c}\~ao de dados e governan\c{c}a n\~ao s\~ao barreiras para an\'alise, mas condi\c{c}\~oes para seu uso institucionalmente leg\'itimo \cite{slade2013,gasevic2016,khalil2016}. No contexto brasileiro, a Lei Geral de Prote\c{c}\~ao de Dados Pessoais (LGPD) refor\c{c}a esse cuidado \cite{lgpd}. No caso deste projeto, essa discuss\~ao n\~ao aparece apenas como requisito formal: ela interfere diretamente na forma de extrair, preparar, armazenar e comunicar os resultados.
 
-Por isso, a vers\~ao publicada do projeto passou a trabalhar com dados falsos gerados e assumiu, desde o in\'icio, que a sa\'ida do sistema n\~ao poderia ser um veredito definitivo sobre o aluno. Os relat\'orios foram desenhados para indicar fatores de alerta e recomenda\c{c}\~oes iniciais, preservando o papel humano na decis\~ao pedag\'ogica \cite{fiok2022}.
+Por isso, a vers\~ao publicada do projeto passou a trabalhar com dados sintéticos e assumiu, desde o in\'icio, que a sa\'ida do sistema n\~ao poderia ser um veredito definitivo sobre o aluno. Os relat\'orios foram desenhados para indicar fatores de alerta e recomenda\c{c}\~oes iniciais, preservando o papel humano na decis\~ao pedag\'ogica \cite{fiok2022}.
 
 \section{Trabalhos relacionados}
 \label{sec:trabalhos-relacionados}

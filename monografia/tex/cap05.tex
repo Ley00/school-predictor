@@ -1,6 +1,92 @@
 \chapter{Modelagem, Relat\'orios e Resultados}
 \label{cap:resultados}
 
+\section{An\'alise de erro e calibra\c{c}\~ao}
+\label{sec:erro}
+\label{sec:importancia-atributos-temporais}
+\label{sec:discussao-uso-pedagogico}
+\label{sec:limitacoes-experimentos}
+\label{sec:consideracoes-finais-resultados}
+
+A an\'alise de erro mostrou maior dificuldade de previs\~ao em disciplinas como Matem\'atica 3, Matem\'atica 4 e 5, Biologia 2, Hist\'oria 2 e Qu\'imica 3. Tamb\'em houve maior erro nas faixas de nota abaixo de 7, especialmente porque esses casos s\~ao mais inst\'aveis e pedagogicamente sens\'iveis. Essa concentra\c{c}\~ao sugere que parte do erro est\'a associada a trajet\'orias com maior oscila\c{c}\~ao, possivelmente influenciadas por lacunas de pr\'e-requisitos, mudan\c{c}as de rotina, recupera\c{c}\~ao parcial, faltas ou diferen\c{c}as de exig\^encia entre etapas.
+
+Na camada operacional, a primeira regra de risco gerava excesso de casos classificados como alto risco. Por isso, foi criada uma pontua\c{c}\~ao composta de prioriza\c{c}\~ao. Essa pontua\c{c}\~ao n\~ao substitui a infer\^encia principal do classificador supervisionado, mas reorganiza os casos sinalizados em uma escala mais \'util para professor, coordena\c{c}\~ao e secretaria. Essa etapa foi necess\'aria porque, no uso institucional, casos classificados de forma id\^entica pelo modelo ainda podem apresentar diferen\c{c}as relevantes de urg\^encia pedag\'ogica e administrativa.
+
+\subsection{Pontua\c{c}\~ao composta de prioriza\c{c}\~ao operacional}
+\label{subsec:pontuacao-priorizacao}
+
+A pontua\c{c}\~ao composta combina seis grupos de sinais: predi\c{c}\~ao bin\'aria de risco do classificador, nota prevista para a pr\'oxima etapa, nota atual, varia\c{c}\~ao esperada entre a nota atual e a nota prevista, faltas acumuladas e pend\^encias financeiras. A escolha desses componentes buscou reunir, em uma mesma regra de prioriza\c{c}\~ao, tr\^es dimens\~oes complementares: a infer\^encia supervisionada do modelo, a gravidade acad\^emica do caso e o contexto operacional do acompanhamento escolar.
+
+\'E importante distinguir essa pontua\c{c}\~ao da etapa de modelagem supervisionada. O classificador de risco continua sendo respons\'avel pela infer\^encia principal sobre a probabilidade de a pr\'oxima nota ficar abaixo do limiar definido. J\'a a pontua\c{c}\~ao composta atua posteriormente, com a finalidade de ordenar os casos e facilitar sua leitura institucional. Portanto, os valores atribu\'idos a cada componente da regra n\~ao devem ser interpretados como import\^ancia estat\'istica interna das vari\'aveis no modelo, mas como pesos heur\'isticos de prioriza\c{c}\~ao operacional.
+
+A primeira parcela da pontua\c{c}\~ao corresponde \`a sa\'ida bin\'aria do classificador. Quando o modelo sinaliza risco, s\~ao adicionados 3 pontos. Esse foi o maior peso unit\'ario da regra, porque representa a decis\~ao supervisionada consolidada do modelo, isto \'e, a s\'intese dos m\'ultiplos sinais temporais aprendidos durante o treinamento. Na camada operacional, essa escolha preserva a centralidade da infer\^encia supervisionada e evita que a prioriza\c{c}\~ao final seja conduzida apenas por regras isoladas.
+
+A segunda parcela considera a nota prevista para a pr\'oxima etapa. Quando a previs\~ao \'e inferior a 5,0, somam-se 3 pontos; quando fica entre 5,0 e 5,99, somam-se 2 pontos; e quando fica entre 6,0 e 6,49, soma-se 1 ponto. Essa grada\c{c}\~ao foi adotada para representar n\'iveis distintos de gravidade acad\^emica. Notas previstas muito abaixo da faixa de seguran\c{c}a indicam maior urg\^encia operacional, enquanto valores ligeiramente acima do ponto de corte ainda configuram aten\c{c}\~ao, mas com severidade menor. A nota prevista recebeu peso elevado porque traduz, em linguagem diretamente pedag\'ogica, o resultado esperado da trajet\'oria recente do aluno.
+
+A terceira parcela usa a nota atual observada. Quando a nota atual \'e inferior a 5,0, adicionam-se 2 pontos; quando fica entre 5,0 e 5,99, adiciona-se 1 ponto. O peso desse componente foi mantido abaixo do da nota prevista para evitar que a prioriza\c{c}\~ao se reduza a um retrato est\'atico do presente. Ainda assim, a nota atual permanece relevante porque casos j\'a abaixo da linha de seguran\c{c}a exigem acompanhamento mais imediato, mesmo antes da consolida\c{c}\~ao do pr\'oximo resultado.
+
+A quarta parcela incorpora a varia\c{c}\~ao esperada entre a nota atual e a nota prevista. Quando essa varia\c{c}\~ao \'e menor ou igual a -1,0, adicionam-se 2 pontos; quando \'e menor ou igual a -0,5, adiciona-se 1 ponto. Esse componente foi inclu\'ido para captar deteriora\c{c}\~ao de trajet\'oria. Em termos operacionais, ele diferencia casos de desempenho baixo por\'em est\'avel de casos em queda, atribuindo maior prioridade \`aqueles em que h\'a expectativa de agravamento no curto prazo.
+
+A quinta parcela considera as faltas acumuladas. Quando o total \'e maior ou igual a 10, somam-se 2 pontos; quando \'e maior ou igual a 8, soma-se 1 ponto. O objetivo desse componente \'e incorporar o papel da frequ\^encia como sinal pedag\'ogico relevante, sem trat\'a-la como causa \'unica do risco. O peso intermedi\'ario adotado reflete esse entendimento: faltas elevadas refor\c{c}am a urg\^encia do caso, mas sua influ\^encia permanece subordinada ao n\'ucleo preditivo e ao desempenho acad\^emico.
+
+A sexta parcela corresponde \`as pend\^encias financeiras. Quando o n\'umero de pend\^encias \'e maior ou igual a 3, somam-se 2 pontos; quando \'e maior ou igual a 2, soma-se 1 ponto. Esse componente foi mantido com peso moderado porque sua fun\c{c}\~ao \'e estritamente contextual e administrativa. O trabalho n\~ao assume rela\c{c}\~ao causal direta entre situa\c{c}\~ao financeira e desempenho acad\^emico. Por isso, esse sinal n\~ao foi tratado como crit\'erio central da prioriza\c{c}\~ao, mas como refor\c{c}o adicional em casos que j\'a apresentam outros ind\'icios de aten\c{c}\~ao.
+
+Em conjunto, a regra estabelece uma hierarquia operacional clara. A sa\'ida do classificador e a nota prevista ocupam o n\'ivel mais alto de influ\^encia; nota atual, tend\^encia de queda, faltas acumuladas e pend\^encias financeiras funcionam como moduladores de gravidade e urg\^encia. Essa distribui\c{c}\~ao foi definida por crit\'erio heur\'istico orientado pela interpreta\c{c}\~ao pedag\'ogica dos sinais e pela necessidade de tornar o ranking final mais \'util no contexto institucional.
+
+A ado\c{c}\~ao dessa pontua\c{c}\~ao tamb\'em respondeu a um problema observado na camada de relat\'orios: regras iniciais concentravam casos demais nas faixas mais altas de risco, reduzindo a capacidade de diferencia\c{c}\~ao da prioriza\c{c}\~ao. A estrutura em pesos graduais procurou reduzir essa concentra\c{c}\~ao e produzir uma escala mais informativa para o acompanhamento escolar. Em vez de limitar a sa\'ida operacional a uma decis\~ao bin\'aria, a pontua\c{c}\~ao composta transforma o risco em ordem de prioridade, o que \'e mais compat\'ivel com cen\'arios reais de triagem, em que tempo e recursos de interven\c{c}\~ao s\~ao limitados.
+
+Assim, a pontua\c{c}\~ao composta deve ser entendida como uma camada heur\'istica de operacionaliza\c{c}\~ao da sa\'ida anal\'itica. Sua fun\c{c}\~ao n\~ao \'e explicar matematicamente o comportamento interno do classificador, mas converter sinais preditivos e contextuais em uma regra transparente, audit\'avel e ajust\'avel para prioriza\c{c}\~ao institucional. Esse desenho mant\'em a coer\^encia com a proposta do trabalho: usar modelagem preditiva como apoio \`a decis\~ao pedag\'ogica, complementada por mecanismos expl\'icitos de leitura e ordena\c{c}\~ao dos casos.
+
+\begin{table}[ht]
+\caption{Pesos adotados na pontua\c{c}\~ao composta de prioriza\c{c}\~ao operacional.}
+\label{tab:pesos-priorizacao}
+\centering
+\footnotesize
+\begin{tabular}{l l c}
+\hline
+\textbf{Componente} & \textbf{Condi\c{c}\~ao} & \textbf{Pontos} \\
+\hline
+Predi\c{c}\~ao do classificador & \texttt{predicted\_risk\_flag = 1} & 3 \\
+Nota prevista & $< 5{,}0$ & 3 \\
+Nota prevista & $5{,}0 \leq \text{nota} < 6{,}0$ & 2 \\
+Nota prevista & $6{,}0 \leq \text{nota} < 6{,}5$ & 1 \\
+Nota atual & $< 5{,}0$ & 2 \\
+Nota atual & $5{,}0 \leq \text{nota} < 6{,}0$ & 1 \\
+Varia\c{c}\~ao esperada & $\leq -1{,}0$ & 2 \\
+Varia\c{c}\~ao esperada & $\leq -0{,}5$ & 1 \\
+Faltas acumuladas & $\geq 10$ & 2 \\
+Faltas acumuladas & $\geq 8$ & 1 \\
+Pend\^encias financeiras & $\geq 3$ & 2 \\
+Pend\^encias financeiras & $\geq 2$ & 1 \\
+\hline
+\end{tabular}
+\par\smallskip\fontetab{Elaborada pelo autor com base na regra implementada na camada de relat\'orios.}\par
+\end{table}
+
+\subsection{Principais pontos de erro no alerta de risco}
+\label{subsec:pontos-erro-alerta}
+
+\begin{table}[ht]
+\caption{Principais pontos de erro no modo de alerta de risco.}
+\label{tab:erro-alerta}
+\centering
+\footnotesize
+\begin{tabular}{l c c c}
+\hline
+\textbf{Grupo analisado} & \textbf{Amostras} & \textbf{MAE} & \textbf{Acur\'acia de risco} \\
+\hline
+Matem\'atica 4 e 5 & 81 & 1,9489 & 0,7778 \\
+Biologia 2 & 260 & 1,5895 & 0,6500 \\
+Hist\'oria 2 & 81 & 1,3741 & 0,6667 \\
+Faixa abaixo de 6 & 2.794 & 1,0395 & 0,8794 \\
+Faixa de 6 a 6,99 & 1.405 & 0,9718 & 0,5103 \\
+\hline
+\end{tabular}
+\par\smallskip\fontetab{Elaborada pelo autor com base nos artefatos da pipeline.}\par
+\end{table}
+
+Com essa calibra\c{c}\~ao, a prioriza\c{c}\~ao ficou mais compat\'ivel com o uso institucional, reduzindo sobrecarga sobre coordena\c{c}\~ao e professores. Em s\'intese, os experimentos sustentam a decis\~ao arquitetural adotada na vers\~ao atual do projeto: dois modos supervisionados complementares, valida\c{c}\~ao temporal e entrega final em relat\'orios orientados por papel institucional.
+
 \section{Modelos candidatos e crit\'erios de sele\c{c}\~ao}
 \label{sec:candidatos}
 \label{sec:objetivo-experimentos}
@@ -166,7 +252,7 @@ Essa evid\^encia levou \`a separa\c{c}\~ao da pipeline em dois modos complementa
 \section{Exemplo interpretado de alerta}
 \label{sec:exemplo-alerta}
 
-A Tabela~\ref{tab:exemplo-alerta} apresenta um caso demonstrativo retirado dos artefatos de teste com dados falsos gerados. O exemplo \'e \'util porque mostra por que o projeto manteve um classificador de risco, e n\~ao apenas uma regra baseada na nota prevista.
+A Tabela~\ref{tab:exemplo-alerta} apresenta um caso demonstrativo retirado dos artefatos de teste com dados sintéticos. O exemplo \'e \'util porque mostra por que o projeto manteve um classificador de risco, e n\~ao apenas uma regra baseada na nota prevista.
 
 \begin{table}[ht]
 \caption{Caso demonstrativo sinalizado pelo alerta de risco.}
@@ -208,43 +294,3 @@ Os resultados preditivos n\~ao foram o ponto final da solu\c{c}\~ao. A partir de
 Essa operacionaliza\c{c}\~ao aparece nos artefatos gerados pela pipeline. Entre eles est\~ao o relat\'orio do professor, o da coordena\c{c}\~ao, o da secretaria, os consolidados por professor e o ranking executivo. Cada arquivo reorganiza o mesmo n\'ucleo anal\'itico para uma pergunta institucional diferente: o professor acompanha casos por disciplina, a coordena\c{c}\~ao observa concentra\c{c}\~oes por s\'erie, turma e docente, e a secretaria visualiza sinais administrativos de frequ\^encia, financeiro e prioridade de contato.
 
 Al\'em dos relat\'orios tabulares, foi estruturado um painel visual em Streamlit para leitura gerencial dos artefatos. O painel organiza vis\~ao geral, painel do professor e painel da coordena\c{c}\~ao, permitindo filtrar per\'iodos, s\'eries e disciplinas e inspecionar distribui\c{c}\~oes de risco, rankings e rela\c{c}\~oes entre nota atual e nota prevista. Com isso, a etapa de resultados passa a incluir n\~ao apenas o desempenho dos modelos, mas tamb\'em a forma como suas sa\'idas podem ser consultadas no cotidiano escolar.
-
-\section{An\'alise de erro e calibra\c{c}\~ao}
-\label{sec:erro}
-\label{sec:importancia-atributos-temporais}
-\label{sec:discussao-uso-pedagogico}
-\label{sec:limitacoes-experimentos}
-\label{sec:consideracoes-finais-resultados}
-
-A an\'alise de erro mostrou maior dificuldade de previs\~ao em disciplinas como Matem\'atica 3, Matem\'atica 4 e 5, Biologia 2, Hist\'oria 2 e Qu\'imica 3. Tamb\'em houve maior erro nas faixas de nota abaixo de 7, especialmente porque esses casos s\~ao mais inst\'aveis e pedagogicamente sens\'iveis. Essa concentra\c{c}\~ao sugere que parte do erro est\'a associada a trajet\'orias com maior oscila\c{c}\~ao, possivelmente influenciadas por lacunas de pr\'e-requisitos, mudan\c{c}as de rotina, recupera\c{c}\~ao parcial, faltas ou diferen\c{c}as de exig\^encia entre etapas.
-
-Na camada operacional, a primeira regra de risco gerava excesso de casos classificados como alto risco. Por isso, foi criada uma pontua\c{c}\~ao composta que passou a combinar:
-\begin{itemize}
-    \item predi\c{c}\~ao de risco do modelo;
-    \item nota prevista;
-    \item nota atual;
-    \item varia\c{c}\~ao esperada;
-    \item faltas acumuladas;
-    \item pend\^encias financeiras.
-\end{itemize}
-
-\begin{table}[ht]
-\caption{Principais pontos de erro no modo de alerta de risco.}
-\label{tab:erro-alerta}
-\centering
-\footnotesize
-\begin{tabular}{l c c c}
-\hline
-\textbf{Grupo analisado} & \textbf{Amostras} & \textbf{MAE} & \textbf{Acur\'acia de risco} \\
-\hline
-Matem\'atica 4 e 5 & 81 & 1,9489 & 0,7778 \\
-Biologia 2 & 260 & 1,5895 & 0,6500 \\
-Hist\'oria 2 & 81 & 1,3741 & 0,6667 \\
-Faixa abaixo de 6 & 2.794 & 1,0395 & 0,8794 \\
-Faixa de 6 a 6,99 & 1.405 & 0,9718 & 0,5103 \\
-\hline
-\end{tabular}
-\par\smallskip\fontetab{Elaborada pelo autor com base nos artefatos da pipeline.}\par
-\end{table}
-
-Com essa calibra\c{c}\~ao, a prioriza\c{c}\~ao ficou mais compat\'ivel com o uso institucional, reduzindo sobrecarga sobre coordena\c{c}\~ao e professores. Em s\'intese, os experimentos sustentam a decis\~ao arquitetural adotada na vers\~ao atual do projeto: dois modos supervisionados complementares, valida\c{c}\~ao temporal e entrega final em relat\'orios orientados por papel institucional.
