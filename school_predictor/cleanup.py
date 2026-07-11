@@ -60,13 +60,13 @@ def _normalize_targets(targets: tuple[str, ...] | list[str]) -> tuple[str, ...]:
 
 
 def _remove_latex_artifacts(root: Path, dry_run: bool) -> list[Path]:
-    monografia_root = root / "monografia"
-    if not monografia_root.exists():
+    tcc_root = root / "tcc"
+    if not tcc_root.exists():
         return []
 
     removed: list[Path] = []
     for pattern in LATEX_PATTERNS:
-        for file_path in monografia_root.glob(pattern):
+        for file_path in tcc_root.glob(pattern):
             removed.append(file_path)
             if not dry_run:
                 file_path.unlink(missing_ok=True)

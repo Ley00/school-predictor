@@ -26,7 +26,7 @@ Quando uma alteracao relevante for feita, a documentacao deve ser atualizada no 
 - `school_predictor/cli.py` quando a mudanca afetar a operacao principal do projeto por linha de comando
 - arquivos em `docs/`
 - notebooks em `crisp_dm/` quando a mudanca afetar as etapas CRISP-DM usadas para demonstrar o TCC
-- projeto LaTeX da monografia em `monografia/`
+- projeto LaTeX da monografia em `tcc/`
 - monografia do TCC
 - arquivo de perguntas e respostas
 - diagramas em `diagrama/` quando a mudanca afetar fluxo, arquitetura ou treinamento

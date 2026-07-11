@@ -44,7 +44,7 @@ Esses sinais são consolidados em relatórios operacionais para uso escolar.
 
 ### Pastas acadêmicas e de apoio
 
-- `monografia/`
+- `tcc/`
   - monografia e pré-projeto em LaTeX
 - `docs/`
   - documentação textual do TCC
@@ -72,7 +72,7 @@ Esses sinais são consolidados em relatórios operacionais para uso escolar.
 ├── main.py
 ├── dashboard_streamlit.py
 ├── crisp_dm/
-├── monografia/
+├── tcc/
 ├── docs/
 └── diagrama/
 ```
@@ -511,32 +511,32 @@ As métricas principais são:
 
 ## Monografia e pré-projeto
 
-A pasta `monografia/` contém o projeto LaTeX do IFG para:
+A pasta `tcc/` contém o projeto LaTeX do IFG para:
 - monografia final
 - pré-projeto
 
 Arquivos principais:
-- `monografia/modelo-ifg.tex`
-- `monografia/preprojeto-ifg.tex`
+- `tcc/modelo-ifg.tex`
+- `tcc/preprojeto-ifg.tex`
 
 Compilar a monografia:
 
 ```bash
-cd monografia
+cd tcc
 latexmk -pdf -interaction=nonstopmode modelo-ifg.tex
 ```
 
-Observa\c{c}\~ao: os diagramas originais permanecem versionados em `diagrama/*.svg` como fonte can\^onica. Para a monografia, o Cap\'itulo 4 consome as vers\~oes vetoriais exportadas em `monografia/fig/diagrama-export/*.pdf`, geradas a partir desses SVGs. Quando algum diagrama for alterado, regenere tamb\'em o PDF correspondente com o Inkscape antes de recompilar a monografia. Exemplo:
+Observa\c{c}\~ao: os diagramas originais permanecem versionados em `diagrama/*.svg` como fonte can\^onica. Para a monografia, o Cap\'itulo 4 consome as vers\~oes vetoriais exportadas em `tcc/fig/diagrama-export/*.pdf`, geradas a partir desses SVGs. Quando algum diagrama for alterado, regenere tamb\'em o PDF correspondente com o Inkscape antes de recompilar a monografia. Exemplo:
 
 ```bash
-inkscape diagrama/arquitetural.svg --export-filename=monografia/fig/diagrama-export/arquitetural.pdf
-inkscape diagrama/fluxo.svg --export-filename=monografia/fig/diagrama-export/fluxo.pdf
+inkscape diagrama/arquitetural.svg --export-filename=tcc/fig/diagrama-export/arquitetural.pdf
+inkscape diagrama/fluxo.svg --export-filename=tcc/fig/diagrama-export/fluxo.pdf
 ```
 
 Compilar o pré-projeto:
 
 ```bash
-cd monografia
+cd tcc
 latexmk -pdf -interaction=nonstopmode preprojeto-ifg.tex
 ```
 

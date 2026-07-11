@@ -22,19 +22,19 @@ artifacts/
 docs/
 
 # Artefatos auxiliares do LaTeX
-monografia/build/
-monografia/rendered/
-monografia/rendered-check/
-monografia/*.aux
-monografia/*.bbl
-monografia/*.blg
-monografia/*.brf
-monografia/*.fdb_latexmk
-monografia/*.fls
-monografia/*.log
-monografia/*.out
-monografia/*.toc
-monografia/*.synctex.gz
+tcc/build/
+tcc/rendered/
+tcc/rendered-check/
+tcc/*.aux
+tcc/*.bbl
+tcc/*.blg
+tcc/*.brf
+tcc/*.fdb_latexmk
+tcc/*.fls
+tcc/*.log
+tcc/*.out
+tcc/*.toc
+tcc/*.synctex.gz
 
 # Apresentacao
 apresentacao/
