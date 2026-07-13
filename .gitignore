@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ipynb_checkpoints/
+*.egg-info/
 
 # Ambiente virtual
 venv/
@@ -19,22 +20,9 @@ school_predictor/database/private_runtime.py
 
 # Dados e artefatos sensiveis gerados localmente
 artifacts/
-docs/
 
-# Artefatos auxiliares do LaTeX
-tcc/build/
-tcc/rendered/
-tcc/rendered-check/
-tcc/*.aux
-tcc/*.bbl
-tcc/*.blg
-tcc/*.brf
-tcc/*.fdb_latexmk
-tcc/*.fls
-tcc/*.log
-tcc/*.out
-tcc/*.toc
-tcc/*.synctex.gz
+# Monografia e derivados locais
+tcc/
 
 # Apresentacao
 apresentacao/

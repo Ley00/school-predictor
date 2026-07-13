@@ -44,14 +44,21 @@ Esses sinais são consolidados em relatórios operacionais para uso escolar.
 
 ### Pastas acadêmicas e de apoio
 
-- `tcc/`
-  - monografia e pré-projeto em LaTeX
 - `docs/`
   - documentação textual do TCC
 - `diagrama/`
   - diagramas da arquitetura e do fluxo
 - `crisp_dm/`
   - notebooks demonstrativos organizados pelas fases do CRISP-DM para apresentacao academica
+
+### Itens locais fora do Git
+
+- `tcc/`
+  - monografia e pré-projeto em LaTeX mantidos apenas localmente
+- `school_predictor/database/private_sql/`
+  - consultas SQL reais de extração e preparação
+- `school_predictor/database/private_runtime.py`
+  - orquestração privada local do banco
 
 ### Escopo atual
 
@@ -68,18 +75,18 @@ Esses sinais são consolidados em relatórios operacionais para uso escolar.
 │   ├── app/
 │   ├── database/
 │   └── pipeline/
+├── pyproject.toml
 ├── artifacts/
 ├── main.py
 ├── dashboard_streamlit.py
 ├── crisp_dm/
-├── tcc/
 ├── docs/
 └── diagrama/
 ```
 
 ## Requisitos
 
-- Python 3
+- Python 3.12 a 3.14
 - ambiente virtual `.venv`
 - SQL Server local ou acessível pela rede
 - ODBC Driver 18 for SQL Server
@@ -98,12 +105,14 @@ O repositório não versiona:
 - arquivos `.env`
 - consultas SQL reais de extração
 - artefatos locais de dados e resultados
+- a monografia LaTeX em `tcc/`
 
 Ignorados no Git:
 - `.env`
 - `school_predictor/database/private_sql/`
 - `school_predictor/database/private_runtime.py`
 - `artifacts/`
+- `tcc/`
 
 ## Proteção das consultas SQL
 
@@ -295,20 +304,23 @@ Ele permanece fora do Git e é a camada onde ficam:
 
 ## Instalação
 
-O bootstrap principal do repositório foi simplificado para instalar apenas o stack Python necessário para a arquitetura atual.
+O repositório usa `pyproject.toml` como fonte principal de metadados e dependências.
 
-Instalação:
+Instalação recomendada:
 
 ```bash
-python3 setup.py
+python3 -m venv .venv
+./.venv/bin/python -m pip install --upgrade pip
+./.venv/bin/python -m pip install -e .
 ```
 
-Arquivos usados por esse bootstrap:
-- `requirements.txt`
-  - dependências da aplicação atual em `school_predictor/`
+Arquivo usado nessa instalação:
+- `pyproject.toml`
+  - metadados do projeto, faixa validada de Python e dependências da aplicação
 
 Observações:
-- `setup.py` não instala dependências de sistema como ODBC Driver 18 ou MacTeX
+- a faixa validada de Python para o projeto é `3.12` a `3.14`
+- a instalação Python não instala dependências de sistema como ODBC Driver 18 ou MacTeX
 - o driver ODBC e o SQL Server continuam sendo pré-requisitos externos
 - se você preferir, ainda pode usar seu próprio gerenciamento de ambiente local
 
@@ -511,7 +523,7 @@ As métricas principais são:
 
 ## Monografia e pré-projeto
 
-A pasta `tcc/` contém o projeto LaTeX do IFG para:
+A pasta local `tcc/`, mantida fora do Git, contém o projeto LaTeX do IFG para:
 - monografia final
 - pré-projeto
 
@@ -526,7 +538,7 @@ cd tcc
 latexmk -pdf -interaction=nonstopmode modelo-ifg.tex
 ```
 
-Observa\c{c}\~ao: os diagramas originais permanecem versionados em `diagrama/*.svg` como fonte can\^onica. Para a monografia, o Cap\'itulo 4 consome as vers\~oes vetoriais exportadas em `tcc/fig/diagrama-export/*.pdf`, geradas a partir desses SVGs. Quando algum diagrama for alterado, regenere tamb\'em o PDF correspondente com o Inkscape antes de recompilar a monografia. Exemplo:
+Observa\c{c}\~ao: os diagramas originais permanecem versionados em `diagrama/*.svg` como fonte can\^onica. Para a monografia local, o Cap\'itulo 4 consome as vers\~oes vetoriais exportadas em `tcc/fig/diagrama-export/*.pdf`, geradas a partir desses SVGs. Quando algum diagrama for alterado, regenere tamb\'em o PDF correspondente com o Inkscape antes de recompilar a monografia. Exemplo:
 
 ```bash
 inkscape diagrama/arquitetural.svg --export-filename=tcc/fig/diagrama-export/arquitetural.pdf
@@ -554,13 +566,13 @@ Este projeto documenta um dom\'inio escolar sens\'ivel. Por isso:
 - nunca versionar credenciais
 - nunca versionar SQL real de extração ou preparação do banco
 - nunca subir datasets e resultados locais
+- nunca subir a monografia local em `tcc/`
 - manter a vers\~ao p\'ublica baseada em dados sintéticos
 
 ## Documentação complementar
 
 - `docs/PERGUNTAS_E_RESPOSTAS_TCC.txt`
 - `docs/REGRA_MINIMA_HISTORICO_AVALIACAO.txt`
-- `docs/TCC_MONOGRAFIA.md`
 - `diagrama/fluxo.md`
 - `diagrama/arquitetural.md`
 - `diagrama/casos_de_uso.md`
